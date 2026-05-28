@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 /* ─────────────────────────── DATABASE LAYER ─────────────────────────── */
 const INITIAL_DB = {
   locations: [
-    { id:1,  name:"Main Entrance",         floor:1, x:11, y:18, type:"entrance",  desc:"Security gate & visitor logbook." },
+    { id:1,  name:"Main Entrance",         floor:1, x:6, y:18, type:"entrance",  desc:"Security gate & visitor logbook." },
     { id:2,  name:"Administration Office", floor:1, x:6,  y:10, type:"office",    desc:"Registrar, Dean's Office, Student Affairs." },
     { id:3,  name:"Registrar's Office",    floor:1, x:5,  y:8,  type:"office",    desc:"Enrollment, TOR requests, ID processing." },
     { id:4,  name:"Library",               floor:2, x:14, y:6,  type:"library",   desc:"Reference books, reading area & Wi-Fi." },
@@ -21,7 +21,7 @@ const INITIAL_DB = {
     { id:15, name:"Restrooms (GF)",        floor:1, x:12, y:12, type:"restroom",  desc:"Male & female comfort rooms." },
   ],
   edges:[
-    [1,8],[1,13],[1,15],[8,2],[8,9],[2,3],[2,10],[2,12],[3,12],[9,12],
+    [1,8],[1,9],[1,13],[1,15],[8,2],[8,9],[2,3],[2,10],[2,12],[3,12],[9,12],
     [15,10],[15,5],[10,4],[10,5],[10,7],[4,14],[4,6],[5,6],[7,14],[7,11],[11,6],[14,12],
   ],
   announcements:[
@@ -161,12 +161,15 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false }) {
   const pathSet=new Set();
   for(let i=0;i<path.length-1;i++){ pathSet.add(`${path[i]}-${path[i+1]}`); pathSet.add(`${path[i+1]}-${path[i]}`); }
   const BLOCKS=[
-    {x:3,y:2,w:6,h:5,label:"Main Building"},
-    {x:3,y:8,w:5,h:7,label:"Admin Wing"},
-    {x:9,y:2,w:6,h:5,label:"Auditorium"},
-    {x:13,y:2,w:5,h:7,label:"Library / Lab"},
-    {x:6,y:13,w:5,h:4,label:"Canteen"},
-    {x:10,y:9,w:4,h:5,label:"Walkway"},
+    {x:11.5,y:11,w:10,h:10,label:"Building 1"},
+    {x:11.5,y:0,w:10,h:10,label:"Building 2"},
+    {x:0.5,y:11,w:10,h:10,label:"Building 3"},
+    {x:0.5,y:0,w:10,h:10,label:"Building 4"},
+    {x:0.5,y:10,w:21,h:1,label:"Hallway"},
+    {x:10.5,y:0,w:1,h:10,label:"Hallway"},
+    {x:10.5,y:11,w:1,h:10,label:"Hallway"},
+    {x:0.5,y:16,w:4,h:5,label:"Clinic"},
+    {x:0.5,y:11,w:4,h:5,label:"Drug Testing Room"},
   ];
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%"
@@ -182,8 +185,6 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false }) {
           </text>
         </g>
       ))}
-      {/* Road label */}
-      <text x={sx(11)} y={sy(20.5)} textAnchor="middle" style={{fontSize:compact?5:6,fill:"#1e3a5f",fontFamily:"monospace"}}>↑ MARCOS HIGHWAY</text>
       {/* Edges */}
       {edges.map(([a,b],i)=>{
         const la=locs.find(l=>l.id===a),lb=locs.find(l=>l.id===b); if(!la||!lb) return null;
