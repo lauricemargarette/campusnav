@@ -1,28 +1,40 @@
-
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 /* ─────────────────────────── DATABASE LAYER ─────────────────────────── */
 const INITIAL_DB = {
   locations: [
-    { id:1,  name:"Main Entrance",         floor:1, x:6, y:18, type:"entrance",  desc:"Security gate & visitor logbook." },
-    { id:2,  name:"Administration Office", floor:1, x:6,  y:10, type:"office",    desc:"Registrar, Dean's Office, Student Affairs." },
-    { id:3,  name:"Registrar's Office",    floor:1, x:5,  y:8,  type:"office",    desc:"Enrollment, TOR requests, ID processing." },
-    { id:4,  name:"Library",               floor:2, x:14, y:6,  type:"library",   desc:"Reference books, reading area & Wi-Fi." },
-    { id:5,  name:"Computer Lab 1",        floor:2, x:16, y:8,  type:"lab",       desc:"40 workstations, AC, projector." },
-    { id:6,  name:"Computer Lab 2",        floor:3, x:16, y:5,  type:"lab",       desc:"Programming lab, 40 workstations." },
-    { id:7,  name:"Auditorium",            floor:1, x:10, y:5,  type:"hall",      desc:"Seminars & events. Capacity: 300." },
-    { id:8,  name:"Canteen / Cafeteria",   floor:1, x:7,  y:15, type:"canteen",   desc:"Hot meals, snacks, beverages." },
-    { id:9,  name:"Clinic / Medical",      floor:1, x:4,  y:12, type:"clinic",    desc:"School nurse, first aid." },
-    { id:10, name:"Classroom Block A",     floor:2, x:8,  y:7,  type:"classroom", desc:"Rooms 201–210. Regular lectures." },
-    { id:11, name:"Classroom Block B",     floor:3, x:8,  y:4,  type:"classroom", desc:"Rooms 301–310. Regular lectures." },
-    { id:12, name:"NSTP / Guidance",       floor:1, x:4,  y:7,  type:"office",    desc:"NSTP coordinator & guidance counselor." },
-    { id:13, name:"Parking Area",          floor:1, x:14, y:18, type:"parking",   desc:"Motorcycle & car parking." },
-    { id:14, name:"Chapel / Prayer Room",  floor:2, x:5,  y:5,  type:"chapel",    desc:"Non-denominational prayer room." },
-    { id:15, name:"Restrooms (GF)",        floor:1, x:12, y:12, type:"restroom",  desc:"Male & female comfort rooms." },
-  ],
+    { id:1,  name:"Entrance", floor:1, building: 3, x:5.5, y:21, type:"entrance",  desc:"Security gate & visitor logbook." },
+    { id:2,  name:"Clinic", floor:1, building: 3, x:4.5,  y:18.5, type:"clinic",    desc:"School nurse, first aid." },
+    { id:3,  name:"Admission Office", floor:1, building: 3, x:6.5,  y:18.5, type:"office",    desc:"Admission office." },
+    { id:4, name:"Drug Testing Center", floor:1, building: 3, x:4.5, y:13.5, type:"clinic",  desc:"Drug testing services." },
+    { id:5, name:"Lounge", floor:1, building: 3, x:6.5,  y:13.5, type:"lounge",   desc:"Lounge area for visitors." },
+    { id:6,  name:"Elevator", floor:1, building: 4, x:5.5,  y:8,  type:"elevator",    desc:"Enrollment, TOR requests, ID processing." },
+    { id:7,  name:"Library", floor:1, building: 2, x:20.5, y:1.5,  type:"library",   desc:"Reference books, reading area & Wi-Fi." },
+    { id:8,  name:"Registrar's Office", floor:2, building:3, x:4.5, y:18.5, type:"office",    desc:"TOR requests, enrollment records." },
+    { id:9,  name:"Cashier",            floor:2, building:3, x:6.5, y:18.5, type:"office",    desc:"Tuition and fee payments." },
+    { id:10, name:"Computer Lab 1",     floor:2, building:4, x:4.5, y:13.5, type:"lab",       desc:"Programming laboratory." },
+    { id:11, name:"Computer Lab 2",     floor:2, building:4, x:6.5, y:13.5, type:"lab",       desc:"Networking laboratory." },
+    { id:12, name:"Classroom 201",      floor:2, building:1, x:15,  y:15,   type:"classroom", desc:"Lecture room." },
+    { id:13, name:"Classroom 202",      floor:2, building:1, x:18,  y:15,   type:"classroom", desc:"Lecture room." },
+    { id:14, name:"Faculty Room",       floor:2, building:2, x:15,  y:5,    type:"office",    desc:"Faculty offices and consultation area." },
+    
+    //HALLWAY/CORRIDOR nodes — invisible junction points
+    { id:101, name:"Corridor Junction", floor:1, x:5.5, y:21, type:"hallway", desc:"Main corridor junction." },
+    { id:102, name:"hallway", floor:1, x:5.5,  y:18.5, type:"hallway", desc:"Corridor near clinic/admission office." },
+    { id:103, name:"hallway", floor:1, x:5.5,  y:13.5, type:"hallway", desc:"Corridor near drug testing center/Lounge." },
+    { id:104, name:"hallway at Building 4", floor:1, x:5.5,  y:10.5, type:"hallway", desc:"Corridor near Elevator/Building 4." },
+    { id:105, name:"stairs", floor:1, x:3.7, y:10.5,  type:"hallway", desc:"Left hallway to elevator." },
+    { id:106, name:"the front of Elevator", floor:1, x:3.7, y:8,  type:"hallway", desc:"From left side in front elevator." },
+    { id:107, name:"stairs", floor:1, x:13, y:7,  type:"hallway", desc:"Right hallway to elevator." },
+    { id:108, name:"", floor:1, x:13, y:7,  type:"hallway", desc:"From right in front of elevator." },
+    { id:201, name:"hallway", floor:2, x:5.5, y:21,   type:"hallway", desc:"" },
+    { id:202, name:"hallway", floor:2, x:5.5, y:18.5, type:"hallway", desc:"" },
+    { id:203, name:"hallway", floor:2, x:5.5, y:13.5, type:"hallway", desc:"" },
+    { id:204, name:"hallway", floor:2, x:5.5, y:10.5, type:"hallway", desc:"" },
+    ],
   edges:[
-    [1,8],[1,9],[1,13],[1,15],[8,2],[8,9],[2,3],[2,10],[2,12],[3,12],[9,12],
-    [15,10],[15,5],[10,4],[10,5],[10,7],[4,14],[4,6],[5,6],[7,14],[7,11],[11,6],[14,12],
+    [1,102],[101,104],[102,2],[102,3],[102,103],[103,4],[103,5],[103,104],[104,105],[105,106],[106,6], [6, 202],
+    [202, 8], [202, 9], [202, 203],[203, 10], [203, 11], [203, 204],
   ],
   announcements:[
     { id:1, title:"Enrollment Period Open",  body:"2nd Semester enrollment is now open. Visit the Registrar's Office.", date:"2026-05-20", priority:"high" },
@@ -33,7 +45,7 @@ const INITIAL_DB = {
     { id:1, username:"admin", password:"icct2026", role:"admin" },
     { id:2, username:"staff", password:"staff123", role:"staff" },
   ],
-  nextId:{ locations:16, announcements:4 },
+  nextId: { locations: 20, announcements: 4 }
 };
 
 /* ─────────────────────────── A* ALGORITHM ──────────────────────────── */
@@ -95,13 +107,13 @@ function getDirections(pathIds, locs) {
       icon = floorDiff > 0 ? "🔼" : "🔽";
       text = `${floorDiff > 0 ? "Go up" : "Go down"} to Floor ${next.floor} via stairs`;
     } else if (turn < -45) {
-      icon = "↰"; text = `Turn left toward ${next.name}`;
+      icon = "↰"; text = `Turn left to ${next.name}`;
     } else if (turn > 45) {
-      icon = "↱"; text = `Turn right toward ${next.name}`;
+      icon = "↱"; text = `Turn right to ${next.name}`;
     } else if (turn < -15) {
-      icon = "↖"; text = `Turn left toward ${next.name}`;
+      icon = "↖"; text = `Turn left to ${next.name}`;
     } else if (turn > 15) {
-      icon = "↗"; text = `Turn right toward ${next.name}`;
+      icon = "↗"; text = `Turn right to ${next.name}`;
     } else {
       icon = "⬆"; text = `Continue straight to ${next.name}`;
     }
@@ -153,31 +165,112 @@ const TYPE_META = {
 };
 
 /* ─────────────────────────── 2D MAP ─────────────────────────────────── */
-function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false }) {
+function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, visibleFloor=1 }) {
+  const floorLocs = locs.filter(l => l.floor === visibleFloor);
   const W=compact?360:640, H=compact?340:480;
   const PAD=compact?18:24, xM=22, yM=22;
   const sx=x=>PAD+(x/xM)*(W-PAD*2);
   const sy=y=>PAD+(y/yM)*(H-PAD*2);
   const pathSet=new Set();
   for(let i=0;i<path.length-1;i++){ pathSet.add(`${path[i]}-${path[i+1]}`); pathSet.add(`${path[i+1]}-${path[i]}`); }
-  const BLOCKS=[
-    {x:11.5,y:11,w:10,h:10,label:"Building 1"},
-    {x:11.5,y:0,w:10,h:10,label:"Building 2"},
-    {x:0.5,y:11,w:10,h:10,label:"Building 3"},
-    {x:0.5,y:0,w:10,h:10,label:"Building 4"},
-    {x:0.5,y:10,w:21,h:1,label:"Hallway"},
-    {x:10.5,y:0,w:1,h:10,label:"Hallway"},
-    {x:10.5,y:11,w:1,h:10,label:"Hallway"},
-    {x:0.5,y:16,w:4,h:5,label:"Clinic"},
-    {x:0.5,y:11,w:4,h:5,label:"Drug Testing Room"},
-  ];
+
+  // ── FLOOR LAYOUTS ──────────────────────────────────────────────────
+  const FLOOR_BLOCKS = {
+    1: [
+      {x:11.5,y:11,w:10,h:10,label:"Building 1"},
+      {x:11.5,y:0, w:10,h:10,label:"Building 2"},
+      {x:0.5, y:11,w:10,h:10,label:"Building 3"},
+      {x:0.5, y:0, w:10,h:10,label:"Building 4"},
+      {x:0.5, y:10,w:21,h:1, label:"Hallway"},
+      {x:10.5,y:0, w:1, h:10,label:"Hallway"},
+      {x:10.5,y:11,w:1, h:10,label:"Hallway"},
+      {x:0.5, y:16,w:4, h:5, label:"Clinic"},
+      {x:0.5, y:11,w:4, h:5, label:"Drug Testing Room"},
+      {x:6.5, y:16,w:4, h:5, label:"Admission Office"},
+      {x:6.5, y:11,w:4, h:5, label:"Lounge"},
+      {x:4.5, y:8, w:2, h:2, label:"Elevator"},
+      {x:8,   y:8, w:2.5,h:2,label:"Stairs"},
+      {x:0.5, y:8, w:2.5,h:2,label:"Stairs"},
+      {x:11.5,y:8, w:2.5,h:2,label:"Stairs"},
+      {x:18,  y:8, w:2.5,h:2,label:"Stairs"},
+      {x:11.5,y:0, w:9, h:3, label:"Library"},
+      {x:16.5,y:3, w:4, h:2.5,label:"Supply Room"},
+    ],
+    2: [
+      {x:11.5,y:11,w:10,h:10,label:"Building 1"},
+      {x:11.5,y:0, w:10,h:10,label:"Building 2"},
+      {x:0.5, y:11,w:10,h:10,label:"Building 3"},
+      {x:0.5, y:0, w:10,h:10,label:"Building 4"},
+      {x:0.5, y:10,w:21,h:1, label:"Hallway"},
+      {x:10.5,y:0, w:1, h:10,label:"Hallway"},
+      {x:10.5,y:11,w:1, h:10,label:"Hallway"},
+      // Building 3 - Floor 2 rooms
+      {x:0.5, y:16,w:4, h:5, label:"Registrar's Office"},
+      {x:6.5, y:16,w:4, h:5, label:"Cashier"},
+      // Building 4 - Floor 2 rooms
+      {x:0.5, y:11,w:4, h:5, label:"Computer Lab 1"},
+      {x:6.5, y:11,w:4, h:5, label:"Computer Lab 2"},
+      // Vertical transit
+      {x:4.5, y:8, w:2, h:2, label:"Elevator"},
+      {x:8,   y:8, w:2.5,h:2,label:"Stairs"},
+      {x:0.5, y:8, w:2.5,h:2,label:"Stairs"},
+      {x:11.5,y:8, w:2.5,h:2,label:"Stairs"},
+      {x:18,  y:8, w:2.5,h:2,label:"Stairs"},
+      // Building 1 - Floor 2 rooms
+      {x:12,  y:12,w:4, h:4, label:"Classroom 201"},
+      {x:17,  y:12,w:4, h:4, label:"Classroom 202"},
+      // Building 2 - Floor 2 rooms
+      {x:12,  y:1, w:8, h:4, label:"Faculty Room"},
+    ],
+    3: [
+      {x:11.5,y:11,w:10,h:10,label:"Building 1"},
+      {x:11.5,y:0, w:10,h:10,label:"Building 2"},
+      {x:0.5, y:11,w:10,h:10,label:"Building 3"},
+      {x:0.5, y:0, w:10,h:10,label:"Building 4"},
+      {x:0.5, y:10,w:21,h:1, label:"Hallway"},
+      {x:10.5,y:0, w:1, h:10,label:"Hallway"},
+      {x:10.5,y:11,w:1, h:10,label:"Hallway"},
+      {x:4.5, y:8, w:2, h:2, label:"Elevator"},
+      {x:8,   y:8, w:2.5,h:2,label:"Stairs"},
+      {x:0.5, y:8, w:2.5,h:2,label:"Stairs"},
+      {x:11.5,y:8, w:2.5,h:2,label:"Stairs"},
+      {x:18,  y:8, w:2.5,h:2,label:"Stairs"},
+      // Add Floor 3 room blocks here when you have the data
+    ],
+    4: [
+      {x:11.5,y:11,w:10,h:10,label:"Building 1"},
+      {x:11.5,y:0, w:10,h:10,label:"Building 2"},
+      {x:0.5, y:11,w:10,h:10,label:"Building 3"},
+      {x:0.5, y:0, w:10,h:10,label:"Building 4"},
+      {x:0.5, y:10,w:21,h:1, label:"Hallway"},
+      {x:10.5,y:0, w:1, h:10,label:"Hallway"},
+      {x:10.5,y:11,w:1, h:10,label:"Hallway"},
+      {x:4.5, y:8, w:2, h:2, label:"Elevator"},
+      {x:8,   y:8, w:2.5,h:2,label:"Stairs"},
+      {x:0.5, y:8, w:2.5,h:2,label:"Stairs"},
+      {x:11.5,y:8, w:2.5,h:2,label:"Stairs"},
+      {x:18,  y:8, w:2.5,h:2,label:"Stairs"},
+      // Add Floor 4 room blocks here when you have the data
+    ],
+  };
+
+  const FLOOR_LABELS = {
+    1: "GROUND FLOOR",
+    2: "SECOND FLOOR",
+    3: "THIRD FLOOR",
+    4: "FOURTH FLOOR",
+  };
+
+  const BLOCKS = FLOOR_BLOCKS[visibleFloor] || FLOOR_BLOCKS[1];
+  // ────────────────────────────────────────────────────────────────────
+
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%"
       style={{background:"#070d1a",borderRadius:10,border:"1px solid #1a2744",display:"block"}}>
       {BLOCKS.map((b,i)=>(
         <g key={i}>
           <rect x={sx(b.x)} y={sy(b.y)} width={sx(b.x+b.w)-sx(b.x)} height={sy(b.y+b.h)-sy(b.y)}
-            rx="5" fill="#0d1b2e" stroke="#1a3a5c" strokeWidth="1.5" opacity=".9"/>
+           fill="#0d1b2e" stroke="#1a3a5c" strokeWidth="1.5" opacity=".9"/>
           <text x={(sx(b.x)+sx(b.x+b.w))/2} y={(sy(b.y)+sy(b.y+b.h))/2}
             textAnchor="middle" dominantBaseline="middle"
             style={{fontSize:compact?5.5:7,fill:"#2a4a6e",fontFamily:"monospace",userSelect:"none",pointerEvents:"none"}}>
@@ -185,17 +278,22 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false }) {
           </text>
         </g>
       ))}
+      {/* Floor label — now dynamic */}
+      <text x={sx(11)} y={sy(22.5)} textAnchor="middle"
+        style={{fontSize:15,fill:"#ffffff",fontFamily:"monospace"}}>
+        {FLOOR_LABELS[visibleFloor] || `FLOOR ${visibleFloor}`}
+      </text>
       {/* Edges */}
       {edges.map(([a,b],i)=>{
-        const la=locs.find(l=>l.id===a),lb=locs.find(l=>l.id===b); if(!la||!lb) return null;
+        const la=floorLocs.find(l=>l.id===a),lb=floorLocs.find(l=>l.id===b); if(!la||!lb) return null;
         const active=pathSet.has(`${a}-${b}`);
-        return <line key={i} x1={sx(la.x)} y1={sy(la.y)} x2={sx(lb.x)} y2={sy(lb.y)}
-          stroke={active?"#38bdf8":"#1a3a5c"} strokeWidth={active?2.5:1}
-          strokeDasharray={active?"none":"4,3"} opacity={active?1:0.4}/>;
+        return <path key={i} d={`M${sx(la.x)},${sy(la.y)} L${sx(lb.x)},${sy(lb.y)}`}
+          stroke={active?"#38bdf8":"#1a3a5c"} strokeWidth={active?2.5:1}strokeLinecap="round" strokeLinejoin="round"
+          strokeDasharray={active?"none":"4,3"} fill="none" opacity={active?1:0.4}/>;
       })}
       {/* Animated path dots */}
       {path.length>1 && path.slice(0,-1).map((id,i)=>{
-        const la=locs.find(l=>l.id===id),lb=locs.find(l=>l.id===path[i+1]); if(!la||!lb) return null;
+        const la=floorLocs.find(l=>l.id===id),lb=floorLocs.find(l=>l.id===path[i+1]); if(!la||!lb) return null;
         return (
           <g key={`anim${i}`}>
             <path id={`ps${i}`} d={`M${sx(la.x)},${sy(la.y)} L${sx(lb.x)},${sy(lb.y)}`} fill="none" stroke="none"/>
@@ -206,7 +304,7 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false }) {
         );
       })}
       {/* Nodes */}
-      {locs.map(loc=>{
+      {floorLocs.filter(loc => loc.type !== "hallway").map(loc => {
         const isF=fromId===loc.id, isT=toId===loc.id, inP=path.includes(loc.id);
         const meta=TYPE_META[loc.type]||{color:"#94a3b8",icon:"📍"};
         const r=compact?(isF||isT?11:inP?9:7):(isF||isT?14:inP?11:9);
@@ -231,6 +329,99 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false }) {
         );
       })}
     </svg>
+  );
+}
+
+/* ─────────────────────────── FLOOR TRANSITION OVERLAY ─────────────────── */
+const FLOOR_NAMES = ['','GROUND FLOOR','SECOND FLOOR','THIRD FLOOR','FOURTH FLOOR','FIFTH FLOOR'];
+
+function FloorTransitionOverlay({ data, onDone }) {
+  const [phase, setPhase] = useState('in'); // 'in' | 'hold' | 'out'
+
+  useEffect(() => {
+  if (!data) return;
+  // Use a minimal timeout to defer the state update out of the render cycle
+  const enterTimer = setTimeout(() => setPhase('in'), 0);
+  const holdTimer = setTimeout(() => setPhase('out'), 1800);
+  return () => {
+    clearTimeout(enterTimer);
+    clearTimeout(holdTimer);
+  };
+}, [data]);
+
+  useEffect(() => {
+    if (phase === 'out') {
+      const exitTimer = setTimeout(() => onDone(), 450);
+      return () => clearTimeout(exitTimer);
+    }
+  }, [phase, onDone]);
+
+  if (!data) return null;
+
+  const isUp = data.direction === 'up';
+
+  const curtainStyle = {
+    position: 'fixed', inset: 0, zIndex: 9999,
+    background: '#020917',
+    display: 'flex', flexDirection: 'column',
+    alignItems: 'center', justifyContent: 'center',
+    cursor: 'pointer',
+    animation: phase === 'out'
+      ? 'ft-slide-out 0.45s cubic-bezier(.4,0,.2,1) forwards'
+      : 'ft-slide-in 0.35s cubic-bezier(.4,0,.2,1) forwards',
+    // scanline texture
+    backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(56,189,248,0.02) 3px,rgba(56,189,248,0.02) 4px)',
+  };
+
+  const cardStyle = {
+    display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+    opacity: phase === 'in' ? 0 : 1,
+    transform: phase === 'in' ? 'scale(0.88)' : 'scale(1)',
+    transition: 'opacity 0.3s 0.25s ease, transform 0.3s 0.25s ease',
+  };
+
+  return (
+    <div style={curtainStyle} onClick={onDone}>
+      <div style={cardStyle}>
+        {/* From floor label */}
+        <div style={{ color: '#334155', fontSize: 12, letterSpacing: 3, fontFamily: 'monospace' }}>
+          FROM FLOOR {data.fromFloor}
+        </div>
+
+        {/* Animated arrow + dots */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
+          {isUp && (
+            <div style={{ fontSize: 52, lineHeight: 1, animation: 'ft-bounce 0.7s ease infinite alternate', color: '#38bdf8' }}>↑</div>
+          )}
+          <div style={{ display: 'flex', flexDirection: isUp ? 'column' : 'column-reverse', gap: 5, alignItems: 'center' }}>
+            {[0, 1, 2].map(i => (
+              <div key={i} style={{
+                width: 5, height: 5, borderRadius: '50%', background: '#38bdf8',
+                animation: `ft-dot 1s ${0.15 * i + 0.5}s infinite`,
+              }}/>
+            ))}
+          </div>
+          {!isUp && (
+            <div style={{ fontSize: 52, lineHeight: 1, animation: 'ft-bounce 0.7s ease infinite alternate', color: '#38bdf8' }}>↓</div>
+          )}
+        </div>
+
+        {/* Destination floor */}
+        <div style={{ color: '#f1f5f9', fontSize: 44, fontWeight: 900, letterSpacing: 4, fontFamily: "'Courier New',monospace", lineHeight: 1 }}>
+          FLOOR {data.toFloor}
+        </div>
+        <div style={{ color: '#38bdf8', fontSize: 11, letterSpacing: 4, fontFamily: 'monospace' }}>
+          {FLOOR_NAMES[data.toFloor] || `FLOOR ${data.toFloor}`}
+        </div>
+        <div style={{ color: '#475569', fontSize: 11, letterSpacing: 2, fontFamily: 'monospace', marginTop: 4 }}>
+          VIA {data.via.toUpperCase()}
+        </div>
+
+        <div style={{ color: '#1e3a5f', fontSize: 10, fontFamily: 'monospace', marginTop: 12 }}>
+          TAP TO CONTINUE
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -297,13 +488,17 @@ function IdleScreen({ onTouch, announcements }) {
           <span style={{color:"#f1f5f9",fontWeight:700}}>{ann?.title}</span> — {ann?.body}
         </div>
       </div>
-      <style>{`@keyframes pulse{0%,100%{box-shadow:0 0 32px #0ea5e960}50%{box-shadow:0 0 52px #0ea5e9cc}} @keyframes blink{50%{opacity:0}}`}</style>
+      <style>{`@keyframes pulse{0%,100%{box-shadow:0 0 32px #0ea5e960}50%{box-shadow:0 0 52px #0ea5e9cc}} @keyframes blink{50%{opacity:0}}
+        @keyframes ft-slide-in{from{transform:translateY(-100%)}to{transform:translateY(0)}} @keyframes ft-slide-out{from{transform:translateY(0)}to{transform:translateY(100%)}}
+        @keyframes ft-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}} @keyframes ft-dot{0%,100%{opacity:.15}50%{opacity:1}}`}
+      </style>
     </div>
   );
 }
 
 /* ═══════════════════════════ MAIN KIOSK APP ══════════════════════════ */
 export default function App() {
+  const [visibleFloor, setVisibleFloor] = useState(1);
   const [db, setDb]=useState(()=>{
     const d={...INITIAL_DB, locations:INITIAL_DB.locations.map(l=>({...l,qr:`icct://campus/loc/${l.id}?name=${encodeURIComponent(l.name)}`}))};
     return d;
@@ -329,6 +524,33 @@ export default function App() {
   const [newAnn, setNewAnn]=useState({title:"",body:"",priority:"normal"});
   const [toast, setToast]=useState(null);
   const idleTimer=useRef(null);
+
+  // Add these two new state values:
+const [floorTransition, setFloorTransition] = useState(null);
+
+// Add this helper function inside App:
+const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs, path) => {
+  const dir = directions[stepIndex];
+  if (!dir) return;
+
+  const currId = path[stepIndex];
+  const nextId = path[stepIndex + 1];
+  if (!currId || !nextId) return;
+
+  const curr = locs.find(l => l.id === currId);
+  const next = locs.find(l => l.id === nextId);
+  if (!curr || !next || curr.floor === next.floor) return;
+
+  const isUp = next.floor > curr.floor;
+  const via = (curr.type === 'elevator' || next.type === 'elevator') ? 'Elevator' : 'Stairs';
+
+  setFloorTransition({
+    direction: isUp ? 'up' : 'down',
+    fromFloor: curr.floor,
+    toFloor: next.floor,
+    via,
+  });
+}, []);
 
   useEffect(()=>{
     if(session?.token) localStorage.setItem("campusnav_session", session.token);
@@ -442,9 +664,23 @@ export default function App() {
                 <div style={K.panelTitle}>🗺️  Campus Map</div>
                 <div style={K.panelSub}>Tap any node to view room details · ICCT Cainta Draft Layout</div>
               </div>
+              <div style={{display:"flex", gap:6, flexShrink:0}}>
+                {[1, 2, 3, 4].map(f => (
+                  <button key={f} onClick={() => setVisibleFloor(f)}
+                    style={{
+                      background: visibleFloor===f ? "#1d4ed8" : "#070d1a",
+                      border: `1px solid ${visibleFloor===f ? "#3b82f6" : "#0f2040"}`,
+                      color: visibleFloor===f ? "#fff" : "#475569",
+                      padding: "5px 14px", borderRadius: 6, cursor: "pointer",
+                      fontSize: 11, fontFamily: "monospace", fontWeight: 700
+                    }}>
+                    FL. {f}
+                  </button>
+                ))}
+              </div>
               <div style={{flex:1,display:"flex",gap:12,minHeight:0}}>
                 <div style={{flex:1,minWidth:0}}>
-                  <CampusMap locs={db.locations} edges={db.edges} path={[]} onNode={handleNode} fromId={null} toId={null}/>
+                  <CampusMap locs={db.locations} edges={db.edges} path={[]} onNode={handleNode} fromId={null} toId={null} visibleFloor={visibleFloor}/>
                 </div>
                 <div style={K.mapSide}>
                   <div style={K.legendTitle}>ROOM TYPES</div>
@@ -469,80 +705,82 @@ export default function App() {
 
           {/* ── NAVIGATE ── */}
           {screen==="navigate"&&(
-  <div style={K.panel}>
-    <div style={K.panelHdr}>
-      <div style={K.panelTitle}>🧭  A* Indoor Navigation</div>
-      <div style={K.panelSub}>Select FROM → TO on map or use selectors · Shortest path via A* algorithm</div>
-    </div>
-
-    {/* Selectors row FIRST — always visible */}
-    <div style={{display:"flex",gap:8,flexShrink:0}}>
-      <select value={fromId||""} onChange={e=>setFromId(+e.target.value||null)} style={K.sel}>
-        <option value="">🟢 FROM — tap map or select</option>
-        {db.locations.map(l=><option key={l.id} value={l.id}>{l.id}. {l.name}</option>)}
-      </select>
-      <select value={toId||""} onChange={e=>setToId(+e.target.value||null)} style={K.sel}>
-        <option value="">🔴 TO — tap map or select</option>
-        {db.locations.map(l=><option key={l.id} value={l.id}>{l.id}. {l.name}</option>)}
-      </select>
-      <button onClick={doNavigate} style={K.goBtn}>GO</button>
-      <button onClick={clearNav} style={K.clearBtn}>✕</button>
-    </div>
-
-    {/* Map + Route side by side */}
-    <div style={{flex:1,display:"flex",gap:12,minHeight:0,overflow:"hidden"}}>
-      {/* Map */}
-      <div style={{flex:"0 0 58%",minWidth:0,overflow:"hidden"}}>
-        <CampusMap locs={db.locations} edges={db.edges} path={path} onNode={handleNode} fromId={fromId} toId={toId} compact/>
-      </div>
-
-      {/* Route panel */}
-      <div style={{flex:1,display:"flex",flexDirection:"column",gap:8,minWidth:0,overflow:"hidden"}}>
-        {path.length===0?(
-          <div style={K.emptyRoute}>
-            <div style={{fontSize:36}}>🧭</div>
-            <div style={{color:"#334155",fontSize:13,fontFamily:"monospace"}}>Select start & end,<br/>then tap GO</div>
-          </div>
-        ):(
-          <>
-            <div style={K.routeHdr}>
-              <span style={{color:"#38bdf8",fontWeight:800,fontSize:12,fontFamily:"monospace"}}>ROUTE · {pathNodes.length} STOPS</span>
-              <span style={{color:"#1e3a5f",fontSize:10,fontFamily:"monospace"}}>A* OPTIMAL PATH</span>
+          <div style={K.panel}>
+            <div style={K.panelHdr}>
+              <div style={K.panelTitle}>🧭  A* Indoor Navigation</div>
+              <div style={K.panelSub}>Select FROM → TO on map or use selectors · Shortest path via A* algorithm</div>
             </div>
-            <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:4}}>
-              {directions.map((dir, i) => (
-                <div key={i} onClick={()=>setNavStep(i)}
-                  style={{...K.stepRow,...(navStep===i?K.stepRowOn:{})}}>
-                  <div style={{
-                    width:32,height:32,borderRadius:"50%",display:"flex",alignItems:"center",
-                    justifyContent:"center",fontSize:16,flexShrink:0,
-                    background:i===0?"#166534":i===directions.length-1?"#7f1d1d":"#0a1f35",
-                    border:`1px solid ${i===0?"#22c55e":i===directions.length-1?"#ef4444":"#1e3a5f"}`,
-                  }}>
-                    {dir.icon}
-                  </div>
-                  <div style={{flex:1,minWidth:0}}>
-                    <div style={{color:"#f1f5f9",fontWeight:700,fontSize:12,lineHeight:1.3}}>{dir.text}</div>
-                    <div style={{color:"#475569",fontSize:10,fontFamily:"monospace",marginTop:2}}>{dir.sub}</div>
-                  </div>
-                  {i===0&&<span style={{color:"#22c55e",fontSize:9,fontWeight:800,flexShrink:0}}>START</span>}
-                  {i===directions.length-1&&<span style={{color:"#ef4444",fontSize:9,fontWeight:800,flexShrink:0}}>END</span>}
-                </div>
-              ))}
+
+            {/* Selectors row FIRST — always visible */}
+            <div style={{display:"flex",gap:8,flexShrink:0}}>
+              <select value={fromId||""} onChange={e=>setFromId(+e.target.value||null)} style={K.sel}>
+                <option value="">🟢 FROM — tap map or select</option>
+                {db.locations.map(l=><option key={l.id} value={l.id}>{l.id}. {l.name}</option>)}
+              </select>
+              <select value={toId||""} onChange={e=>setToId(+e.target.value||null)} style={K.sel}>
+                <option value="">🔴 TO — tap map or select</option>
+                {db.locations.map(l=><option key={l.id} value={l.id}>{l.id}. {l.name}</option>)}
+              </select>
+              <button onClick={doNavigate} style={K.goBtn}>GO</button>
+              <button onClick={clearNav} style={K.clearBtn}>✕</button>
             </div>
-            <div style={{display:"flex",gap:6,flexShrink:0}}>
-              <button disabled={navStep===0} onClick={()=>setNavStep(s=>s-1)} style={K.stepBtn}>◀ Prev</button>
-              <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",color:"#334155",fontSize:11,fontFamily:"monospace"}}>
-                {navStep+1} / {directions.length}
+
+            {/* Map + Route side by side */}
+            <div style={{flex:1,display:"flex",gap:12,minHeight:0,overflow:"hidden"}}>
+              {/* Map */}
+              <div style={{flex:"0 0 58%",minWidth:0,overflow:"hidden"}}>
+                <CampusMap locs={db.locations} edges={db.edges} path={path} onNode={handleNode} fromId={fromId} toId={toId} compact/>
               </div>
-              <button disabled={navStep===directions.length-1} onClick={()=>setNavStep(s=>s+1)} style={K.stepBtn}>Next ▶</button>
+
+              {/* Route panel */}
+              <div style={{flex:1,display:"flex",flexDirection:"column",gap:8,minWidth:0,overflow:"hidden"}}>
+                {path.length===0?(
+                  <div style={K.emptyRoute}>
+                    <div style={{fontSize:36}}>🧭</div>
+                    <div style={{color:"#334155",fontSize:13,fontFamily:"monospace"}}>Select start & end,<br/>then tap GO</div>
+                  </div>
+                ):(
+                  <>
+                    <div style={K.routeHdr}>
+                      <span style={{color:"#38bdf8",fontWeight:800,fontSize:12,fontFamily:"monospace"}}>ROUTE · {pathNodes.length} STOPS</span>
+                      <span style={{color:"#1e3a5f",fontSize:10,fontFamily:"monospace"}}>A* OPTIMAL PATH</span>
+                    </div>
+                    <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:4}}>
+                      {directions.map((dir, i) => (
+                        <div key={i} onClick={() => { setNavStep(i); triggerFloorTransitionIfNeeded(i, directions, db.locations, path); }}
+                          style={{...K.stepRow,...(navStep===i?K.stepRowOn:{})}}>
+                          <div style={{
+                            width:32,height:32,borderRadius:"50%",display:"flex",alignItems:"center",
+                            justifyContent:"center",fontSize:16,flexShrink:0,
+                            background:i===0?"#166534":i===directions.length-1?"#7f1d1d":"#0a1f35",
+                            border:`1px solid ${i===0?"#22c55e":i===directions.length-1?"#ef4444":"#1e3a5f"}`,
+                          }}>
+                            {dir.icon}
+                          </div>
+                          <div style={{flex:1,minWidth:0}}>
+                            <div style={{color:"#f1f5f9",fontWeight:700,fontSize:12,lineHeight:1.3}}>{dir.text}</div>
+                            <div style={{color:"#475569",fontSize:10,fontFamily:"monospace",marginTop:2}}>{dir.sub}</div>
+                          </div>
+                          {i===0&&<span style={{color:"#22c55e",fontSize:9,fontWeight:800,flexShrink:0}}>START</span>}
+                          {i===directions.length-1&&<span style={{color:"#ef4444",fontSize:9,fontWeight:800,flexShrink:0}}>END</span>}
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{display:"flex",gap:6,flexShrink:0}}>
+                      <button disabled={navStep===0} onClick={() => {const newStep = navStep - 1; setNavStep(newStep);
+                        triggerFloorTransitionIfNeeded(newStep, directions, db.locations, path);}} style={K.stepBtn}>◀ Prev</button>
+                      <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",color:"#334155",fontSize:11,fontFamily:"monospace"}}>
+                        {navStep+1} / {directions.length}
+                      </div>
+                      <button disabled={navStep===directions.length-1} onClick={() => {const newStep = navStep + 1; setNavStep(newStep);
+                        triggerFloorTransitionIfNeeded(newStep, directions, db.locations, path); }} style={K.stepBtn}>Next ▶</button>
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
-          </>
+          </div>
         )}
-      </div>
-    </div>
-  </div>
-)}
 
           {/* ── QR ── */}
           {screen==="qr"&&(
@@ -766,6 +1004,10 @@ export default function App() {
 
       {/* TOAST */}
       {toast&&<div style={{...K.toast,background:toast.type==="err"?"#450a0a":"#052e16",borderColor:toast.type==="err"?"#ef4444":"#22c55e",color:toast.type==="err"?"#fca5a5":"#bbf7d0"}}>{toast.msg}</div>}
+    <FloorTransitionOverlay
+      data={floorTransition}
+      onDone={() => setFloorTransition(null)}
+    />
     </KioskFrame>
   );
 }
