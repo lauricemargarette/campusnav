@@ -8,20 +8,22 @@ const INITIAL_DB = {
     { name:"NSTP Office", floor:1, building: 1, x:17.5, y:16.8, type:"office", desc:"NSTP office." },
     { name:"CDJP Office", floor:1, building: 1, x:15.5, y:19.7, type:"office", desc:"CDJP office." },
     { name:"Student Affairs Office", floor:1, building: 1, x:15.5, y:17.3, type:"office", desc:"Student affairs office." },
-    { id: 10, name:"Window 1", floor:1, building: 1, x:15, y:11, type:"Registrar", desc:"Registrar Office - Window 1" },
-    { id: 11, name:"Window 2", floor:1, building: 1, x:13.8, y:11, type:"Registrar", desc:"Registrar Office - Window 2" },
-    { id: 12, name:"Window 3", floor:1, building: 1, x:12.5, y:11, type:"Registrar", desc:"Registrar Office - Window 3" },
-    { id: 13, name:"Window 4", floor:1, building: 1, x:11.5, y:11.4, type:"Registrar", desc:"Registrar Office - Window 4" },
-    { id: 14, name:"Window 5", floor:1, building: 1, x:11.5, y:12.5, type:"Registrar", desc:"Registrar Office - Window 5" },
-    { id: 15, name:"Window 6", floor:1, building: 1, x:11.5, y:13.6, type:"Registrar", desc:"Registrar Office - Window 6" },
-    { id: 16, name:"Window 7", floor:1, building: 1, x:11.5, y:14.7, type:"Registrar", desc:"Registrar Office - Window 7" },
-    { id: 17, name:"Window 8", floor:1, building: 1, x:11.5, y:15.9, type:"Registrar", desc:"Registrar Office - Window 8" },
-    { id: 18, name:"Window 9", floor:1, building: 1, x:11.5, y:17.1, type:"Registrar", desc:"Registrar Office - Window 9" },
-    { id: 19, name:"Window 12", floor:1, building: 1, x:11.5, y:18.3, type:"Registrar", desc:"Registrar Office - Window 12" },
-    { id: 20, name:"Window 14", floor:1, building: 1, x:11.5, y:19.4, type:"Registrar", desc:"Registrar Office - Window 14" },
-    { id: 21, name:"Window 15", floor:1, building: 1, x:11.5, y:20.6, type:"Registrar", desc:"Registrar Office - Window 15" },
+    { name:"Window 1", floor:1, building: 1, x:15, y:11, type:"Registrar", desc:"Registrar Office - Window 1" },
+    { name:"Window 2", floor:1, building: 1, x:13.8, y:11, type:"Registrar", desc:"Registrar Office - Window 2" },
+    { name:"Window 3", floor:1, building: 1, x:12.5, y:11, type:"Registrar", desc:"Registrar Office - Window 3" },
+    { name:"Window 4", floor:1, building: 1, x:11.5, y:11.4, type:"Registrar", desc:"Registrar Office - Window 4" },
+    { name:"Window 5", floor:1, building: 1, x:11.5, y:12.5, type:"Registrar", desc:"Registrar Office - Window 5" },
+    { name:"Window 6", floor:1, building: 1, x:11.5, y:13.6, type:"Registrar", desc:"Registrar Office - Window 6" },
+    { name:"Window 7", floor:1, building: 1, x:11.5, y:14.7, type:"Registrar", desc:"Registrar Office - Window 7" },
+    { name:"Window 8", floor:1, building: 1, x:11.5, y:15.9, type:"Registrar", desc:"Registrar Office - Window 8" },
+    { name:"Window 9", floor:1, building: 1, x:11.5, y:17.1, type:"Registrar", desc:"Registrar Office - Window 9" },
+    { name:"Window 12", floor:1, building: 1, x:11.5, y:18.3, type:"Registrar", desc:"Registrar Office - Window 12" },
+    { name:"Window 14", floor:1, building: 1, x:11.5, y:19.4, type:"Registrar", desc:"Registrar Office - Window 14" },
+    { name:"Window 15", floor:1, building: 1, x:11.5, y:20.6, type:"Registrar", desc:"Registrar Office - Window 15" },
 
     //Building 2 - Ground Floor nodes
+    { id: 10, name:"B4.13", floor:1, building: 4, x:10.5, y:6.5, type:"laboratory", desc:"Engineering Laboratory." },
+    { id: 11, name:"B4.14", floor:1, building: 4, x:10.5, y:4, type:"laboratory", desc:"Criminology/Forensic Laboratory." },
     { name:"B2.11", floor:1, building: 2, x:17, y:8, type:"laboratory", desc:"Computer Hardware Servicing, Electronics/Electrical Room." },
     { name:"B2.12", floor:1, building: 2, x:15, y:8, type:"lecture", desc:"Academic Lecture Room, AVR Extensison Room-2." },
     { name:"Library", floor:1, building: 2, x:20.5, y:1.5,  type:"library",   desc:"Reference books, reading area & Wi-Fi." },
@@ -34,11 +36,13 @@ const INITIAL_DB = {
     { id:4, name:"Testing Room", floor:1, building: 3, x:6.5, y:17.5, type:"office",   desc:"Lounge area for visitors." },
     { id:5, name:"Social Lounge", floor:1, building: 3, x:6.5, y:13.5, type:"lounge",   desc:"Lounge area for visitors." },
     { id:6, name:"Drug Testing Center", floor:1, building: 3, x:4.5, y:12, type:"clinic",  desc:"Drug testing services." },
-    { id:7, name:"Restrooms", floor:1, building: 3, x:3,  y:15, type:"lounge",   desc:"Lounge area for visitors." },
 
     //Building 4 - Ground Floor nodes
     { id: 8, name:"B4.13", floor:1, building: 4, x:10.5, y:6.5, type:"laboratory", desc:"Engineering Laboratory." },
     { id: 9, name:"B4.14", floor:1, building: 4, x:10.5, y:4, type:"laboratory", desc:"Criminology/Forensic Laboratory." },
+
+    //Building 2 - Third Floor nodes
+    { id:200, name: "Kiosk (You Are Here)", floor:1, x:5.8, y:9.2, type:"entrance", desc:"Smart Campus Navigation Kiosk — beside the elevator." },
 
     //Floor 2 nodes — Building 2 rooms
     { name:"B2.21", floor:2, building: 2, x:15.5, y:5.3, type:"laboratory", desc:"Computer Laboratory 21." },
@@ -65,7 +69,6 @@ const INITIAL_DB = {
     { id:101, name: "Building 3 Hallway", floor:1, x:5.5, y:19.8, type:"hallway", desc:"Corridor near admission office." },
     { id:102, name: "Building 3 Hallway", floor:1, x:5.5, y:18.5, type:"hallway", desc:"Corridor in front of clinic." },
     { id:103, name: "Building 3 Hallway", floor:1, x:5.5, y:17.5, type:"hallway", desc:"Corridor in front of testing room." },
-    { id:104, name: "Building 3 Hallway", floor:1, x:5.5, y:15, type:"hallway", desc:"Corridor in front of restrooms." },
     { id:105, name: "Building 3 Hallway", floor:1, x:5.5, y:13.5, type:"hallway", desc:"Corridor in front of social lounge." },
     { id:106, name: "Building 3 Hallway", floor:1, x:5.5, y:12, type:"hallway", desc:"Corridor in front of drug testing center." },
     { id:107, name: "Building 4 Hallway", floor:1, x:5.5, y:10.5, type:"hallway", desc:"Hallway at Elevator/Building 4." },
@@ -80,17 +83,16 @@ const INITIAL_DB = {
     
     //HALLWAY/CORRIDOR nodes — Floor 2
     { id:201, name: "Building 2 Hallway", floor:2, x:7.5, y:9.5, type:"hallway", desc:"Second floor Right Stairs." },
-    
-    ],
+  ],
   edges:[
     //Building 1 - Ground Floor edges
-    [10,11],[11,12],[110,113],[110,114],[110,115],[113,10],[113,114],[113,115],[114,115],[114,11],[115,12],
+    [10,11],[11,12],[110,113],[110,114],[110,115],[113,114],[113,115],[114,115],
 
     //Building 2 - Ground Floor edges
 
     //Building 3 - Ground Floor edges
     [1,101],[1,102],[1,103],[101,102],[101,103],[101,2],[102,104],[102,3],[103,4],[103,105],[103,104],[103,107],[104,106],[104,7],[105,5],[103,106],[106,6],
-    [102,103],[105,106],[106,107],[107,108],[108,109],
+    [102,103],[105,106],[106,107],[107,108],[108,109],[107,200],[200,107],
     //Building 4 - Ground Floor edges
     [109,201],[107,110],[110,111],[110,112],[111,112],[111,8],[112,9],
   ],
@@ -105,6 +107,8 @@ const INITIAL_DB = {
   ],
   nextId: { locations: 20, announcements: 4 }
 };
+
+const KIOSK_NODE_ID = 200;
 
 /* ─────────────────────────── A* ALGORITHM ──────────────────────────── */
 function heuristic(a, b, locs) {
@@ -222,6 +226,304 @@ const TYPE_META = {
   restroom: { color:"#2dd4bf", icon:"🚻" },
 };
 
+/* ─────────────────────────── DESTINATION SEARCH BAR ─────────────────── */
+function DestinationSearch({ locations, onSelect, selectedId }) {
+  const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
+  const [cursor, setCursor] = useState(-1);
+  const inputRef = useRef(null);
+  const listRef = useRef(null);
+
+  // Searchable locations — exclude hallways and the kiosk itself
+  const searchable = useMemo(() =>
+    locations.filter(l => l.type !== "hallway" && l.id !== KIOSK_NODE_ID),
+    [locations]
+  );
+
+  // Selected location display name
+  const selectedLoc = useMemo(() =>
+    selectedId ? locations.find(l => l.id === selectedId) : null,
+    [locations, selectedId]
+  );
+
+  // Fuzzy filter: match name, type, desc, floor
+  const results = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      // Show all grouped by type when empty
+      return searchable.slice(0, 30);
+    }
+    return searchable.filter(l =>
+      l.name.toLowerCase().includes(q) ||
+      l.type.toLowerCase().includes(q) ||
+      (l.desc || "").toLowerCase().includes(q) ||
+      `floor ${l.floor}`.includes(q) ||
+      `fl ${l.floor}`.includes(q) ||
+      `building ${l.building}`.includes(q)
+    ).slice(0, 20);
+  }, [query, searchable]);
+
+  // Group results by type
+  const grouped = useMemo(() => {
+    const groups = {};
+    results.forEach(loc => {
+      const k = loc.type.toLowerCase();
+      if (!groups[k]) groups[k] = [];
+      groups[k].push(loc);
+    });
+    return groups;
+  }, [results]);
+
+  // Flat list for keyboard navigation
+  const flatResults = useMemo(() =>
+    Object.values(grouped).flat(),
+    [grouped]
+  );
+
+  const handleKey = (e) => {
+    if (!open) { if (e.key === "ArrowDown" || e.key === "Enter") setOpen(true); return; }
+    if (e.key === "ArrowDown") { e.preventDefault(); setCursor(c => Math.min(c + 1, flatResults.length - 1)); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); setCursor(c => Math.max(c - 1, 0)); }
+    else if (e.key === "Enter" && cursor >= 0) { pick(flatResults[cursor]); }
+    else if (e.key === "Escape") { setOpen(false); setCursor(-1); }
+  };
+
+  const pick = (loc) => {
+    setQuery("");
+    setOpen(false);
+    setCursor(-1);
+    onSelect(loc.id);
+  };
+
+  const clear = () => {
+    setQuery("");
+    setOpen(false);
+    setCursor(-1);
+    onSelect(null);
+    setTimeout(() => inputRef.current?.focus(), 50);
+  };
+
+  // Scroll highlighted item into view
+  useEffect(() => {
+    if (cursor >= 0 && listRef.current) {
+      const item = listRef.current.querySelector(`[data-idx="${cursor}"]`);
+      item?.scrollIntoView({ block: "nearest" });
+    }
+  }, [cursor]);
+
+  // Highlight matching text
+  const highlight = (text, q) => {
+    if (!q.trim()) return text;
+    const idx = text.toLowerCase().indexOf(q.toLowerCase());
+    if (idx === -1) return text;
+    return (
+      <>
+        {text.slice(0, idx)}
+        <span style={{ color: "#38bdf8", fontWeight: 800 }}>{text.slice(idx, idx + q.length)}</span>
+        {text.slice(idx + q.length)}
+      </>
+    );
+  };
+
+  return (
+    <div style={{ position: "relative", flex: 1 }}>
+      {/* ── INPUT FIELD ── */}
+      <div style={{
+        display: "flex", alignItems: "center", gap: 10,
+        background: open ? "#0a1628" : "#070d1a",
+        border: `1.5px solid ${open ? "#38bdf8" : selectedId ? "#22c55e" : "#0f2040"}`,
+        borderRadius: open ? "10px 10px 0 0" : 10,
+        padding: "0 14px",
+        transition: "border-color 0.15s, background 0.15s",
+        boxShadow: open ? "0 0 0 3px rgba(56,189,248,0.08)" : "none",
+      }}>
+        {/* Icon */}
+        <span style={{ fontSize: 18, flexShrink: 0, opacity: selectedId ? 1 : 0.4 }}>
+          {selectedId
+            ? (TYPE_META[selectedLoc?.type?.toLowerCase()]?.icon || "📍")
+            : "🔍"}
+        </span>
+
+        {/* Text input */}
+        <input
+          ref={inputRef}
+          value={query}
+          onChange={e => { setQuery(e.target.value); setOpen(true); setCursor(-1); }}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setTimeout(() => setOpen(false), 180)}
+          onKeyDown={handleKey}
+          placeholder={selectedLoc ? selectedLoc.name : "Search destination — office, lab, floor…"}
+          style={{
+            flex: 1,
+            background: "transparent",
+            border: "none",
+            outline: "none",
+            color: selectedId && !query ? "#22c55e" : "#f1f5f9",
+            fontSize: 14,
+            fontFamily: "'Courier New', monospace",
+            fontWeight: selectedId && !query ? 800 : 400,
+            letterSpacing: selectedId && !query ? 0.5 : 0,
+            padding: "11px 0",
+            caretColor: "#38bdf8",
+          }}
+        />
+
+        {/* Clear / badges */}
+        {selectedId && !query && (
+          <div style={{
+            display: "flex", alignItems: "center", gap: 6, flexShrink: 0,
+          }}>
+            <span style={{
+              background: "#052e16", border: "1px solid #064e2a",
+              color: "#34d399", fontSize: 9, fontWeight: 800,
+              padding: "2px 7px", borderRadius: 4, fontFamily: "monospace", letterSpacing: 1,
+            }}>SELECTED</span>
+            <button onClick={clear} style={{
+              background: "transparent", border: "none", color: "#475569",
+              cursor: "pointer", fontSize: 16, lineHeight: 1, padding: "0 2px",
+            }}>✕</button>
+          </div>
+        )}
+        {query && (
+          <button onClick={clear} style={{
+            background: "transparent", border: "none", color: "#475569",
+            cursor: "pointer", fontSize: 16, lineHeight: 1, padding: "0 2px", flexShrink: 0,
+          }}>✕</button>
+        )}
+        {!selectedId && !query && (
+          <span style={{ color: "#1e3a5f", fontSize: 10, fontFamily: "monospace", flexShrink: 0 }}>
+            {searchable.length} locations
+          </span>
+        )}
+      </div>
+
+      {/* ── DROPDOWN ── */}
+      {open && (
+        <div ref={listRef} style={{
+          position: "absolute", top: "100%", left: 0, right: 0, zIndex: 999,
+          background: "#070d1a",
+          border: "1.5px solid #38bdf8",
+          borderTop: "1px solid #0f2040",
+          borderRadius: "0 0 10px 10px",
+          maxHeight: 260,
+          overflowY: "auto",
+          boxShadow: "0 16px 48px rgba(0,0,0,0.7)",
+        }}>
+          {flatResults.length === 0 ? (
+            <div style={{
+              padding: "20px 16px", textAlign: "center",
+              color: "#1e3a5f", fontFamily: "monospace", fontSize: 12,
+            }}>
+              <div style={{ fontSize: 28, marginBottom: 8 }}>🔍</div>
+              No locations match "<span style={{ color: "#38bdf8" }}>{query}</span>"
+            </div>
+          ) : (
+            (() => {
+              let globalIdx = 0;
+              return Object.entries(grouped).map(([type, locs]) => (
+                <div key={type}>
+                  {/* Group header */}
+                  <div style={{
+                    padding: "5px 14px 3px",
+                    background: "#040b18",
+                    borderBottom: "1px solid #0a1628",
+                    display: "flex", alignItems: "center", gap: 6,
+                  }}>
+                    <span style={{ fontSize: 12 }}>{TYPE_META[type]?.icon || "📍"}</span>
+                    <span style={{
+                      color: TYPE_META[type]?.color || "#94a3b8",
+                      fontSize: 9, fontWeight: 800, fontFamily: "monospace",
+                      letterSpacing: 2, textTransform: "uppercase",
+                    }}>{type}</span>
+                    <span style={{
+                      marginLeft: "auto", color: "#1e3a5f",
+                      fontSize: 9, fontFamily: "monospace",
+                    }}>{locs.length}</span>
+                  </div>
+
+                  {/* Location rows */}
+                  {locs.map(loc => {
+                    const idx = globalIdx++;
+                    const isActive = cursor === idx;
+                    const isSelected = selectedId === loc.id;
+                    return (
+                      <div
+                        key={loc.id}
+                        data-idx={idx}
+                        onMouseDown={() => pick(loc)}
+                        onMouseEnter={() => setCursor(idx)}
+                        style={{
+                          display: "flex", alignItems: "center", gap: 10,
+                          padding: "8px 14px",
+                          background: isActive ? "#0a1f35" : isSelected ? "#052e16" : "transparent",
+                          borderLeft: `3px solid ${isSelected ? "#22c55e" : isActive ? "#38bdf8" : "transparent"}`,
+                          cursor: "pointer",
+                          transition: "background 0.08s",
+                        }}
+                      >
+                        {/* Floor badge */}
+                        <div style={{
+                          width: 28, height: 28, borderRadius: 6, flexShrink: 0,
+                          background: isSelected ? "#052e16" : "#0a1628",
+                          border: `1px solid ${isSelected ? "#22c55e" : "#1a3a5c"}`,
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                          flexDirection: "column",
+                        }}>
+                          <span style={{ color: "#475569", fontSize: 7, fontFamily: "monospace", lineHeight: 1 }}>FL</span>
+                          <span style={{ color: isSelected ? "#34d399" : "#94a3b8", fontSize: 11, fontWeight: 800, fontFamily: "monospace", lineHeight: 1 }}>{loc.floor}</span>
+                        </div>
+
+                        {/* Name + desc */}
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{
+                            color: isSelected ? "#34d399" : "#f1f5f9",
+                            fontSize: 12, fontWeight: 700, lineHeight: 1.3,
+                            whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                          }}>
+                            {highlight(loc.name, query)}
+                          </div>
+                          {loc.desc && (
+                            <div style={{
+                              color: "#334155", fontSize: 10, fontFamily: "monospace",
+                              marginTop: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+                            }}>{loc.desc}</div>
+                          )}
+                        </div>
+
+                        {/* Selected checkmark */}
+                        {isSelected && (
+                          <span style={{ color: "#22c55e", fontSize: 14, flexShrink: 0 }}>✓</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              ));
+            })()
+          )}
+
+          {/* Footer */}
+          <div style={{
+            padding: "6px 14px",
+            background: "#040b18",
+            borderTop: "1px solid #0a1628",
+            display: "flex", alignItems: "center", gap: 10,
+          }}>
+            <span style={{ color: "#0f2040", fontSize: 9, fontFamily: "monospace" }}>↑↓ NAVIGATE</span>
+            <span style={{ color: "#0f2040", fontSize: 9, fontFamily: "monospace" }}>↵ SELECT</span>
+            <span style={{ color: "#0f2040", fontSize: 9, fontFamily: "monospace" }}>ESC CLOSE</span>
+            {query && (
+              <span style={{ marginLeft: "auto", color: "#1e3a5f", fontSize: 9, fontFamily: "monospace" }}>
+                {flatResults.length} result{flatResults.length !== 1 ? "s" : ""}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ─────────────────────────── 2D MAP ─────────────────────────────────── */
 function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, visibleFloor=1 }) {
   const floorLocs = locs.filter(l => l.floor === visibleFloor);
@@ -252,7 +554,7 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:17.5,y:18.2, w:4, h:2.8,label:"Guidance Office"},
       {x:17.5,y:15.5, w:4, h:2.7,label:"NSTP Office"},
       {x:17.5,y:14, w:4, h:1.5,label:"N/A"},
-      {x:17.5,y:11, w:4, h:3,label:"Accounting Office"},
+      {x:17.5,y:11, w:3, h:3,label:"Accounting Office"},
       {x:13,y:19, w:2.5, h:2,label:"CDJP Office"},
       {x:13, y:17, w:2.5, h:2,label:"Student Affairs Office"},
       {x:13, y:15.5, w:1.5, h:1.5,label:"Male Restroom"},
@@ -364,17 +666,11 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
   };
 
   const FLOOR_LABELS = {
-    1: "GROUND FLOOR",
-    2: "SECOND FLOOR",
-    3: "THIRD FLOOR",
-    4: "FOURTH FLOOR",
-    5: "FIFTH FLOOR",
-    6: "SIXTH FLOOR",
-    7: "SEVENTH FLOOR",
+    1: "GROUND FLOOR", 2: "SECOND FLOOR", 3: "THIRD FLOOR",
+    4: "FOURTH FLOOR", 5: "FIFTH FLOOR", 6: "SIXTH FLOOR", 7: "SEVENTH FLOOR",
   };
 
   const BLOCKS = FLOOR_BLOCKS[visibleFloor] || FLOOR_BLOCKS[1];
-  // ────────────────────────────────────────────────────────────────────
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%"
@@ -389,29 +685,20 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
             const blockW = sx(b.x + b.w) - sx(b.x);
             const fontSize = compact ? 5.5 : 7;
             const charsPerLine = Math.max(4, Math.floor(blockW / (fontSize * 0.62)));
-
-            // Split label into words, then group into lines
             const words = (b.label || "").split(" ");
             const lines = [];
             let current = "";
             for (const word of words) {
               const test = current ? `${current} ${word}` : word;
-              if (test.length > charsPerLine && current) {
-                lines.push(current);
-                current = word;
-              } else {
-                current = test;
-              }
+              if (test.length > charsPerLine && current) { lines.push(current); current = word; }
+              else { current = test; }
             }
             if (current) lines.push(current);
-
             const lineHeight = fontSize + 2;
             const totalH = lines.length * lineHeight;
             const startY = cy - totalH / 2 + lineHeight / 2;
-
             return lines.map((line, i) => (
-              <text key={i}
-                x={cx} y={startY + i * lineHeight}
+              <text key={i} x={cx} y={startY + i * lineHeight}
                 textAnchor="middle" dominantBaseline="middle"
                 style={{fontSize, fill:"#2a4a6e", fontFamily:"monospace", userSelect:"none", pointerEvents:"none"}}>
                 {line}
@@ -420,12 +707,10 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
           })()}
         </g>
       ))}
-      {/* Floor label — now dynamic */}
       <text x={sx(11)} y={sy(22.5)} textAnchor="middle"
         style={{fontSize:15,fill:"#ffffff",fontFamily:"monospace"}}>
         {FLOOR_LABELS[visibleFloor] || `FLOOR ${visibleFloor}`}
       </text>
-      {/* Edges */}
       {edges.map(([a,b],i)=>{
         const la=floorLocs.find(l=>l.id===a),lb=floorLocs.find(l=>l.id===b); if(!la||!lb) return null;
         const active=pathSet.has(`${a}-${b}`);
@@ -433,7 +718,6 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
           stroke={active?"#38bdf8":"#1a3a5c"} strokeWidth={active?2.5:1} strokeLinecap="round" strokeLinejoin="round"
           strokeDasharray={active?"none":"4,3"} fill="none" opacity={active?1:0.4}/>;
       })}
-      {/* Animated path dots */}
       {path.length>1 && path.slice(0,-1).map((id,i)=>{
         const la=floorLocs.find(l=>l.id===id),lb=floorLocs.find(l=>l.id===path[i+1]); if(!la||!lb) return null;
         return (
@@ -445,26 +729,27 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
           </g>
         );
       })}
-      {/* Nodes */}
       {floorLocs.filter(loc => loc.type !== "hallway").map(loc => {
         const isF=fromId===loc.id, isT=toId===loc.id, inP=path.includes(loc.id);
+        const isKiosk = loc.id === KIOSK_NODE_ID;
         const meta=TYPE_META[loc.type]||{color:"#94a3b8",icon:"📍"};
         const r=compact?(isF||isT?10:inP?8:6):(isF||isT?10:inP?8:6);
         return (
           <g key={loc.id} style={{cursor:"pointer"}} onClick={()=>onNode(loc)}>
-            {(isF||isT)&&<circle cx={sx(loc.x)} cy={sy(loc.y)} r={r+6} fill={isF?"#22c55e22":"#ef444422"}>
+            {(isF||isT||isKiosk)&&<circle cx={sx(loc.x)} cy={sy(loc.y)} r={r+6}
+              fill={isKiosk?"#0ea5e922":isF?"#22c55e22":"#ef444422"}>
               <animate attributeName="r" values={`${r+4};${r+9};${r+4}`} dur="2s" repeatCount="indefinite"/>
             </circle>}
             <circle cx={sx(loc.x)} cy={sy(loc.y)} r={r}
-              fill={isF?"#166534":isT?"#7f1d1d":inP?"#0c2d48":"#0d1b2e"}
-              stroke={isF?"#22c55e":isT?"#ef4444":inP?"#38bdf8":meta.color}
-              strokeWidth={isF||isT?2.5:1.5}/>
+              fill={isKiosk?"#0c2240":isF?"#166534":isT?"#7f1d1d":inP?"#0c2d48":"#0d1b2e"}
+              stroke={isKiosk?"#0ea5e9":isF?"#22c55e":isT?"#ef4444":inP?"#38bdf8":meta.color}
+              strokeWidth={isF||isT||isKiosk?2.5:1.5}/>
             <text x={sx(loc.x)} y={sy(loc.y)} textAnchor="middle" dominantBaseline="middle"
-              style={{fontSize:compact?5.5:6,fill:isF||isT?"#fff":"#cbd5e1",fontFamily:"monospace",fontWeight:700,pointerEvents:"none"}}>
-              {loc.id}
+              style={{fontSize:compact?5.5:6,fill:isF||isT||isKiosk?"#fff":"#cbd5e1",fontFamily:"monospace",fontWeight:700,pointerEvents:"none"}}>
+              {isKiosk ? "📍" : loc.id}
             </text>
             {!compact&&<text x={sx(loc.x)} y={sy(loc.y)+r+6} textAnchor="middle"
-              style={{fontSize:5.5,fill:meta.color,fontFamily:"monospace",pointerEvents:"none"}}>
+              style={{fontSize:5.5,fill:isKiosk?"#0ea5e9":meta.color,fontFamily:"monospace",pointerEvents:"none"}}>
               {loc.name.length>14?loc.name.slice(0,13)+"…":loc.name}
             </text>}
           </g>
@@ -478,30 +763,21 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
 const FLOOR_NAMES = ['','GROUND FLOOR','SECOND FLOOR','THIRD FLOOR','FOURTH FLOOR','FIFTH FLOOR'];
 
 function FloorTransitionOverlay({ data, onDone }) {
-  const [phase, setPhase] = useState('in'); // 'in' | 'hold' | 'out'
-
+  const [phase, setPhase] = useState('in');
   useEffect(() => {
-  if (!data) return;
-  // Use a minimal timeout to defer the state update out of the render cycle
-  const enterTimer = setTimeout(() => setPhase('in'), 0);
-  const holdTimer = setTimeout(() => setPhase('out'), 1800);
-  return () => {
-    clearTimeout(enterTimer);
-    clearTimeout(holdTimer);
-  };
-}, [data]);
-
+    if (!data) return;
+    const enterTimer = setTimeout(() => setPhase('in'), 0);
+    const holdTimer = setTimeout(() => setPhase('out'), 1800);
+    return () => { clearTimeout(enterTimer); clearTimeout(holdTimer); };
+  }, [data]);
   useEffect(() => {
     if (phase === 'out') {
       const exitTimer = setTimeout(() => onDone(), 450);
       return () => clearTimeout(exitTimer);
     }
   }, [phase, onDone]);
-
   if (!data) return null;
-
   const isUp = data.direction === 'up';
-
   const curtainStyle = {
     position: 'fixed', inset: 0, zIndex: 9999,
     background: '#020917',
@@ -511,57 +787,31 @@ function FloorTransitionOverlay({ data, onDone }) {
     animation: phase === 'out'
       ? 'ft-slide-out 0.45s cubic-bezier(.4,0,.2,1) forwards'
       : 'ft-slide-in 0.35s cubic-bezier(.4,0,.2,1) forwards',
-    // scanline texture
     backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(56,189,248,0.02) 3px,rgba(56,189,248,0.02) 4px)',
   };
-
   const cardStyle = {
     display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
     opacity: phase === 'in' ? 0 : 1,
     transform: phase === 'in' ? 'scale(0.88)' : 'scale(1)',
     transition: 'opacity 0.3s 0.25s ease, transform 0.3s 0.25s ease',
   };
-
   return (
     <div style={curtainStyle} onClick={onDone}>
       <div style={cardStyle}>
-        {/* From floor label */}
-        <div style={{ color: '#334155', fontSize: 12, letterSpacing: 3, fontFamily: 'monospace' }}>
-          FROM FLOOR {data.fromFloor}
-        </div>
-
-        {/* Animated arrow + dots */}
+        <div style={{ color: '#334155', fontSize: 12, letterSpacing: 3, fontFamily: 'monospace' }}>FROM FLOOR {data.fromFloor}</div>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}>
-          {isUp && (
-            <div style={{ fontSize: 52, lineHeight: 1, animation: 'ft-bounce 0.7s ease infinite alternate', color: '#38bdf8' }}>↑</div>
-          )}
+          {isUp && <div style={{ fontSize: 52, lineHeight: 1, animation: 'ft-bounce 0.7s ease infinite alternate', color: '#38bdf8' }}>↑</div>}
           <div style={{ display: 'flex', flexDirection: isUp ? 'column' : 'column-reverse', gap: 5, alignItems: 'center' }}>
             {[0, 1, 2].map(i => (
-              <div key={i} style={{
-                width: 5, height: 5, borderRadius: '50%', background: '#38bdf8',
-                animation: `ft-dot 1s ${0.15 * i + 0.5}s infinite`,
-              }}/>
+              <div key={i} style={{ width: 5, height: 5, borderRadius: '50%', background: '#38bdf8', animation: `ft-dot 1s ${0.15 * i + 0.5}s infinite` }}/>
             ))}
           </div>
-          {!isUp && (
-            <div style={{ fontSize: 52, lineHeight: 1, animation: 'ft-bounce 0.7s ease infinite alternate', color: '#38bdf8' }}>↓</div>
-          )}
+          {!isUp && <div style={{ fontSize: 52, lineHeight: 1, animation: 'ft-bounce 0.7s ease infinite alternate', color: '#38bdf8' }}>↓</div>}
         </div>
-
-        {/* Destination floor */}
-        <div style={{ color: '#f1f5f9', fontSize: 44, fontWeight: 900, letterSpacing: 4, fontFamily: "'Courier New',monospace", lineHeight: 1 }}>
-          FLOOR {data.toFloor}
-        </div>
-        <div style={{ color: '#38bdf8', fontSize: 11, letterSpacing: 4, fontFamily: 'monospace' }}>
-          {FLOOR_NAMES[data.toFloor] || `FLOOR ${data.toFloor}`}
-        </div>
-        <div style={{ color: '#475569', fontSize: 11, letterSpacing: 2, fontFamily: 'monospace', marginTop: 4 }}>
-          VIA {data.via.toUpperCase()}
-        </div>
-
-        <div style={{ color: '#1e3a5f', fontSize: 10, fontFamily: 'monospace', marginTop: 12 }}>
-          TAP TO CONTINUE
-        </div>
+        <div style={{ color: '#f1f5f9', fontSize: 44, fontWeight: 900, letterSpacing: 4, fontFamily: "'Courier New',monospace", lineHeight: 1 }}>FLOOR {data.toFloor}</div>
+        <div style={{ color: '#38bdf8', fontSize: 11, letterSpacing: 4, fontFamily: 'monospace' }}>{FLOOR_NAMES[data.toFloor] || `FLOOR ${data.toFloor}`}</div>
+        <div style={{ color: '#475569', fontSize: 11, letterSpacing: 2, fontFamily: 'monospace', marginTop: 4 }}>VIA {data.via.toUpperCase()}</div>
+        <div style={{ color: '#1e3a5f', fontSize: 10, fontFamily: 'monospace', marginTop: 12 }}>TAP TO CONTINUE</div>
       </div>
     </div>
   );
@@ -583,11 +833,8 @@ function IdleScreen({ onTouch, announcements }) {
       background:"linear-gradient(135deg,#020917 0%,#030e22 50%,#040a18 100%)",
       cursor:"pointer",overflow:"hidden",position:"relative",userSelect:"none"
     }}>
-      {/* Glowing orbs */}
       <div style={{position:"absolute",top:"20%",left:"10%",width:300,height:300,borderRadius:"50%",background:"radial-gradient(circle,#0ea5e920,transparent 70%)",filter:"blur(40px)"}}/>
       <div style={{position:"absolute",bottom:"15%",right:"8%",width:250,height:250,borderRadius:"50%",background:"radial-gradient(circle,#6366f115,transparent 70%)",filter:"blur(40px)"}}/>
-
-      {/* TOP BAR */}
       <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 36px",borderBottom:"1px solid #0f2040",zIndex:2}}>
         <div style={{display:"flex",alignItems:"center",gap:14}}>
           <div style={{width:42,height:42,borderRadius:"50%",background:"linear-gradient(135deg,#0ea5e9,#6366f1)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:20}}>🏫</div>
@@ -601,13 +848,9 @@ function IdleScreen({ onTouch, announcements }) {
           <div style={{color:"#64748b",fontSize:10,letterSpacing:2,fontFamily:"monospace"}}>{days[time.getDay()]} · {months[time.getMonth()]} {time.getDate()}, {time.getFullYear()}</div>
         </div>
       </div>
-
-      {/* CENTER */}
       <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",flexDirection:"column",gap:16,zIndex:2}}>
         <div style={{fontSize:60,lineHeight:1}}>🗺️</div>
-        <div style={{color:"#f1f5f9",fontSize:32,fontWeight:900,fontFamily:"Georgia,serif",letterSpacing:1,textAlign:"center"}}>
-          Campus Navigation
-        </div>
+        <div style={{color:"#f1f5f9",fontSize:32,fontWeight:900,fontFamily:"Georgia,serif",letterSpacing:1,textAlign:"center"}}>Campus Navigation</div>
         <div style={{color:"#475569",fontSize:14,fontFamily:"monospace",letterSpacing:2}}>FIND YOUR WAY AROUND CAMPUS</div>
         <div style={{
           marginTop:20,padding:"14px 48px",
@@ -616,12 +859,8 @@ function IdleScreen({ onTouch, announcements }) {
           fontFamily:"monospace",
           boxShadow:"0 0 32px #0ea5e960",
           animation:"pulse 2s ease-in-out infinite",
-        }}>
-          ▶  TOUCH TO BEGIN
-        </div>
+        }}>▶  TOUCH TO BEGIN</div>
       </div>
-
-      {/* BOTTOM TICKER */}
       <div style={{borderTop:"1px solid #0f2040",padding:"12px 36px",display:"flex",alignItems:"center",gap:16,zIndex:2}}>
         <div style={{background:ann?.priority==="high"?"#7f1d1d":"#0f2040",border:`1px solid ${ann?.priority==="high"?"#ef4444":"#1e3a5f"}`,borderRadius:4,padding:"2px 10px",color:ann?.priority==="high"?"#fca5a5":"#38bdf8",fontSize:9,fontWeight:800,fontFamily:"monospace",letterSpacing:1,flexShrink:0}}>
           {ann?.priority==="high"?"🔴 URGENT":"📢 BULLETIN"}
@@ -642,10 +881,14 @@ function IdleScreen({ onTouch, announcements }) {
 export default function App() {
   const [visibleFloor, setVisibleFloor] = useState(1);
   const [db, setDb]=useState(()=>{
-    const d={...INITIAL_DB, locations:INITIAL_DB.locations.map(l=>({...l,qr:`icct://campus/loc/${l.id}?name=${encodeURIComponent(l.name)}`}))};
+    const d={...INITIAL_DB, locations:INITIAL_DB.locations.map((l,i)=>({
+      ...l,
+      id: l.id !== undefined ? l.id : 300 + i,
+      qr:`icct://campus/loc/${l.id !== undefined ? l.id : 300+i}?name=${encodeURIComponent(l.name)}`
+    }))};
     return d;
   });
-  const [screen, setScreen]=useState("idle"); // idle | map | navigate | qr | announce | admin
+  const [screen, setScreen]=useState("idle");
   const [session, setSession]=useState(()=>{
     try {
       const t = localStorage.getItem("campusnav_session");
@@ -654,7 +897,7 @@ export default function App() {
     } catch { return null; }
   });
   const [path, setPath]=useState([]);
-  const [fromId, setFromId]=useState(null);
+  const [fromId, setFromId]=useState(KIOSK_NODE_ID);
   const [toId, setToId]=useState(null);
   const [navStep, setNavStep]=useState(0);
   const [selNode, setSelNode]=useState(null);
@@ -666,43 +909,30 @@ export default function App() {
   const [newAnn, setNewAnn]=useState({title:"",body:"",priority:"normal"});
   const [toast, setToast]=useState(null);
   const idleTimer=useRef(null);
+  const [floorTransition, setFloorTransition] = useState(null);
 
-  // Add these two new state values:
-const [floorTransition, setFloorTransition] = useState(null);
-
-// Add this helper function inside App:
-const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs, path) => {
-  const dir = directions[stepIndex];
-  if (!dir) return;
-
-  const currId = path[stepIndex];
-  const nextId = path[stepIndex + 1];
-  if (!currId || !nextId) return;
-
-  const curr = locs.find(l => l.id === currId);
-  const next = locs.find(l => l.id === nextId);
-  if (!curr || !next || curr.floor === next.floor) return;
-
-  const isUp = next.floor > curr.floor;
-  const via = (curr.type === 'elevator' || next.type === 'elevator') ? 'Elevator' : 'Stairs';
-
-  setFloorTransition({
-    direction: isUp ? 'up' : 'down',
-    fromFloor: curr.floor,
-    toFloor: next.floor,
-    via,
-  });
-}, []);
+  const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs, path) => {
+    const dir = directions[stepIndex];
+    if (!dir) return;
+    const currId = path[stepIndex];
+    const nextId = path[stepIndex + 1];
+    if (!currId || !nextId) return;
+    const curr = locs.find(l => l.id === currId);
+    const next = locs.find(l => l.id === nextId);
+    if (!curr || !next || curr.floor === next.floor) return;
+    const isUp = next.floor > curr.floor;
+    const via = (curr.type === 'elevator' || next.type === 'elevator') ? 'Elevator' : 'Stairs';
+    setFloorTransition({ direction: isUp ? 'up' : 'down', fromFloor: curr.floor, toFloor: next.floor, via });
+  }, []);
 
   useEffect(()=>{
     if(session?.token) localStorage.setItem("campusnav_session", session.token);
     else localStorage.removeItem("campusnav_session");
   },[session]);
 
-  // Auto-idle after 5min of no touch
   const resetIdle=useCallback(()=>{
     clearTimeout(idleTimer.current);
-    if(screen!=="idle") idleTimer.current=setTimeout(()=>{ setScreen("idle"); setPath([]); setFromId(null); setToId(null); setSelNode(null); },300000);
+    if(screen!=="idle") idleTimer.current=setTimeout(()=>{ setScreen("idle"); setPath([]); setFromId(KIOSK_NODE_ID); setToId(null); setSelNode(null); },300000);
   },[screen]);
   useEffect(()=>{ document.addEventListener("click",resetIdle); return()=>document.removeEventListener("click",resetIdle); },[resetIdle]);
   useEffect(()=>{ resetIdle(); },[resetIdle, screen]);
@@ -715,21 +945,39 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
     setSession({...u,token:createToken(u)}); setLoginF({u:"",p:"",err:""}); toast_show(`Welcome, ${u.username}!`);
   };
 
-  const doNavigate=()=>{
-    if(!fromId||!toId){toast_show("Select FROM and TO first.","err");return;}
-    const r=aStar(fromId,toId,db.locations,db.edges);
+  // eslint-disable-next-line no-unused-vars
+  const doNavigate=useCallback((destinationId)=>{
+    const target = destinationId ?? toId;
+    if(!fromId||!target){toast_show("Select a destination first.","err");return;}
+    const r=aStar(fromId, target, db.locations, db.edges);
     setPath(r); setNavStep(0);
-    if(r.length===0) toast_show("No path found between nodes.","err");
+    if(r.length===0) toast_show("No path found to that location.","err");
     else toast_show(`Route found — ${r.length} stops via A*.`);
-  };
+  },[fromId, toId, db.locations, db.edges]);
 
-  const clearNav=()=>{ setPath([]); setFromId(null); setToId(null); setNavStep(0); };
+  // Auto-navigate as soon as a destination is selected
+  const handleDestinationSelect = useCallback((locId) => {
+    setToId(locId);
+    setPath([]);
+    setNavStep(0);
+    if (locId) {
+      const r = aStar(KIOSK_NODE_ID, locId, db.locations, db.edges);
+      setPath(r);
+      setNavStep(0);
+      if (r.length === 0) toast_show("No path found to that location.", "err");
+      else {
+        const dest = db.locations.find(l => l.id === locId);
+        toast_show(`Route to ${dest?.name} — ${r.length} stops.`);
+      }
+    }
+  }, [db.locations, db.edges]);
+
+  const clearNav=()=>{ setPath([]); setFromId(KIOSK_NODE_ID); setToId(null); setNavStep(0); };
 
   const handleNode=(loc)=>{
+    if(loc.id === KIOSK_NODE_ID) return; // don't select kiosk as destination
     if(screen==="navigate"){
-      if(!fromId){setFromId(loc.id);toast_show(`FROM: ${loc.name}`);}
-      else if(!toId&&loc.id!==fromId){setToId(loc.id);toast_show(`TO: ${loc.name}`);}
-      else{setFromId(loc.id);setToId(null);setPath([]);setNavStep(0);}
+      handleDestinationSelect(loc.id);
     } else { setSelNode(loc); }
   };
 
@@ -754,10 +1002,8 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
   const pathNodes=path.map(id=>db.locations.find(l=>l.id===id)).filter(Boolean);
   const directions = useMemo(() => getDirections(path, db.locations), [path, db.locations]);
 
-  /* ── IDLE SCREEN ── */
-  if(screen==="idle") return <KioskFrame><IdleScreen onTouch={()=>setScreen("map")} announcements={db.announcements}/></KioskFrame>;
+  if(screen==="idle") return <KioskFrame><IdleScreen onTouch={()=>setScreen("navigate")} announcements={db.announcements}/></KioskFrame>;
 
-  /* ── KIOSK SHELL ── */
   return (
     <KioskFrame>
       <div style={K.shell}>
@@ -773,8 +1019,8 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
           <div style={K.clock}><LiveClock/></div>
           <nav style={K.navList}>
             {[
-              {key:"map",      label:"Campus Map",  icon:"🗺️"},
               {key:"navigate", label:"Navigate",    icon:"🧭"},
+              {key:"map",      label:"Campus Map",  icon:"🗺️"},
               {key:"qr",       label:"QR Codes",    icon:"📲"},
               {key:"announce", label:"Bulletins",   icon:"📢"},
               {key:"admin",    label:"Admin",       icon:"🔐"},
@@ -798,6 +1044,177 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
 
         {/* MAIN CONTENT */}
         <main style={K.content}>
+
+          {/* ── NAVIGATE — SEARCH-FIRST UI ── */}
+          {screen==="navigate"&&(
+            <div style={K.panel}>
+              {/* Header */}
+              <div style={K.panelHdr}>
+                <div style={K.panelTitle}>🧭  Where do you want to go?</div>
+                <div style={K.panelSub}>Type a room name, building, or floor · Route calculated automatically</div>
+              </div>
+
+              {/* YOU ARE HERE + SEARCH ROW */}
+              <div style={{ display:"flex", gap:10, flexShrink:0, alignItems:"stretch" }}>
+                {/* Fixed start badge */}
+                <div style={{
+                  display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center",
+                  gap:3, padding:"8px 14px",
+                  background:"#020e1f", border:"1.5px solid #0ea5e9",
+                  borderRadius:10, flexShrink:0,
+                  boxShadow:"0 0 16px rgba(14,165,233,0.15)",
+                }}>
+                  <span style={{ fontSize: 18 }}>📍</span>
+                  <span style={{ color:"#0ea5e9", fontSize:8, fontWeight:800, fontFamily:"monospace", letterSpacing:1.5 }}>YOU ARE HERE</span>
+                  <span style={{ color:"#1e3a5f", fontSize:8, fontFamily:"monospace", textAlign:"center", lineHeight:1.3 }}>Kiosk · Elevator Lobby</span>
+                </div>
+
+                {/* Arrow connector */}
+                <div style={{
+                  display:"flex", alignItems:"center", color:"#1e3a5f",
+                  fontSize:20, flexShrink:0, paddingBottom:2,
+                }}>→</div>
+
+                {/* Search bar */}
+                <DestinationSearch
+                  locations={db.locations}
+                  onSelect={handleDestinationSelect}
+                  selectedId={toId}
+                />
+
+                {/* Clear button */}
+                {(toId || path.length > 0) && (
+                  <button onClick={clearNav} style={{
+                    ...K.clearBtn, flexShrink:0, alignSelf:"stretch",
+                    display:"flex", alignItems:"center", padding:"0 14px",
+                  }}>✕ Clear</button>
+                )}
+              </div>
+
+              {/* Floor selector (shown when route spans multiple floors or for map browsing) */}
+              {path.length > 0 && (
+                <div style={{display:"flex", gap:6, flexShrink:0, alignItems:"center"}}>
+                  <span style={{color:"#1e3a5f", fontSize:9, fontFamily:"monospace", letterSpacing:1, marginRight:4}}>VIEW FLOOR:</span>
+                  {[1, 2, 3, 4].map(f => (
+                    <button key={f} onClick={() => setVisibleFloor(f)}
+                      style={{
+                        background: visibleFloor===f ? "#1d4ed8" : "#070d1a",
+                        border: `1px solid ${visibleFloor===f ? "#3b82f6" : "#0f2040"}`,
+                        color: visibleFloor===f ? "#fff" : "#475569",
+                        padding: "4px 12px", borderRadius: 6, cursor: "pointer",
+                        fontSize: 11, fontFamily: "monospace", fontWeight: 700,
+                      }}>FL.{f}</button>
+                  ))}
+                </div>
+              )}
+
+              {/* Map + directions */}
+              <div style={{flex:1,display:"flex",gap:12,minHeight:0,overflow:"hidden"}}>
+                {/* Map */}
+                <div style={{flex:"0 0 58%",minWidth:0,overflow:"hidden"}}>
+                  <CampusMap locs={db.locations} edges={db.edges} path={path}
+                    onNode={handleNode} fromId={fromId} toId={toId} compact visibleFloor={visibleFloor}/>
+                </div>
+
+                {/* Route / prompt panel */}
+                <div style={{flex:1,display:"flex",flexDirection:"column",gap:8,minWidth:0,overflow:"hidden"}}>
+                  {!toId ? (
+                    /* No destination yet — show suggestions */
+                    <div style={{flex:1,display:"flex",flexDirection:"column",gap:8}}>
+                      <div style={{
+                        color:"#1e3a5f", fontSize:9, fontFamily:"monospace",
+                        letterSpacing:2, fontWeight:800, marginBottom:2,
+                      }}>QUICK ACCESS</div>
+                      {[
+                        { label:"Library", type:"library" },
+                        { label:"Clinic", type:"clinic" },
+                        { label:"Registrar", type:"Registrar" },
+                        { label:"Admission Office", type:"office" },
+                        { label:"Computer Lab", type:"laboratory" },
+                      ].map(suggestion => {
+                        const match = db.locations.find(l =>
+                          l.name.toLowerCase().includes(suggestion.label.toLowerCase()) &&
+                          l.id !== KIOSK_NODE_ID
+                        );
+                        if (!match) return null;
+                        const meta = TYPE_META[match.type?.toLowerCase()] || { color:"#94a3b8", icon:"📍" };
+                        return (
+                          <button key={suggestion.label} onClick={() => handleDestinationSelect(match.id)}
+                            style={{
+                              display:"flex", alignItems:"center", gap:10,
+                              padding:"10px 12px",
+                              background:"#070d1a", border:"1px solid #0f2040",
+                              borderRadius:8, cursor:"pointer",
+                              transition:"border-color 0.12s",
+                              width:"100%", textAlign:"left",
+                            }}
+                            onMouseEnter={e=>e.currentTarget.style.borderColor="#1e3a5f"}
+                            onMouseLeave={e=>e.currentTarget.style.borderColor="#0f2040"}
+                          >
+                            <span style={{fontSize:18,flexShrink:0}}>{meta.icon}</span>
+                            <div>
+                              <div style={{color:"#f1f5f9",fontSize:12,fontWeight:700}}>{match.name}</div>
+                              <div style={{color:"#334155",fontSize:10,fontFamily:"monospace",marginTop:1}}>Floor {match.floor} · {match.type}</div>
+                            </div>
+                            <span style={{marginLeft:"auto",color:"#1e3a5f",fontSize:16}}>›</span>
+                          </button>
+                        );
+                      })}
+                      <div style={{
+                        marginTop:"auto", padding:"10px 12px",
+                        background:"#040b18", border:"1px dashed #0a1628",
+                        borderRadius:8, textAlign:"center",
+                      }}>
+                        <div style={{color:"#0f2040",fontSize:10,fontFamily:"monospace",lineHeight:1.6}}>
+                          TAP A QUICK ACCESS SHORTCUT<br/>OR USE THE SEARCH BAR ABOVE
+                        </div>
+                      </div>
+                    </div>
+                  ) : path.length === 0 ? (
+                    <div style={K.emptyRoute}>
+                      <div style={{fontSize:32}}>⚠️</div>
+                      <div style={{color:"#334155",fontSize:12,fontFamily:"monospace",textAlign:"center"}}>No connected path<br/>found to this location.</div>
+                    </div>
+                  ) : (
+                    <>
+                      <div style={K.routeHdr}>
+                        <span style={{color:"#38bdf8",fontWeight:800,fontSize:12,fontFamily:"monospace"}}>ROUTE · {pathNodes.length} STOPS</span>
+                        <span style={{color:"#1e3a5f",fontSize:10,fontFamily:"monospace"}}>A* OPTIMAL PATH</span>
+                      </div>
+                      <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:4}}>
+                        {directions.map((dir, i) => (
+                          <div key={i} onClick={() => { setNavStep(i); triggerFloorTransitionIfNeeded(i, directions, db.locations, path); }}
+                            style={{...K.stepRow,...(navStep===i?K.stepRowOn:{})}}>
+                            <div style={{
+                              width:32,height:32,borderRadius:"50%",display:"flex",alignItems:"center",
+                              justifyContent:"center",fontSize:16,flexShrink:0,
+                              background:i===0?"#166534":i===directions.length-1?"#7f1d1d":"#0a1f35",
+                              border:`1px solid ${i===0?"#22c55e":i===directions.length-1?"#ef4444":"#1e3a5f"}`,
+                            }}>
+                              {dir.icon}
+                            </div>
+                            <div style={{flex:1,minWidth:0}}>
+                              <div style={{color:"#f1f5f9",fontWeight:700,fontSize:12,lineHeight:1.3}}>{dir.text}</div>
+                              <div style={{color:"#475569",fontSize:10,fontFamily:"monospace",marginTop:2}}>{dir.sub}</div>
+                            </div>
+                            {i===0&&<span style={{color:"#22c55e",fontSize:9,fontWeight:800,flexShrink:0}}>START</span>}
+                            {i===directions.length-1&&<span style={{color:"#ef4444",fontSize:9,fontWeight:800,flexShrink:0}}>END</span>}
+                          </div>
+                        ))}
+                      </div>
+                      <div style={{display:"flex",gap:6,flexShrink:0}}>
+                        <button disabled={navStep===0} onClick={() => { const s=navStep-1; setNavStep(s); triggerFloorTransitionIfNeeded(s, directions, db.locations, path); }} style={K.stepBtn}>◀ Prev</button>
+                        <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",color:"#334155",fontSize:11,fontFamily:"monospace"}}>
+                          {navStep+1} / {directions.length}
+                        </div>
+                        <button disabled={navStep===directions.length-1} onClick={() => { const s=navStep+1; setNavStep(s); triggerFloorTransitionIfNeeded(s, directions, db.locations, path); }} style={K.stepBtn}>Next ▶</button>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* ── MAP ── */}
           {screen==="map"&&(
@@ -837,94 +1254,13 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
                       <div style={{color:TYPE_META[selNode.type]?.color||"#94a3b8",fontSize:10,fontWeight:800,letterSpacing:1,marginBottom:4}}>{selNode.type.toUpperCase()} · FL.{selNode.floor}</div>
                       <div style={{color:"#f1f5f9",fontWeight:800,fontSize:14,marginBottom:6,lineHeight:1.3}}>{selNode.name}</div>
                       <div style={{color:"#94a3b8",fontSize:11,marginBottom:10}}>{selNode.desc}</div>
-                      <button onClick={()=>{setScreen("navigate");setFromId(selNode.id);setSelNode(null);}} style={K.miniBtn}>🧭 Navigate Here</button>
+                      <button onClick={()=>{setScreen("navigate");handleDestinationSelect(selNode.id);setSelNode(null);}} style={K.miniBtn}>🧭 Navigate Here</button>
                     </div>
                   )}
                 </div>
               </div>
             </div>
           )}
-
-          {/* ── NAVIGATE ── */}
-          {screen==="navigate"&&(
-          <div style={K.panel}>
-            <div style={K.panelHdr}>
-              <div style={K.panelTitle}>🧭  A* Indoor Navigation</div>
-              <div style={K.panelSub}>Select FROM → TO on map or use selectors · Shortest path via A* algorithm</div>
-            </div>
-
-            {/* Selectors row FIRST — always visible */}
-            <div style={{display:"flex",gap:8,flexShrink:0}}>
-              <select value={fromId||""} onChange={e=>setFromId(+e.target.value||null)} style={K.sel}>
-                <option value="">🟢 FROM — tap map or select</option>
-                {db.locations
-                  .filter(l => l.type !== "hallway")
-                  .map(l=><option key={l.id} value={l.id}>{l.id}. {l.name}</option>)}
-              </select>
-              <select value={toId||""} onChange={e=>setToId(+e.target.value||null)} style={K.sel}>
-                <option value="">🔴 TO — tap map or select</option>
-                {db.locations.filter(l => l.type !== "hallway").map(l=><option key={l.id} value={l.id}>{l.id}. {l.name}</option>)}
-              </select>
-              <button onClick={doNavigate} style={K.goBtn}>GO</button>
-              <button onClick={clearNav} style={K.clearBtn}>✕</button>
-            </div>
-
-            {/* Map + Route side by side */}
-            <div style={{flex:1,display:"flex",gap:12,minHeight:0,overflow:"hidden"}}>
-              {/* Map */}
-              <div style={{flex:"0 0 58%",minWidth:0,overflow:"hidden"}}>
-                <CampusMap locs={db.locations} edges={db.edges} path={path} onNode={handleNode} fromId={fromId} toId={toId} compact/>
-              </div>
-
-              {/* Route panel */}
-              <div style={{flex:1,display:"flex",flexDirection:"column",gap:8,minWidth:0,overflow:"hidden"}}>
-                {path.length===0?(
-                  <div style={K.emptyRoute}>
-                    <div style={{fontSize:36}}>🧭</div>
-                    <div style={{color:"#334155",fontSize:13,fontFamily:"monospace"}}>Select start & end,<br/>then tap GO</div>
-                  </div>
-                ):(
-                  <>
-                    <div style={K.routeHdr}>
-                      <span style={{color:"#38bdf8",fontWeight:800,fontSize:12,fontFamily:"monospace"}}>ROUTE · {pathNodes.length} STOPS</span>
-                      <span style={{color:"#1e3a5f",fontSize:10,fontFamily:"monospace"}}>A* OPTIMAL PATH</span>
-                    </div>
-                    <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:4}}>
-                      {directions.map((dir, i) => (
-                        <div key={i} onClick={() => { setNavStep(i); triggerFloorTransitionIfNeeded(i, directions, db.locations, path); }}
-                          style={{...K.stepRow,...(navStep===i?K.stepRowOn:{})}}>
-                          <div style={{
-                            width:32,height:32,borderRadius:"50%",display:"flex",alignItems:"center",
-                            justifyContent:"center",fontSize:16,flexShrink:0,
-                            background:i===0?"#166534":i===directions.length-1?"#7f1d1d":"#0a1f35",
-                            border:`1px solid ${i===0?"#22c55e":i===directions.length-1?"#ef4444":"#1e3a5f"}`,
-                          }}>
-                            {dir.icon}
-                          </div>
-                          <div style={{flex:1,minWidth:0}}>
-                            <div style={{color:"#f1f5f9",fontWeight:700,fontSize:12,lineHeight:1.3}}>{dir.text}</div>
-                            <div style={{color:"#475569",fontSize:10,fontFamily:"monospace",marginTop:2}}>{dir.sub}</div>
-                          </div>
-                          {i===0&&<span style={{color:"#22c55e",fontSize:9,fontWeight:800,flexShrink:0}}>START</span>}
-                          {i===directions.length-1&&<span style={{color:"#ef4444",fontSize:9,fontWeight:800,flexShrink:0}}>END</span>}
-                        </div>
-                      ))}
-                    </div>
-                    <div style={{display:"flex",gap:6,flexShrink:0}}>
-                      <button disabled={navStep===0} onClick={() => {const newStep = navStep - 1; setNavStep(newStep);
-                        triggerFloorTransitionIfNeeded(newStep, directions, db.locations, path);}} style={K.stepBtn}>◀ Prev</button>
-                      <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",color:"#334155",fontSize:11,fontFamily:"monospace"}}>
-                        {navStep+1} / {directions.length}
-                      </div>
-                      <button disabled={navStep===directions.length-1} onClick={() => {const newStep = navStep + 1; setNavStep(newStep);
-                        triggerFloorTransitionIfNeeded(newStep, directions, db.locations, path); }} style={K.stepBtn}>Next ▶</button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
 
           {/* ── QR ── */}
           {screen==="qr"&&(
@@ -934,7 +1270,6 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
                 <div style={K.panelSub}>Scan any code with your phone to open mobile navigation</div>
               </div>
               <div style={{flex:1,display:"flex",gap:12,minHeight:0,overflow:"hidden"}}>
-                {/* Location list */}
                 <div style={{flex:"0 0 38%",display:"flex",flexDirection:"column",gap:4,overflowY:"auto"}}>
                   {db.locations.map(loc=>(
                     <button key={loc.id} onClick={()=>setQrLoc(loc)}
@@ -947,13 +1282,10 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
                     </button>
                   ))}
                 </div>
-                {/* QR display */}
                 <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16}}>
                   {qrLoc?(
                     <>
-                      <div style={K.qrBig}>
-                        <QRCode text={qrLoc.qr} size={160}/>
-                      </div>
+                      <div style={K.qrBig}><QRCode text={qrLoc.qr} size={160}/></div>
                       <div style={{textAlign:"center"}}>
                         <div style={{color:TYPE_META[qrLoc.type]?.color||"#94a3b8",fontSize:11,fontWeight:800,letterSpacing:2,fontFamily:"monospace",marginBottom:4}}>
                           {TYPE_META[qrLoc.type]?.icon} {qrLoc.type.toUpperCase()} · FLOOR {qrLoc.floor}
@@ -972,7 +1304,6 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
                     </div>
                   )}
                 </div>
-                {/* QR grid preview */}
                 <div style={{flex:"0 0 auto",display:"flex",flexDirection:"column",gap:6,overflowY:"auto"}}>
                   {db.locations.slice(0,10).map(loc=>(
                     <div key={loc.id} onClick={()=>setQrLoc(loc)} style={{...K.qrMini,...(qrLoc?.id===loc.id?{border:"1px solid #38bdf8"}:{}),cursor:"pointer"}}>
@@ -1040,8 +1371,6 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
                   </div>
                 </div>
                 <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:12}}>
-
-                  {/* LOCATIONS */}
                   {adminTab==="locations"&&(
                     <>
                       <div style={K.formBox}>
@@ -1091,8 +1420,6 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
                       </div>
                     </>
                   )}
-
-                  {/* ANNOUNCEMENTS */}
                   {adminTab==="announcements"&&(
                     <>
                       <div style={K.formBox}>
@@ -1116,8 +1443,6 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
                       ))}
                     </>
                   )}
-
-                  {/* USERS */}
                   {adminTab==="users"&&(
                     <div>
                       <table style={K.tbl}>
@@ -1146,12 +1471,8 @@ const triggerFloorTransitionIfNeeded = useCallback((stepIndex, directions, locs,
         </main>
       </div>
 
-      {/* TOAST */}
       {toast&&<div style={{...K.toast,background:toast.type==="err"?"#450a0a":"#052e16",borderColor:toast.type==="err"?"#ef4444":"#22c55e",color:toast.type==="err"?"#fca5a5":"#bbf7d0"}}>{toast.msg}</div>}
-    <FloorTransitionOverlay
-      data={floorTransition}
-      onDone={() => setFloorTransition(null)}
-    />
+      <FloorTransitionOverlay data={floorTransition} onDone={() => setFloorTransition(null)}/>
     </KioskFrame>
   );
 }
@@ -1172,42 +1493,27 @@ function LiveClock(){
   );
 }
 
-/* ── KIOSK FRAME (14-inch landscape viewport) ── */
+/* ── KIOSK FRAME ── */
 function KioskFrame({children}){
   const [size, setSize] = useState({ w: window.innerWidth, h: window.innerHeight });
-  
   useEffect(() => {
     const onResize = () => setSize({ w: window.innerWidth, h: window.innerHeight });
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
-
   const scale = Math.min(size.w / 1366, size.h / 768);
   const ml = (size.w - 1366 * scale) / 2;
   const mt = (size.h - 768 * scale) / 2;
-
   return (
-    <div style={{
-      width:"100vw", height:"100vh", background:"#000",
-      overflow:"hidden", position:"relative",
-    }}>
-      <div style={{
-        width:1366, height:768,
-        position:"absolute",
-        overflow:"hidden",
-        background:"#020917",
-        transform:`scale(${scale})`,
-        transformOrigin:"top left",
-        left: ml,
-        top: mt,
-      }}>
+    <div style={{width:"100vw",height:"100vh",background:"#000",overflow:"hidden",position:"relative"}}>
+      <div style={{width:1366,height:768,position:"absolute",overflow:"hidden",background:"#020917",transform:`scale(${scale})`,transformOrigin:"top left",left:ml,top:mt}}>
         {children}
       </div>
     </div>
   );
 }
 
-/* ─────────────────────────── KIOSK STYLES ──────────────────────────── */
+/* ── KIOSK STYLES ── */
 const K = {
   shell:       { width:1366, height:768, display:"flex", overflow:"hidden", fontFamily:"'Segoe UI',system-ui,sans-serif" },
   sidebar:     { width:156, background:"#030e1e", borderRight:"1px solid #0a1f35", display:"flex", flexDirection:"column", alignItems:"center", padding:"16px 0", gap:8, flexShrink:0 },
@@ -1240,7 +1546,6 @@ const K = {
   routeHdr:    { display:"flex", justifyContent:"space-between", alignItems:"center", padding:"6px 10px", background:"#070d1a", borderRadius:6, border:"1px solid #0f2040", flexShrink:0 },
   stepRow:     { display:"flex", alignItems:"center", gap:8, padding:"6px 8px", borderRadius:6, cursor:"pointer", border:"1px solid transparent", transition:"all .1s" },
   stepRowOn:   { background:"#0a1f35", border:"1px solid #1e3a5f" },
-  stepNum:     { width:22, height:22, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:10, fontWeight:800, color:"#fff", border:"1px solid", flexShrink:0 },
   stepBtn:     { background:"#070d1a", border:"1px solid #0f2040", color:"#475569", padding:"5px 14px", borderRadius:6, cursor:"pointer", fontSize:11, fontFamily:"monospace" },
   qrListItem:  { display:"flex", alignItems:"center", gap:10, padding:"8px 10px", background:"#070d1a", border:"1px solid #0f2040", borderRadius:7, cursor:"pointer", transition:"all .1s", width:"100%" },
   qrListItemOn:{ background:"#0a1f35", border:"1px solid #1e3a5f" },
