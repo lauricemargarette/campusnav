@@ -4,30 +4,41 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 const INITIAL_DB = {
   locations: [
     //Building 1 - Ground Floor nodes
-    { name:"Guidance Office", floor:1, building: 1, x:17.5, y:19.7, type:"office", desc:"Guidance office." },
-    { name:"NSTP Office", floor:1, building: 1, x:17.5, y:16.8, type:"office", desc:"NSTP office." },
-    { name:"CDJP Office", floor:1, building: 1, x:15.5, y:19.7, type:"office", desc:"CDJP office." },
-    { name:"Student Affairs Office", floor:1, building: 1, x:15.5, y:17.3, type:"office", desc:"Student affairs office." },
-    { name:"Window 1", floor:1, building: 1, x:15, y:11, type:"Registrar", desc:"Registrar Office - Window 1" },
-    { name:"Window 2", floor:1, building: 1, x:13.8, y:11, type:"Registrar", desc:"Registrar Office - Window 2" },
-    { name:"Window 3", floor:1, building: 1, x:12.5, y:11, type:"Registrar", desc:"Registrar Office - Window 3" },
-    { name:"Window 4", floor:1, building: 1, x:11.5, y:11.4, type:"Registrar", desc:"Registrar Office - Window 4" },
-    { name:"Window 5", floor:1, building: 1, x:11.5, y:12.5, type:"Registrar", desc:"Registrar Office - Window 5" },
-    { name:"Window 6", floor:1, building: 1, x:11.5, y:13.6, type:"Registrar", desc:"Registrar Office - Window 6" },
-    { name:"Window 7", floor:1, building: 1, x:11.5, y:14.7, type:"Registrar", desc:"Registrar Office - Window 7" },
-    { name:"Window 8", floor:1, building: 1, x:11.5, y:15.9, type:"Registrar", desc:"Registrar Office - Window 8" },
-    { name:"Window 9", floor:1, building: 1, x:11.5, y:17.1, type:"Registrar", desc:"Registrar Office - Window 9" },
-    { name:"Window 12", floor:1, building: 1, x:11.5, y:18.3, type:"Registrar", desc:"Registrar Office - Window 12" },
-    { name:"Window 14", floor:1, building: 1, x:11.5, y:19.4, type:"Registrar", desc:"Registrar Office - Window 14" },
-    { name:"Window 15", floor:1, building: 1, x:11.5, y:20.6, type:"Registrar", desc:"Registrar Office - Window 15" },
+    { id:15, name:"Window 1", floor:1, building: 1, x:15, y:11, type:"Registrar", desc:"Registrar Office - Window 1" },
+    { id:16, name:"Window 2", floor:1, building: 1, x:13.8, y:11, type:"Registrar", desc:"Registrar Office - Window 2" },
+    { id:17, name:"Window 3", floor:1, building: 1, x:12.5, y:11, type:"Registrar", desc:"Registrar Office - Window 3" },
+    { id:18, name:"Window 4", floor:1, building: 1, x:11.5, y:11.4, type:"Registrar", desc:"Registrar Office - Window 4" },
+    { id:19, name:"Window 5", floor:1, building: 1, x:11.5, y:12.5, type:"Registrar", desc:"Registrar Office - Window 5" },
+    { id:20, name:"Window 6", floor:1, building: 1, x:11.5, y:13.6, type:"Registrar", desc:"Registrar Office - Window 6" },
+    { id:21, name:"Window 7", floor:1, building: 1, x:11.5, y:14.7, type:"Registrar", desc:"Registrar Office - Window 7" },
+    { id:22, name:"Window 8", floor:1, building: 1, x:11.5, y:15.9, type:"Registrar", desc:"Registrar Office - Window 8" },
+    { id:23, name:"Window 9", floor:1, building: 1, x:11.5, y:17.1, type:"Registrar", desc:"Registrar Office - Window 9" },
+    { id:24, name:"Window 12", floor:1, building: 1, x:11.5, y:18.3, type:"Registrar", desc:"Registrar Office - Window 12" },
+    { id:25, name:"Window 14", floor:1, building: 1, x:11.5, y:19.4, type:"Registrar", desc:"Registrar Office - Window 14" },
+    { id:26, name:"Window 15", floor:1, building: 1, x:11.5, y:20.6, type:"Registrar", desc:"Registrar Office - Window 15" },
+    { id:27, name:"Registrar's Office", floor:1, building: 1, x:15.5, y:13, type:"Registrar", desc:"Registrar Office" },
+    { id:28, name:"Student Affairs Office", floor:1, building: 1, x:15.5, y:18, type:"office", desc:"Student affairs office." },
+    { id:29, name:"CDJP Office", floor:1, building: 1, x:15.5, y:20, type:"office", desc:"CDJP office." },
+    { id:30, name:"Exit", floor:1, building: 1, x:16.5, y:21, type:"exit", desc:"Guidance office." },
+    { id:31, name:"Guidance Office", floor:1, building: 1, x:17.5, y:20, type:"office", desc:"Guidance office." },
+    { id:32, name:"NSTP Office", floor:1, building: 1, x:17.5, y:17, type:"office", desc:"NSTP office." },
+    { id:33, name:"Accounting Office", floor:1, building: 1, x:17.5, y:13, type:"Accounting", desc:"Accounting Office" },
+    { id:34, name:"Window 1", floor:1, building: 1, x:17.7, y:11, type:"Accounting", desc:"Accounting Office - Window 1" },
+    { id:35, name:"Window 2", floor:1, building: 1, x:18.3, y:11, type:"Accounting", desc:"Accounting Office - Window 2" },
+    { id:36, name:"Window 3", floor:1, building: 1, x:18.9, y:11, type:"Accounting", desc:"Accounting Office - Window 3" },
+    { id:37, name:"Window 4", floor:1, building: 1, x:19.5, y:11, type:"Accounting", desc:"Accounting Office - Window 4" },
+    { id:38, name:"Window 5", floor:1, building: 1, x:20.1, y:11, type:"Accounting", desc:"Accounting Office - Window 5" },
+    { id:39, name:"Window 6", floor:1, building: 1, x:20.5, y:12.1, type:"Accounting", desc:"Accounting Office - Window 6" },
+    { id:40, name:"Window 7", floor:1, building: 1, x:20.5, y:13.2, type:"Accounting", desc:"Accounting Office - Window 7" },
+    { id:41, name:"Window 8", floor:1, building: 1, x:20.5, y:14.3, type:"Accounting", desc:"Accounting Office - Window 8" },
+    { id:42, name:"Window 9", floor:1, building: 1, x:20.5, y:15.4, type:"Accounting", desc:"Accounting Office - Window 9" },
 
     //Building 2 - Ground Floor nodes
-    { id: 10, name:"B4.13", floor:1, building: 4, x:10.5, y:6.5, type:"laboratory", desc:"Engineering Laboratory." },
-    { id: 11, name:"B4.14", floor:1, building: 4, x:10.5, y:4, type:"laboratory", desc:"Criminology/Forensic Laboratory." },
-    { name:"B2.11", floor:1, building: 2, x:17, y:8, type:"laboratory", desc:"Computer Hardware Servicing, Electronics/Electrical Room." },
-    { name:"B2.12", floor:1, building: 2, x:15, y:8, type:"lecture", desc:"Academic Lecture Room, AVR Extensison Room-2." },
-    { name:"Library", floor:1, building: 2, x:20.5, y:1.5,  type:"library",   desc:"Reference books, reading area & Wi-Fi." },
-    { name:"Supply Room", floor:1, building: 2, x:20.5, y:4, type:"office",    desc:"Office supplies and resources." },
+    { id:10, name:"HRM Tools & Equipments", floor:1, building: 2, x:11.5, y:4, type:"laboratory", desc:"Engineering Laboratory." },
+    { id:11, name:"B2.11", floor:1, building: 2, x:17, y:8, type:"laboratory", desc:"Computer Hardware Servicing, Electronics/Electrical Room." },
+    { id:12, name:"B2.12", floor:1, building: 2, x:15, y:8, type:"lecture", desc:"Academic Lecture Room, AVR Extensison Room-2." },
+    { id:13, name:"Supply Section", floor:1, building: 2, x:20.5, y:4, type:"office",    desc:"Office supplies and resources." },
+    { id:14, name:"Library", floor:1, building: 2, x:20.5, y:1.5,  type:"library",   desc:"Reference books, reading area & Wi-Fi." },
     
     //Building 3 - Ground Floor nodes
     { id:1,  name:"Entrance", floor:1, building: 3, x:5.5, y:21, type:"entrance",  desc:"Security gate, visitor logbook & entrance." },
@@ -38,32 +49,32 @@ const INITIAL_DB = {
     { id:6, name:"Drug Testing Center", floor:1, building: 3, x:4.5, y:12, type:"clinic",  desc:"Drug testing services." },
 
     //Building 4 - Ground Floor nodes
-    { id: 8, name:"B4.13", floor:1, building: 4, x:10.5, y:6.5, type:"laboratory", desc:"Engineering Laboratory." },
-    { id: 9, name:"B4.14", floor:1, building: 4, x:10.5, y:4, type:"laboratory", desc:"Criminology/Forensic Laboratory." },
+    { id:8, name:"B4.13", floor:1, building: 4, x:10.5, y:6.5, type:"laboratory", desc:"Engineering Laboratory." },
+    { id:9, name:"B4.14", floor:1, building: 4, x:10.5, y:4, type:"laboratory", desc:"Criminology/Forensic Laboratory." },
 
     //Building 2 - Third Floor nodes
     { id:200, name: "Kiosk (You Are Here)", floor:1, x:5.8, y:9.2, type:"entrance", desc:"Smart Campus Navigation Kiosk — beside the elevator." },
 
     //Floor 2 nodes — Building 2 rooms
-    { name:"B2.21", floor:2, building: 2, x:15.5, y:5.3, type:"laboratory", desc:"Computer Laboratory 21." },
-    { name:"B2.22", floor:2, building: 2, x:15.5, y:3.1, type:"laboratory", desc:"Computer Laboratory 22." },
-    { name:"B2.23", floor:2, building: 2, x:15.5, y:1.1, type:"laboratory", desc:"Computer Laboratory 23." },
-    { name:"B2.24", floor:2, building: 2, x:17.5, y:5.3, type:"laboratory", desc:"Computer Laboratory 24." },
-    { name:"B2.25", floor:2, building: 2, x:17.5, y:3.1, type:"laboratory", desc:"Computer Laboratory 25." },
-    { name:"B2.26", floor:2, building: 2, x:17.5, y:1.1, type:"laboratory", desc:"Computer Laboratory 26." },
+    { name:"B2.21", floor:2, building: 2, x:15.5, y:6.5, type:"laboratory", desc:"Computer Laboratory 21." },
+    { name:"B2.22", floor:2, building: 2, x:15.5, y:3.8, type:"laboratory", desc:"Computer Laboratory 22." },
+    { name:"B2.23", floor:2, building: 2, x:15.5, y:2, type:"laboratory", desc:"Computer Laboratory 23." },
+    { name:"B2.24", floor:2, building: 2, x:17.5, y:6.5, type:"laboratory", desc:"Computer Laboratory 24." },
+    { name:"B2.25", floor:2, building: 2, x:17.5, y:3.8, type:"laboratory", desc:"Computer Laboratory 25." },
+    { name:"B2.26", floor:2, building: 2, x:17.5, y:2, type:"laboratory", desc:"Computer Laboratory 26." },
     { name:"MIS", floor:2, building: 2, x:16.5, y:1.5, type:"Technical Room", desc:"Management Information Systems Room." },
 
     //Floor 2 nodes — Building 4 rooms
-    { name:"B4.21", floor:2, building: 4, x:4.5, y:5.3, type:"Laboratory", desc:"Cisco Networking Simulation Laboratory." },
-    { name:"B4.22", floor:2, building: 4, x:4.5, y:1.6, type:"Laboratory", desc:"Foreign Language / Speech Laboratory." },
-    { name:"B4.23", floor:2, building: 4, x:6.5, y:5.8, type:"Laboratory", desc:"Digital & Robotics Modeling Laboratory." },
-    { name:"B4.24", floor:2, building: 4, x:6.5, y:3.4, type:"Laboratory", desc:"E-Learning Hub." },
-    { name:"B4.21", floor:2, building: 4, x:6.5, y:1.1, type:"Faculty Room", desc:"Senior High School Department." },
+    { id:43, name:"B4.21", floor:2, building: 4, x:4.5, y:6, type:"Laboratory", desc:"Cisco Networking Simulation Laboratory." },
+    { id:44, name:"B4.22", floor:2, building: 4, x:4.5, y:2, type:"Laboratory", desc:"Foreign Language / Speech Laboratory." },
+    { id:45, name:"B4.23", floor:2, building: 4, x:6.5, y:6.5, type:"Laboratory", desc:"Digital & Robotics Modeling Laboratory." },
+    { id:46, name:"B4.24", floor:2, building: 4, x:6.5, y:3.8, type:"Laboratory", desc:"E-Learning Hub." },
+    { id:47, name:"B4.25", floor:2, building: 4, x:6.5, y:1.3, type:"Faculty Room", desc:"Senior High School Department." },
 
-    //FLOOR 2 nodes — actual rooms and points of interest
-    { name:" Boys' Restroom", floor:2, building: 3, x:11, y:9, type:"restroom", desc:"Boys' restroom with 3 stalls and 2 sinks." },
-    { name:"Ladies' Restroom", floor:2, building: 2, x:20.5, y:9.5, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-    { name:"Ladies' Restroom", floor:2, building: 4, x:1.5, y:9.5, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
+    //FLOOR 2 RESTROOMS
+    { id:"B-CR", name:"Boys' CR", floor:2, x:11, y:9.5, type:"restroom", desc:"Boys' restroom with 3 stalls and 2 sinks." },
+    { id:"B2-F", name:"Ladies' CR", floor:2, building: 2, x:20, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
+    { id:"B4-F", name:"Ladies' CR", floor:2, building: 4, x:1.5, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
 
     //HALLWAY/CORRIDOR nodes — Ground Floor
     { id:101, name: "Building 3 Hallway", floor:1, x:5.5, y:19.8, type:"hallway", desc:"Corridor near admission office." },
@@ -73,28 +84,75 @@ const INITIAL_DB = {
     { id:106, name: "Building 3 Hallway", floor:1, x:5.5, y:12, type:"hallway", desc:"Corridor in front of drug testing center." },
     { id:107, name: "Building 4 Hallway", floor:1, x:5.5, y:10.5, type:"hallway", desc:"Hallway at Elevator/Building 4." },
     { id:108, name: "Building 4 Hallway", floor:1, x:8, y:10.5, type:"hallway", desc:"Hallway at Right Stairs." },
-    { id:109, name: "Building 4 Hallway", floor:1, x:8, y:9.5, type:"hallway", desc:"Building 4 Right Stairs." },
+    { id:109, name: "Building 4 - Right Stairs", floor:1, x:8, y:9, type:"hallway", desc:"Building 4 Right Stairs." },
     { id:110, name: "Center Hallway", floor:1, x:11, y:10.5, type:"hallway", desc:"Center hallway connecting different buildings." },
-    { id:111, name: "Building 2 & 4 Hallway", floor:1, x:11, y:6.5, type:"hallway", desc:"Corridor in front of B4.13." },
-    { id:112, name: "Building 2 & 4 Hallway", floor:1, x:11, y:4, type:"hallway", desc:"Corridor in front of B4.14." },
-    { id:113, name: "Registrar Windows' Hallway", floor:1, x:15, y:10.5, type:"hallway", desc:"Window 1." },
-    { id:114, name: "Registrar Windows' Hallway", floor:1, x:13.8, y:10.5, type:"hallway", desc:"Window 2." },
-    { id:115, name: "Registrar Windows' Hallway", floor:1, x:12.5, y:10.5, type:"hallway", desc:"Window 3." },
+    { id:111, name: "Building 2 & 4 Mid-Hallway", floor:1, x:11, y:6.5, type:"hallway", desc:"Corridor in front of B4.13." },
+    { id:112, name: "Building 2 & 4 Mid-Hallway", floor:1, x:11, y:4, type:"hallway", desc:"Corridor in front of B4.14." },
+    { id:113, name: "Registrar Windows' Hallway", floor:1, x:15, y:10.5, type:"hallway", desc:"In front of Window 1." },
+    { id:114, name: "Registrar Windows' Hallway", floor:1, x:13.8, y:10.5, type:"hallway", desc:"In front of Window 2." },
+    { id:115, name: "Registrar Windows' Hallway", floor:1, x:12.5, y:10.5, type:"hallway", desc:"In front of Window 3." },
+    { id:116, name: "Building 1 & 2 Hallway", floor:1, x: 16.5, y: 10.5, type: "hallway", desc: "Corridor at Building 1 & 2."},
+    { id:117, name: "Building 1 & 2 Side Hallway", floor:1, x: 21, y: 10.5, type: "hallway", desc: "Side Hallway at Building 1 & 2."},
+    { id:118, name: "Building 2 - Side Hallway", floor:1, x: 21, y: 4, type: "hallway", desc: "In front of Supply Section."},
+    { id:119, name: "Building 2 - Side Hallway", floor:1, x: 21, y: 1.5, type: "hallway", desc: "In front of Library."},
+    { id:120, name: "Registrar Windows' Hallway", floor:1, x: 11, y:11.4, type: "hallway", dec: "In front of Window 4."},
+    { id:121, name: "Registrar Windows' Hallway", floor:1, x: 11, y:12.5, type: "hallway", dec: "In front of Window 5."},
+    { id:122, name: "Registrar Windows' Hallway", floor:1, x: 11, y:13.6, type: "hallway", dec: "In front of Window 6."},
+    { id:123, name: "Registrar Windows' Hallway", floor:1, x: 11, y:14.7, type: "hallway", dec: "In front of Window 7."},
+    { id:124, name: "Registrar Windows' Hallway", floor:1, x: 11, y:15.9, type: "hallway", dec: "In front of Window 8."},
+    { id:125, name: "Registrar Windows' Hallway", floor:1, x: 11, y:17.1, type: "hallway", dec: "In front of Window 9."},
+    { id:126, name: "Registrar Windows' Hallway", floor:1, x: 11, y:18.3, type: "hallway", dec: "In front of Window 12."},
+    { id:127, name: "Registrar Windows' Hallway", floor:1, x: 11, y:19.4, type: "hallway", dec: "In front of Window 14."},
+    { id:128, name: "Registrar Windows' Hallway", floor:1, x: 11, y:20.6, type: "hallway", dec: "In front of Window 15."},
+    { id:129, name: "Building 1 Hallway", floor:1, x: 16.5, y:13, type: "hallway", dec: "In front of Registrar & Accounting Office."},
+    { id:130, name: "Building 1 Hallway", floor:1, x: 16.5, y:18, type: "hallway", dec: "In front Student Affairs Office."},
+    { id:131, name: "Building 1 Hallway", floor:1, x: 16.5, y:20, type: "hallway", dec: "In front of CDJP & Guidance Office."},
+    { id:132, name: "Building 1 Hallway", floor:1, x: 16.5, y:17, type: "hallway", dec: "In front NSTP Office."},
+    { id:133, name: "Building 4 Hallway", floor:1, x: 3.5, y:10.5, type: "hallway", dec: "Building 4 Hallway."},
+    { id:134, name: "Building 4 - Left Stairs", floor:1, x: 3.5, y:9.5, type: "hallway", dec: "Building 4 - Left Stairs."},
+    { id:135, name: "Building 2 Hallway", floor:1, x:14, y:10.5, type:"hallway", desc:"Building 2 Hallway." },
+    { id:136, name: "Building 2 - Left Stairs", floor:1, x:14, y:9.5, type:"hallway", desc:"Building 2 - Left Stairs." },
+    { id:137, name: "Accounting Windows' Hallway", floor:1, x: 17.7, y: 10.5, type: "hallway", desc: "Accounting - Window 1."},
+    { id:138, name: "Accounting Windows' Hallway", floor:1, x: 18.3, y: 10.5, type: "hallway", desc: "Accounting - Window 2."},
+    { id:139, name: "Accounting Windows' Hallway", floor:1, x: 18.9, y: 10.5, type: "hallway", desc: "Accounting - Window 3."},
+    { id:140, name: "Accounting Windows' Hallway", floor:1, x: 19.5, y: 10.5, type: "hallway", desc: "Accounting - Window 4."},
+    { id:141, name: "Accounting Windows' Hallway", floor:1, x: 20.1, y: 10.5, type: "hallway", desc: "Accounting - Window 5."},
+    { id:142, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 12.1, type: "hallway", desc: "In front of Window 6."},
+    { id:143, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 13.2, type: "hallway", desc: "In front of Window 7."},
+    { id:144, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 14.3, type: "hallway", desc: "In front of Window 8."},
+    { id:145, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 15.4, type: "hallway", desc: "In front of Window 9."},
+    { id:146, name: "Building 2 Hallway", floor:1, x: 18, y: 10.5, type: "hallway", desc: "Building 2 Hallway."},
+    { id:147, name: "Building 2 - Right Stairs", floor:1, x: 18, y: 9.5, type: "hallway", desc: "Building 2 Right Stairs."},    
     
-    //HALLWAY/CORRIDOR nodes — Floor 2
-    { id:201, name: "Building 2 Hallway", floor:2, x:7.5, y:9.5, type:"hallway", desc:"Second floor Right Stairs." },
+    //HALLWAY/CORRIDOR nodes — Second Floor
+    { id:201, name: "Building 4 Right Stairs", floor:2, x:8, y:8.5, type: "hallway", dec: "Building 4 Right Stairs."},
+    { id:202, name: "Building 4 - Center Hallway", floor:2, x:5.5, y:8.5, type: "hallway", dec: "Building 4 - Center Hallway."},
+    { id:203, name: "Building 4 Hallway", floor:2, x:5.5, y:6, type: "hallway", dec: "CISCO Room."},
+    { id:204, name: "Building 4 Hallway", floor:2, x:5.5, y:2, type: "hallway", dec: "Speech Laboratory."},
+    { id:205, name: "Building 4 Hallway", floor:2, x:5.5, y:6.5, type: "hallway", dec: "DRM Laboratory."},
+    { id:206, name: "Building 4 Hallway", floor:2, x:5.5, y:3.8, type: "hallway", dec: "E-Learning Hub."},
+    { id:207, name: "Building 4 Hallway", floor:2, x:5.5, y:1.3, type: "hallway", dec: "SHS Department."},
+    { id:208, name: "Building 4 Hallway", floor:2, x:3.9, y:8.5, type: "hallway", dec: "Building 4 Hallway."},
+    { id:209, name: "Building 4 - Restroom", floor:2, x:3.9, y:9.8, type: "hallway", dec: "Building 4 Restroom."},
+    { id:210, name: "Building 4 - Left Stairs", floor:2, x: 3.5, y:8.5, type: "hallway", dec: "Building 4 - Left Stairs."},
   ],
+
   edges:[
     //Building 1 - Ground Floor edges
-    [10,11],[11,12],[110,113],[110,114],[110,115],[113,114],[113,115],[114,115],
-
+    [107,113],[107,114],[107,115],[113,15],[114,16],[115,17],[116,129],[116,130],[116,131],[116,132],[117,142],[117,143],[117,144],[117,145],[129,27],[129,30],
+    [130,28],[131,29],[131,31],[132,32],[129,33],[116,137],[116,138],[116,139],[116,140],[116,141],[137,34],[138,35],[139,36],[140,37],[141,38],[142,39],[143,40],
+    [144,41],[145,42],
     //Building 2 - Ground Floor edges
-
+    [107,116],[107,117],[112,10],[113,12],[114,116],[116,117],[116,11],[117,118],[118,13],[117,119],[119,14],[110,120],[110,121],[110,122],[110,123],[110,124],
+    [110,125],[110,126],[110,127],[110,128],[110,135],[110,146],[120,18],[121,19],[122,20],[123,21],[124,22],[125,23],[126,24],[127,25],[128,26],[135,136],[146,147],
     //Building 3 - Ground Floor edges
     [1,101],[1,102],[1,103],[101,102],[101,103],[101,2],[102,104],[102,3],[103,4],[103,105],[103,104],[103,107],[104,106],[104,7],[105,5],[103,106],[106,6],
     [102,103],[105,106],[106,107],[107,108],[108,109],[107,200],[200,107],
     //Building 4 - Ground Floor edges
-    [109,201],[107,110],[110,111],[110,112],[111,112],[111,8],[112,9],
+    [107,133],[109,201],[107,110],[110,111],[110,112],[111,112],[111,8],[112,9],[133,134],
+
+    //Building 4 - Second Floor edges
+    [109,201],[134,210],[201,202],[202,203],[202,204],[202,205],[202,206],[202,207],[202,208],[203,43],[204,44],[205,45],[206,46],[207,47],[208,209],[209,"B4-F"],
   ],
   announcements:[
     { id:1, title:"Enrollment Period Open",  body:"2nd Semester enrollment is now open. Visit the Registrar's Office.", date:"2026-05-20", priority:"high" },
@@ -525,7 +583,7 @@ function DestinationSearch({ locations, onSelect, selectedId }) {
 }
 
 /* ─────────────────────────── 2D MAP ─────────────────────────────────── */
-function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, visibleFloor=1 }) {
+function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, visibleFloor=1, navStep=0 }) {
   const floorLocs = locs.filter(l => l.floor === visibleFloor);
   const W=compact?360:640, H=compact?340:480;
   const PAD=compact?18:24, xM=22, yM=22;
@@ -551,10 +609,9 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       //Building 1 - Floor 1 rooms
       {x:11.5,y:11, w:4, h:3,label:"Registrar's Office"},
       {x:11.5,y:14, w:1.5, h:7, label:"Registrar's Office"},
-      {x:17.5,y:18.2, w:4, h:2.8,label:"Guidance Office"},
-      {x:17.5,y:15.5, w:4, h:2.7,label:"NSTP Office"},
-      {x:17.5,y:14, w:4, h:1.5,label:"N/A"},
-      {x:17.5,y:11, w:3, h:3,label:"Accounting Office"},
+      {x:17.5,y:18.5, w:4, h:2.5,label:"Guidance Office"},
+      {x:17.5,y:16, w:4, h:2.5,label:"NSTP Office"},
+      {x:17.5,y:11, w:3, h:5, label:"Accounting Office"},
       {x:13,y:19, w:2.5, h:2,label:"CDJP Office"},
       {x:13, y:17, w:2.5, h:2,label:"Student Affairs Office"},
       {x:13, y:15.5, w:1.5, h:1.5,label:"Male Restroom"},
@@ -566,7 +623,8 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:16, y:3, w:4.5, h:2.5,label:"Supply Section"},
       {x:11.5, y:3, w:4.5, h:2.5,label:"HRM Tools and Equipments"},
       {x:16, y:5.5, w:4.5, h:2.5,label:"Laboratory"},
-      {x:11.5, y:5.5, w:4.5, h:2.5,label:"Multi-Purpose"},
+      {x:12.5, y:5.5, w:3.5, h:2.5,label:"Multi-Purpose"},
+      {x:11.5, y:5.5, w:1, h:2.5,label:"Electrical Room"},
       {x:11.5, y:8, w:2, h:1.5, label:""},
       {x:18.5, y:8, w:2, h:1.5, label:""},
       {x:12, y:8.5, w:2,h:1,label:"Stairs"},
@@ -591,8 +649,8 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:5.5, y:2.6, w:5, h:2.7, label:"Laboratory"},
       {x:5.5, y:5.3, w:5, h:2.7, label:"Laboratory"},
       {x:5, y:9, w:1, h:1, label:"Elevator"},
-      {x:1.5, y:8.5, w:2,h:1,label:"Stairs"},
-      {x:8, y:8.5, w:2,h:1,label:"Stairs"},
+      {x:1.5, y:8.5, w:2, h:1, label:"Stairs"},
+      {x:8, y:8.5, w:2, h:1, label:"Stairs"},
     ],
     2: [
       //Building blocks
@@ -600,38 +658,39 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:11.5,y:0, w:10,h:10,label:"Building 2"},
       {x:0.5, y:11,w:10,h:10,label:"Building 3"},
       {x:0.5, y:0, w:10,h:10,label:"Building 4"},
-      {x:4.25, y:9.5, w:2.5,h:0.5,},
+      {x:4.4, y:9.5, w:2.3,h:0.5,},
+      {x:10.5, y:9.5, w:1,h:0.5,},
+      
       //Hallways and corridors
       //Restrooms
-      {x:10,y:7, w:2, h:2,label:"Restroom"},
-      {x:20.5,y:7, w:1, h:3,label:"Restroom"},
+      {x:10, y:8, w:2, h:1.5, label:"Restroom"},
+      {x:20, y:8, w:1, h:2, label:"Restroom"},
 
       //Building 1 - Floor 2 rooms
 
       // Building 2 - Floor 2 rooms
-      {x:11.5, y:0, w:4, h:2.2, label:"Computer Laboratory"},
-      {x:11.5, y:2.2, w:4, h:2, label:"Computer Laboratory"},
-      {x:11.5, y:4.2, w:4, h:2, label:"Computer Laboratory"},
-      {x:17.5, y:0, w:4, h:2.2, label:"Computer Laboratory"},
-      {x:17.5, y:2.2, w:4, h:2, label:"Computer Laboratory"},
-      {x:17.5, y:4.2, w:4, h:2, label:"Computer Laboratory"},
-      {x:15.5, y:0, w:2,h:1.5,label:"MIS Room"},
-      {x:12, y:7, w:2.5,h:2,label:"Stairs"},
-      {x:18, y:7, w:2.5,h:2,label:"Stairs"},
+      {x:11.5, y:0, w:4, h:2.6, label:"Computer Laboratory"},
+      {x:11.5, y:2.6, w:4, h:2.7, label:"Computer Laboratory"},
+      {x:11.5, y:5.3, w:4, h:2.7, label:"Computer Laboratory"},
+      {x:17.5, y:0, w:4, h:2.6, label:"Computer Laboratory"},
+      {x:17.5, y:2.6, w:4, h:2.7, label:"Computer Laboratory"},
+      {x:17.5, y:5.3, w:4, h:2.7, label:"Computer Laboratory"},
+      {x:15.5, y:0, w:2, h:1.5, label:"MIS Room"},
+      {x:12, y:8, w:2, h:1.5, label:"Stairs"},
+      {x:18, y:8, w:2, h:1.5, label:"Stairs"},
 
       // Building 3 - Floor 2 rooms
 
       // Building 4 - Floor 2 rooms
-      {x:0.5,y:7, w:1, h:3,label:"Restroom"},
+      {x:0.5, y:8, w:1, h:2,label:"Restroom"},
       {x:5, y:9, w:1, h:1, label:"Elevator"},
-      {x:0.5, y:3.5, w:4, h:3.5, label:"CISCO Room"},
-      {x:0.5, y:0, w:4, h:3.5, label:"Speech Laboratory"},
-      {x:6.5, y:4.6, w:4, h:2.4, label:"DRM Laboratory"},
-      {x:6.5, y:2.3, w:4, h:2.3, label:"E-Learning Hub"},
-      {x:6.5, y:0, w:4, h:2.3, label:"Senior High School Department"},
-      {x:1.5, y:7, w:2.5,h:2,label:"Stairs"},
-      {x:7.5, y:7, w:2.5,h:2,label:"Stairs"},
-      
+      {x:0.5, y:4, w:4, h:4, label:"CISCO Room"},
+      {x:0.5, y:0, w:4, h:4, label:"Speech Laboratory"},
+      {x:6.5, y:5.2, w:4, h:2.8, label:"DRM Laboratory"},
+      {x:6.5, y:2.5, w:4, h:2.7, label:"E-Learning Hub"},
+      {x:6.5, y:0, w:4, h:2.5, label:"Senior High School Department"},
+      {x:1.5, y:8, w:2, h:1.5, label:"Stairs"},
+      {x:8, y:8, w:2, h:1.5, label:"Stairs"},
     ],
     3: [
       {x:11.5,y:11,w:10,h:10,label:"Building 1"},
@@ -646,7 +705,6 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:0.5, y:8, w:2.5,h:2,label:"Stairs"},
       {x:11.5,y:8, w:2.5,h:2,label:"Stairs"},
       {x:18,  y:8, w:2.5,h:2,label:"Stairs"},
-      // Add Floor 3 room blocks here when you have the data
     ],
     4: [
       {x:11.5,y:11,w:10,h:10,label:"Building 1"},
@@ -661,7 +719,6 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:0.5, y:8, w:2.5,h:2,label:"Stairs"},
       {x:11.5,y:8, w:2.5,h:2,label:"Stairs"},
       {x:18,  y:8, w:2.5,h:2,label:"Stairs"},
-      // Add Floor 4 room blocks here when you have the data
     ],
   };
 
@@ -683,7 +740,7 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
             const cx = (sx(b.x) + sx(b.x + b.w)) / 2;
             const cy = (sy(b.y) + sy(b.y + b.h)) / 2;
             const blockW = sx(b.x + b.w) - sx(b.x);
-            const fontSize = compact ? 5.5 : 7;
+            const fontSize = compact ? 4 : 6;
             const charsPerLine = Math.max(4, Math.floor(blockW / (fontSize * 0.62)));
             const words = (b.label || "").split(" ");
             const lines = [];
@@ -718,22 +775,26 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
           stroke={active?"#38bdf8":"#1a3a5c"} strokeWidth={active?2.5:1} strokeLinecap="round" strokeLinejoin="round"
           strokeDasharray={active?"none":"4,3"} fill="none" opacity={active?1:0.4}/>;
       })}
-      {path.length>1 && path.slice(0,-1).map((id,i)=>{
-        const la=floorLocs.find(l=>l.id===id),lb=floorLocs.find(l=>l.id===path[i+1]); if(!la||!lb) return null;
+      {path.length > 1 && (() => {
+        const la = floorLocs.find(l => l.id === path[navStep]);
+        const lb = floorLocs.find(l => l.id === path[navStep + 1]);
+        if (!la || !lb) return null;
         return (
-          <g key={`anim${i}`}>
-            <path id={`ps${i}`} d={`M${sx(la.x)},${sy(la.y)} L${sx(lb.x)},${sy(lb.y)}`} fill="none" stroke="none"/>
-            <circle r={compact?3:4} fill="#38bdf8" opacity=".9">
-              <animateMotion dur="3s" repeatCount="indefinite" begin={`${i*0.25}s`}><mpath href={`#ps${i}`}/></animateMotion>
+          <g key={`anim-${navStep}`}>
+            <path id={`ps-cur`} d={`M${sx(la.x)},${sy(la.y)} L${sx(lb.x)},${sy(lb.y)}`} fill="none" stroke="none"/>
+            <circle r={compact ? 3 : 3} fill="#38bdf8" opacity=".9">
+              <animateMotion dur="2s" repeatCount="indefinite">
+                <mpath href="#ps-cur"/>
+              </animateMotion>
             </circle>
           </g>
         );
-      })}
+      })()}
       {floorLocs.filter(loc => loc.type !== "hallway").map(loc => {
         const isF=fromId===loc.id, isT=toId===loc.id, inP=path.includes(loc.id);
         const isKiosk = loc.id === KIOSK_NODE_ID;
         const meta=TYPE_META[loc.type]||{color:"#94a3b8",icon:"📍"};
-        const r=compact?(isF||isT?10:inP?8:6):(isF||isT?10:inP?8:6);
+        const r=compact?(isF||isT?10:inP?11:9):(isF||isT?10:inP?9:7);
         return (
           <g key={loc.id} style={{cursor:"pointer"}} onClick={()=>onNode(loc)}>
             {(isF||isT||isKiosk)&&<circle cx={sx(loc.x)} cy={sy(loc.y)} r={r+6}
@@ -767,12 +828,12 @@ function FloorTransitionOverlay({ data, onDone }) {
   useEffect(() => {
     if (!data) return;
     const enterTimer = setTimeout(() => setPhase('in'), 0);
-    const holdTimer = setTimeout(() => setPhase('out'), 1800);
+    const holdTimer = setTimeout(() => setPhase('out'), 650);
     return () => { clearTimeout(enterTimer); clearTimeout(holdTimer); };
   }, [data]);
   useEffect(() => {
     if (phase === 'out') {
-      const exitTimer = setTimeout(() => onDone(), 450);
+      const exitTimer = setTimeout(() => onDone(), 650);
       return () => clearTimeout(exitTimer);
     }
   }, [phase, onDone]);
@@ -785,15 +846,15 @@ function FloorTransitionOverlay({ data, onDone }) {
     alignItems: 'center', justifyContent: 'center',
     cursor: 'pointer',
     animation: phase === 'out'
-      ? 'ft-slide-out 0.45s cubic-bezier(.4,0,.2,1) forwards'
-      : 'ft-slide-in 0.35s cubic-bezier(.4,0,.2,1) forwards',
+      ? 'ft-slide-out 0.25s cubic-bezier(.4,0,.2,1) forwards'  // match exitTimer ÷ 1000
+      : 'ft-slide-in 0.2s cubic-bezier(.4,0,.2,1) forwards',   // slide-in speed
     backgroundImage: 'repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(56,189,248,0.02) 3px,rgba(56,189,248,0.02) 4px)',
   };
   const cardStyle = {
     display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
     opacity: phase === 'in' ? 0 : 1,
     transform: phase === 'in' ? 'scale(0.88)' : 'scale(1)',
-    transition: 'opacity 0.3s 0.25s ease, transform 0.3s 0.25s ease',
+    transition: 'opacity 0.5s 0.15s ease, transform 0.5s 0.15s ease',  // was 0.3s 0.25s
   };
   return (
     <div style={curtainStyle} onClick={onDone}>
@@ -923,6 +984,7 @@ export default function App() {
     const isUp = next.floor > curr.floor;
     const via = (curr.type === 'elevator' || next.type === 'elevator') ? 'Elevator' : 'Stairs';
     setFloorTransition({ direction: isUp ? 'up' : 'down', fromFloor: curr.floor, toFloor: next.floor, via });
+    setVisibleFloor(next.floor);
   }, []);
 
   useEffect(()=>{
@@ -932,7 +994,7 @@ export default function App() {
 
   const resetIdle=useCallback(()=>{
     clearTimeout(idleTimer.current);
-    if(screen!=="idle") idleTimer.current=setTimeout(()=>{ setScreen("idle"); setPath([]); setFromId(KIOSK_NODE_ID); setToId(null); setSelNode(null); },300000);
+    if(screen!=="idle") idleTimer.current=setTimeout(()=>{ setScreen("idle"); setPath([]); setFromId(KIOSK_NODE_ID); setToId(null); setSelNode(null); setVisibleFloor(1); },300000);
   },[screen]);
   useEffect(()=>{ document.addEventListener("click",resetIdle); return()=>document.removeEventListener("click",resetIdle); },[resetIdle]);
   useEffect(()=>{ resetIdle(); },[resetIdle, screen]);
@@ -967,12 +1029,19 @@ export default function App() {
       if (r.length === 0) toast_show("No path found to that location.", "err");
       else {
         const dest = db.locations.find(l => l.id === locId);
+        if (dest?.floor) setVisibleFloor(dest.floor);
         toast_show(`Route to ${dest?.name} — ${r.length} stops.`);
       }
     }
   }, [db.locations, db.edges]);
 
-  const clearNav=()=>{ setPath([]); setFromId(KIOSK_NODE_ID); setToId(null); setNavStep(0); };
+  const clearNav=()=>{ 
+    setPath([]); 
+    setFromId(KIOSK_NODE_ID); 
+    setToId(null); 
+    setNavStep(0); 
+    setVisibleFloor(1); // ← reset map back to Ground Floor where kiosk is
+  };
 
   const handleNode=(loc)=>{
     if(loc.id === KIOSK_NODE_ID) return; // don't select kiosk as destination
@@ -1001,6 +1070,12 @@ export default function App() {
 
   const pathNodes=path.map(id=>db.locations.find(l=>l.id===id)).filter(Boolean);
   const directions = useMemo(() => getDirections(path, db.locations), [path, db.locations]);
+  const stepFloors = useMemo(() => {
+    return path.map(id => {
+      const loc = db.locations.find(l => l.id === id);
+      return loc?.floor ?? 1;
+    });
+  }, [path, db.locations]);
 
   if(screen==="idle") return <KioskFrame><IdleScreen onTouch={()=>setScreen("navigate")} announcements={db.announcements}/></KioskFrame>;
 
@@ -1090,9 +1165,8 @@ export default function App() {
                   }}>✕ Clear</button>
                 )}
               </div>
-
-              {/* Floor selector (shown when route spans multiple floors or for map browsing) */}
-              {path.length > 0 && (
+              
+                {/* Floor selector — always visible */}
                 <div style={{display:"flex", gap:6, flexShrink:0, alignItems:"center"}}>
                   <span style={{color:"#1e3a5f", fontSize:9, fontFamily:"monospace", letterSpacing:1, marginRight:4}}>VIEW FLOOR:</span>
                   {[1, 2, 3, 4].map(f => (
@@ -1106,14 +1180,13 @@ export default function App() {
                       }}>FL.{f}</button>
                   ))}
                 </div>
-              )}
 
               {/* Map + directions */}
               <div style={{flex:1,display:"flex",gap:12,minHeight:0,overflow:"hidden"}}>
                 {/* Map */}
-                <div style={{flex:"0 0 58%",minWidth:0,overflow:"hidden"}}>
+                <div style={{flex:"0 0 80%",minWidth:0,overflow:"hidden"}}>
                   <CampusMap locs={db.locations} edges={db.edges} path={path}
-                    onNode={handleNode} fromId={fromId} toId={toId} compact visibleFloor={visibleFloor}/>
+                    onNode={handleNode} fromId={fromId} toId={toId} visibleFloor={visibleFloor} navStep={navStep}/>
                 </div>
 
                 {/* Route / prompt panel */}
@@ -1130,7 +1203,6 @@ export default function App() {
                         { label:"Clinic", type:"clinic" },
                         { label:"Registrar", type:"Registrar" },
                         { label:"Admission Office", type:"office" },
-                        { label:"Computer Lab", type:"laboratory" },
                       ].map(suggestion => {
                         const match = db.locations.find(l =>
                           l.name.toLowerCase().includes(suggestion.label.toLowerCase()) &&
@@ -1183,7 +1255,11 @@ export default function App() {
                       </div>
                       <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:4}}>
                         {directions.map((dir, i) => (
-                          <div key={i} onClick={() => { setNavStep(i); triggerFloorTransitionIfNeeded(i, directions, db.locations, path); }}
+                          <div key={i} onClick={() => {
+                            setNavStep(i);
+                            if (stepFloors[i]) setVisibleFloor(stepFloors[i]);
+                            triggerFloorTransitionIfNeeded(i, directions, db.locations, path);
+                          }}
                             style={{...K.stepRow,...(navStep===i?K.stepRowOn:{})}}>
                             <div style={{
                               width:32,height:32,borderRadius:"50%",display:"flex",alignItems:"center",
@@ -1203,11 +1279,21 @@ export default function App() {
                         ))}
                       </div>
                       <div style={{display:"flex",gap:6,flexShrink:0}}>
-                        <button disabled={navStep===0} onClick={() => { const s=navStep-1; setNavStep(s); triggerFloorTransitionIfNeeded(s, directions, db.locations, path); }} style={K.stepBtn}>◀ Prev</button>
+                        <button disabled={navStep===0} onClick={() => {
+                          const s = navStep - 1;
+                          setNavStep(s);
+                          if (stepFloors[s]) setVisibleFloor(stepFloors[s]);
+                          triggerFloorTransitionIfNeeded(s, directions, db.locations, path);
+                        }} style={K.stepBtn}>◀ Prev</button>
                         <div style={{flex:1,display:"flex",alignItems:"center",justifyContent:"center",color:"#334155",fontSize:11,fontFamily:"monospace"}}>
                           {navStep+1} / {directions.length}
                         </div>
-                        <button disabled={navStep===directions.length-1} onClick={() => { const s=navStep+1; setNavStep(s); triggerFloorTransitionIfNeeded(s, directions, db.locations, path); }} style={K.stepBtn}>Next ▶</button>
+                        <button disabled={navStep===directions.length-1} onClick={() => {
+                          const s = navStep + 1;
+                          setNavStep(s);
+                          if (stepFloors[s]) setVisibleFloor(stepFloors[s]);
+                          triggerFloorTransitionIfNeeded(s, directions, db.locations, path);
+                        }} style={K.stepBtn}>Next ▶</button>
                       </div>
                     </>
                   )}
