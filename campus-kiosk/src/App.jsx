@@ -52,9 +52,7 @@ const INITIAL_DB = {
     //BUILDING 4
     { id:8, name:"B4.13", floor:1, building: 4, x:10.5, y:6.5, type:"laboratory", desc:"Engineering Laboratory." },
     { id:9, name:"B4.14", floor:1, building: 4, x:10.5, y:4, type:"laboratory", desc:"Criminology/Forensic Laboratory." },
-
-    //Building 2 - Third Floor nodes
-    { id:200, name: "Kiosk (You Are Here)", floor:1, x:5.8, y:9.2, type:"entrance", desc:"Smart Campus Navigation Kiosk — beside the elevator." },
+    { id:"kiosk", name: "Kiosk (You Are Here)", floor:1, x:6.3, y:9.5, type:"kiosk", desc:"Smart Campus Navigation Kiosk — beside the elevator." },
 
     //---------- SECOND FLOOR ----------//
     //BUILDING 1
@@ -184,15 +182,21 @@ const INITIAL_DB = {
 
     //---------- SIXTH FLOOR ----------//
     //BUILDING 2
-    { id:"B2-F6", name:"Female Dressing Room", floor:6, building: 2, x:20, y:9.8, type:"Restroom", desc:"Female dressing room with 3 stalls." },
-    { id:"B-M6", name:"Male Dressing Room", floor:6, x:12, y:9.8, type:"restroom", desc:"Male dressing room with 3 stalls." },
+    { id:"B2-F6", name:"Female Dressing Room", floor:6, building: 2, x:20, y:9.5, type:"Restroom", desc:"Female dressing room with 3 stalls." },
+    { id:"B-M6", name:"Male Dressing Room", floor:6, x:12, y:9.5, type:"restroom", desc:"Male dressing room with 3 stalls." },
     { id:"P.E.", name:"P.E. Faculty Room", floor:6, x:17.5, y:7, type:"faculty", desc:"Faculty room of P.E. teachers." },
     { id:"GYM", name:"Gymnasium", floor:6, x:16, y:7, type:"gym", desc:"Gymnasium for p.e. classes." },
     
     //BUILDING 4
+    { id:"ISHTM", name:"ISHTM Hotel Simulation Laboratory", floor:6, x:5.8, y:7.3, type:"laboratory", desc:"Laboratory for simulating hotel experiences or training and classes for ISHTM students." },  
+    { id:"Theatre", name:"The Theatre Room", floor:6, x:8, y:7.8, type:"theatre", desc:"Theatre room for school events, seminars, and orientations." },
 
     //---------- SEVENTH FLOOR ----------//
     //BUILDING 4
+    { id:"Balcony", name:"The Theatre Room", floor:7, x:7.6, y:8, type:"theatre", desc:"Balcony of theatre room for school events, seminars, and orientations." },
+
+    //KIOSK PATH
+    { id:200, name: "Kiosk", floor:1, x:6.3, y:10.5, type:"hallway", desc:"Kiosk path." },
 
     //HALLWAY/CORRIDOR nodes — Ground Floor
     { id:101, name: "Building 3 Hallway", floor:1, x:5.5, y:19.8, type:"hallway", desc:"Corridor near admission office." },
@@ -300,24 +304,80 @@ const INITIAL_DB = {
     { id:317, name: "Building 4 - Ladies Restroom", floor:3, x:3.9, y:9.8, type:"hallway", desc: "Building 4 - Ladies Restroom."},
     { id:318, name: "Men's Restroom", floor:3, x:8, y:9.8, type:"hallway", desc:"Building 2 & 4 Men's Restroom."},
     { id:319, name: "Court Hallway", floor:3, x:11.3, y:18.5, type:"hallway", desc:"Hallway to Study Hall." },
+    { id:320, name: "Building 2 - Right Stairs", floor:3, x:18, y:9, type:"hallway", desc:"Stairs to Building 2 - Fourth Floor." },
+    { id:321, name: "Building 4 - Right Stairs", floor:3, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Fourth Floor."},
 
     //HALLWAY/CORRIDOR nodes - Fourth Floor
-    
+    { id:401, name: "Building 2 - Right Stairs", floor:4, x:18, y:8.5, type:"hallway", desc:"Building 2 - Right Stairs." },
+    { id:402, name: "Building 2 - Center Hallway", floor:4, x:16.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
+    { id:403, name: "Building 2 Hallway", floor:4, x:16.5, y:7, type:"hallway", desc:"In front of B2.41 and B2.45." },
+    { id:404, name: "Building 2 Hallway", floor:4, x:16.5, y:5, type:"hallway", desc:"In front of B2.42 and B2.46." },
+    { id:405, name: "Building 2 Hallway", floor:4, x:16.5, y:3, type:"hallway", desc:"In front of B2.43 and B2.47." },
+    { id:406, name: "Building 2 Hallway", floor:4, x:16.5, y:1, type:"hallway", desc:"In front of B2.44 and B2.48." },
+    { id:407, name: "Building 2 - Ladies' Restroom", floor:4, x:18, y:9.8, type: "hallway", dec: "Building 2 - Ladies Restroom."},
+    { id:408, name: "Building 2 Hallway", floor:4, x:14.5, y:8.5, type: "hallway", desc: "Building 2 Hallway."},
+    { id:409, name: "Men's Restroom", floor:4, x:14.5, y:9.8, type: "hallway", desc: "Building 2 & 4 Men's Restroom."},
+    { id:410, name: "Building 4 - Right Stairs", floor:4, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
+    { id:411, name: "Building 4 - Center Hallway", floor:4, x:5.5, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
+    { id:412, name: "Building 4 Hallway", floor:4, x:5.5, y:7, type:"hallway", desc:"In front of B4.41 & B4.45." },
+    { id:413, name: "Building 4 Hallway", floor:4, x:5.5, y:5, type:"hallway", desc:"In front of B4.42 & B4.46." },
+    { id:414, name: "Building 4 Hallway", floor:4, x:5.5, y:3, type:"hallway", desc:"In front of B4.43 & B4.47." },
+    { id:415, name: "Building 4 Hallway", floor:4, x:5.5, y:1, type:"hallway", desc:"In front of B4.44 & B4.48." },
+    { id:416, name: "Building 4 Hallway", floor:4, x:3.9, y:8.5, type:"hallway", desc: "Building 4 Hallway."},
+    { id:417, name: "Building 4 - Ladies Restroom", floor:4, x:3.9, y:9.8, type:"hallway", desc: "Building 4 - Ladies Restroom."},
+    { id:418, name: "Men's Restroom", floor:4, x:8, y:9.8, type:"hallway", desc:"Building 2 & 4 Men's Restroom."},
+    { id:419, name: "Stairs to Study Hall", floor:4, x:11.3, y:20.5, type:"hallway", desc:"Hallway to Study Hall." },
+    { id:420, name: "Building 2 - Right Stairs", floor:4, x:18, y:9, type:"hallway", desc:"Stairs to Building 2 - Fifth Floor." },
+    { id:421, name: "Building 4 - Right Stairs", floor:4, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Fifth Floor."},
+
+    //HALLWAY/CORRIDOR nodes - Fifth Floor
+    { id:501, name: "Building 2 - Right Stairs", floor:5, x:18, y:8.5, type:"hallway", desc:"Building 2 - Right Stairs." },
+    { id:502, name: "Building 2 - Center Hallway", floor:5, x:16.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
+    { id:503, name: "Building 2 Hallway", floor:5, x:16.5, y:7, type:"hallway", desc:"In front of B2.51 and B2.55." },
+    { id:504, name: "Building 2 Hallway", floor:5, x:16.5, y:5, type:"hallway", desc:"In front of B2.52 and B2.56." },
+    { id:505, name: "Building 2 Hallway", floor:5, x:16.5, y:3, type:"hallway", desc:"In front of B2.53 and B2.57." },
+    { id:506, name: "Building 2 Hallway", floor:5, x:16.5, y:1, type:"hallway", desc:"In front of B2.54 and B2.58." },
+    { id:507, name: "Building 2 - Ladies' Restroom", floor:5, x:18, y:9.8, type: "hallway", dec: "Building 2 - Ladies Restroom."},
+    { id:508, name: "Building 2 Hallway", floor:5, x:14.5, y:8.5, type: "hallway", desc: "Building 2 Hallway."},
+    { id:509, name: "Men's Restroom", floor:5, x:14.5, y:9.8, type: "hallway", desc: "Building 2 & 4 Men's Restroom."},
+    { id:510, name: "Building 4 - Right Stairs", floor:5, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
+    { id:511, name: "Building 4 - Center Hallway", floor:5, x:5.5, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
+    { id:512, name: "Building 4 Hallway", floor:5, x:5.5, y:7, type:"hallway", desc:"In front of B4.51 & B4.55." },
+    { id:513, name: "Building 4 Hallway", floor:5, x:5.5, y:5, type:"hallway", desc:"In front of B4.52 & B4.56." },
+    { id:514, name: "Building 4 Hallway", floor:5, x:5.5, y:3, type:"hallway", desc:"In front of B4.53 & B4.57." },
+    { id:515, name: "Building 4 Hallway", floor:5, x:5.5, y:1, type:"hallway", desc:"In front of B4.54 & B4.58." },
+    { id:516, name: "Building 4 Hallway", floor:5, x:3.9, y:8.5, type:"hallway", desc: "Building 4 Hallway."},
+    { id:517, name: "Building 4 - Ladies Restroom", floor:5, x:3.9, y:9.8, type:"hallway", desc: "Building 4 - Ladies Restroom."},
+    { id:518, name: "Men's Restroom", floor:5, x:8, y:9.8, type:"hallway", desc:"Building 2 & 4 Men's Restroom."},
+    { id:519, name: "Building 2 - Right Stairs", floor:5, x:18, y:9, type:"hallway", desc:"Stairs to Building 2 - Sixth Floor." },
+    { id:520, name: "Building 4 - Right Stairs", floor:5, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Sixth Floor."},
+
+    //HALLWAY/CORRIDOR nodes - Sixth Floor
+    { id:601, name: "Building 2 - Right Stairs", floor:6, x:18, y:8.5, type:"hallway", desc:"Building 2 - Right Stairs." },
+    { id:602, name: "Building 2 Hallway", floor:6, x:17.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
+    { id:603, name: "Ladies' Dressing Room", floor:6, x:18, y:9.5, type: "hallway", dec: "Building 2 Ladies Dressing Room."},
+    { id:604, name: "Men's Dressing Room", floor:6, x:14.5, y:9.5, type: "hallway", desc: "Building 2 Men's Dressing Room."},
+    { id:605, name: "Building 4 - Right Stairs", floor:6, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
+    { id:606, name: "Building 4 - Center Hallway", floor:6, x:5.8, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
+    { id:607, name: "Building 4 - Right Stairs", floor:6, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Sixth Floor."},
+
+    //HALLWAY/CORRIDOR nodes - Seventh Floor
+    { id:701, name: "Building 4 - Right Stairs", floor:7, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
   ],
 
   edges:[
     //Building 1 - Ground Floor edges
-    [107,113],[107,114],[107,115],[113,15],[114,16],[115,17],[116,129],[116,130],[116,131],[116,132],[116,148],[117,142],[117,143],[117,144],[117,145],[129,27],[129,30],
+    [200,113],[200,114],[200,115],[113,15],[114,16],[115,17],[116,129],[116,130],[116,131],[116,132],[116,148],[117,142],[117,143],[117,144],[117,145],[129,27],[129,30],
     [130,28],[131,29],[131,31],[132,32],[129,33],[116,137],[116,138],[116,139],[116,140],[116,141],[137,34],[138,35],[139,36],[140,37],[141,38],[142,39],[143,40],
     [144,41],[145,42],[148,149],[149,218],
     //Building 2 - Ground Floor edges
-    [107,116],[107,117],[107,146],[112,10],[113,12],[114,116],[116,117],[116,11],[117,118],[118,13],[117,119],[119,14],[110,120],[110,121],[110,122],[110,123],[110,124],
+    [200,116],[200,117],[200,146],[112,10],[113,12],[114,116],[116,117],[116,11],[117,118],[118,13],[117,119],[119,14],[110,120],[110,121],[110,122],[110,123],[110,124],
     [110,125],[110,126],[110,127],[110,128],[110,135],[110,146],[120,18],[121,19],[122,20],[123,21],[124,22],[125,23],[126,24],[127,25],[128,26],[135,136],[146,147],
     //Building 3 - Ground Floor edges
     [1,101],[1,102],[1,103],[101,102],[101,103],[101,2],[102,104],[102,3],[103,4],[103,105],[103,104],[103,107],[104,106],[104,7],[105,5],[103,106],[106,6],
-    [102,103],[105,106],[106,107],[107,108],[107,150],[108,109],[107,200],[200,107],[150,151],
+    [102,103],[105,106],[106,107],[200,108],[107,150],[108,109],[150,151],
     //Building 4 - Ground Floor edges
-    [107,133],[109,"B4-2R"],[107,110],[110,111],[110,112],[111,112],[111,8],[112,9],[133,134],
+    ["kiosk",200],[200,110],[107,200],["kiosk",109],[200,133],[109,"B4-2R"],[200,110],[110,111],[110,112],[111,112],[111,8],[112,9],[133,134],
 
     //Building 1 - Second Floor Edges
     [218,219],[219,48],[219,53],[219,220],[219,223],[219,224],[220,49],[220,52],[219,222],[222,50],[223,54],[224,51],[224,55],
@@ -334,13 +394,38 @@ const INITIAL_DB = {
     ["B1-GYM","SPAMO"],["B1-GYM","AHRO"],["B1-GYM",319],
     //Building 2 - Third Floor
     ["B2-2R",230],[230,301],[301,302],[301,307],[302,303],[302,304],[302,305],[302,306],[303,62],[303,66],[304,63],[304,67],[305,64],[305,68],[306,65],[306,69],[307,"B2-F3"],
-    [301,"B1-GYM"],[302,308],[308,309],[309,"B-M3"],
+    [301,"B1-GYM"],[302,308],[308,309],[309,"B-M3"],[301,320],
     //Building 3 - Third Floor
     ["B3-GYM","VR-M"],["B3-GYM","VR-F"],
     //Building 4 - Third Floor
     [231,310],[310,311],[310,"B3-GYM"],[311,312],[311,313],[311,314],[311,315],[312,70],[312,74],[313,71],[313,75],[314,72],[314,76],[315,73],
-    [315,77],[311,316],[316,317],[317,"B4-F3"],[310,318],[318,"B-M3"],
+    [315,77],[311,316],[316,317],[317,"B4-F3"],[310,318],[318,"B-M3"],[310,321],
 
+    //Building 1 - Fourth Floor
+    [319,419],[419,"SH"],
+    //Building 2 - Fourth Floor
+    [320,401],[401,402],[401,407],[402,403],[402,404],[402,405],[402,406],[402,408],[403,78],[403,82],[404,79],[404,83],[405,80],[405,84],[406,81],[406,85],[407,"B2-F4"],
+    [408,409],[409,"B-M4"],[401,420],
+    //Building 3 - Fourth Floor
+    [410,"FC"],
+    //Building 4 - Fourth Floor
+    [321,410],[410,411],[411,412],[411,413],[411,414],[411,415],[412,86],[412,90],[413,87],[413,91],[414,88],[414,92],[415,89],[415,93],[410,418],[418,"B-M4"],[411,416],[416,417],
+    [417,"B4-F4"],[410,421],
+
+    //Building 2 - Fifth Floor
+    [420,501],[501,502],[501,507],[502,503],[502,504],[502,505],[502,506],[503,94],[503,98],[504,95],[504,99],[505,96],[505,100],[506,97],[506,152],[507,"B2-F5"],[502,508],
+    [508,509],[509,"B-M5"],[501,519],
+    //Building 4 - Fifth Floor
+    [421,510],[510,511],[511,512],[511,513],[511,514],[511,515],[512,153],[512,157],[513,154],[513,158],[514,155],[514,159],[515,156],[515,160],[511,516],[516,517],[517,"B4-F5"],
+    [510,518],[518,"B-M5"],[510,520],
+
+    //Building 2 - Sixth Floor
+    [501,519],[519,601],[601,602],[602,"GYM"],[602,"P.E."],[601,603],[603,"B2-F6"],[601,"B-M6"],
+    //Building 4 - Sixth Floor
+    [510,520],[520,605],[605,606],[606,"ISHTM"],[605,"Theatre"],[601,607],
+
+    //Building 4 - Seventh Floor
+    [607,701],[701,"Balcony"],
   ],
   announcements:[
     { id:1, title:"Enrollment Period Open",  body:"2nd Semester enrollment is now open. Visit the Registrar's Office.", date:"2026-05-20", priority:"high" },
@@ -354,7 +439,7 @@ const INITIAL_DB = {
   nextId: { locations: 20, announcements: 4 }
 };
 
-const KIOSK_NODE_ID = 200;
+const KIOSK_NODE_ID = "kiosk";
 
 /* ─────────────────────────── A* ALGORITHM ──────────────────────────── */
 function heuristic(a, b, locs) {
@@ -911,7 +996,7 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:0.5, y:0, w:10,h:10,label:"Building 4"},
 
       //Hallways
-      {x:10.5,y:0, w:1, h:10,label:"Hallway"},
+      {x:10.5,y:8, w:1, h:2,label:""},
       {x:5, y:9, w:1, h:1, label:"Elevator"},
 
       //Building 1
@@ -960,7 +1045,7 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:0.5, y:0, w:10,h:10,label:"Building 4"},
 
       //Hallways
-      {x:10.5,y:0, w:1, h:10,label:"Hallway"},
+      {x:10.5,y:8, w:1, h:2,label:""},
       {x:5, y:9, w:1, h:1, label:"Elevator"},
       {x:12, y:8, w:2, h:1.5, label:"Stairs"},
       {x:18, y:8, w:2, h:1.5, label:"Stairs"},
@@ -1008,7 +1093,7 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
       {x:0.5, y:0, w:10,h:10,label:"Building 4"},
 
       //Hallways
-      {x:10.5,y:0, w:1, h:10,label:"Hallway"},
+      {x:10.5,y:8, w:1, h:2,label:""},
       {x:5, y:9, w:1, h:1, label:"Elevator"},
       {x:12, y:8, w:2, h:1.5, label:"Stairs"},
       {x:18, y:8, w:2, h:1.5, label:"Stairs"},
@@ -1071,19 +1156,20 @@ function CampusMap({ locs, edges, path, onNode, fromId, toId, compact=false, vis
     7: [
       //Building Blocks
       {x:0.5, y:0, w:10.5,h:10,label:""},
-      {x:0.5, y:5, w:10.5,h:3,label:""},
+      {x:1.2, y:2.3, w:9, h:2.5,label:"Chairs"},
+      {x:0.5, y:4.5, w:10.5,h:3.5,label:""},
 
       //Theatre
-      {x:1.2, y:2.3, w:9, h:2.5,label:"Chairs"},
-      {x:1.5, y:8, w:2, h:1.5, label:"Stairs"},
-      {x:8, y:8, w:2, h:1.5, label:"Stairs"},
+      
+      {x:1.5, y:8, w:2, h:1, label:"Stairs"},
+      {x:8, y:8, w:2, h:1, label:"Stairs"},
       {x:0.5, y:8, w:1, h:2,label:""},
       {x:10, y:8, w:1, h:2,label:""},
       {x:3.2, y:0, w:5, h:1.8,label:"Stage"},
       {x:8.2, y:0, w:2.8, h:1.5,label:"Back stage"},
       {x:0.5, y:0, w:2.7, h:1.5,label:"Back stage"},
       {x:1.2, y:5, w:9, h:2,label:"Chairs"},
-      {x:3.2, y:7, w:5, h:1,label:"Theatre Operator"},
+      {x:4.2, y:7, w:3, h:1,label:"Theatre Operator"},
     ]
   };
 
