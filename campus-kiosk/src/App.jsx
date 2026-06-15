@@ -964,8 +964,7 @@ export default function App() {
   const [dbLoading, setDbLoading] = useState(true); // starts true — no need to set it again on mount
   const [dbError, setDbError] = useState(null);
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
-
+  const API_URL = "http://localhost:5000"
   const withQr = (data) => ({
     ...data,
     locations: data.locations.map((l, i) => ({
@@ -977,7 +976,7 @@ export default function App() {
 
   const reloadDb = useCallback(() => {
     setDbLoading(true);
-    fetch(`${API_URL}/api/db`)
+    fetch(`${API_URL}/locations`)
       .then(r => {
         if (!r.ok) throw new Error(`API error ${r.status}`);
         return r.json();
@@ -992,7 +991,7 @@ export default function App() {
 
   useEffect(() => {
     let ignore = false;
-    fetch(`${API_URL}/api/db`)
+    fetch(`${API_URL}/locations`)
       .then(r => {
         if (!r.ok) throw new Error(`API error ${r.status}`);
         return r.json();

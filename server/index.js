@@ -39,6 +39,14 @@ app.get('/users', (req, res) => {
   });
 });
 
+// ← PASTE THE NEW ROUTE HERE
+app.get('/edges', (req, res) => {
+  db.query('SELECT from_id, to_id FROM edges', (err, results) => {
+    if (err) return res.status(500).json({ message: "Database query failed" });
+    res.json(results.map(r => [r.from_id, r.to_id]));
+  });
+});
+
 app.listen(5000, () => {
   console.log('Server running on port 5000');
 });
