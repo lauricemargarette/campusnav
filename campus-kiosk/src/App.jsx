@@ -1,444 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
-/* ─────────────────────────── DATABASE LAYER ─────────────────────────── */
-const INITIAL_DB = {
-  locations: [
-    //---------- GROUND FLOOR ----------//
-    //BUILDING 1
-    { id:15, name:"Window 1", floor:1, building: 1, x:15, y:11, type:"Registrar", desc:"Registrar Office - Window 1" },
-    { id:16, name:"Window 2", floor:1, building: 1, x:13.8, y:11, type:"Registrar", desc:"Registrar Office - Window 2" },
-    { id:17, name:"Window 3", floor:1, building: 1, x:12.5, y:11, type:"Registrar", desc:"Registrar Office - Window 3" },
-    { id:18, name:"Window 4", floor:1, building: 1, x:11.5, y:11.4, type:"Registrar", desc:"Registrar Office - Window 4" },
-    { id:19, name:"Window 5", floor:1, building: 1, x:11.5, y:12.5, type:"Registrar", desc:"Registrar Office - Window 5" },
-    { id:20, name:"Window 6", floor:1, building: 1, x:11.5, y:13.6, type:"Registrar", desc:"Registrar Office - Window 6" },
-    { id:21, name:"Window 7", floor:1, building: 1, x:11.5, y:14.7, type:"Registrar", desc:"Registrar Office - Window 7" },
-    { id:22, name:"Window 8", floor:1, building: 1, x:11.5, y:15.9, type:"Registrar", desc:"Registrar Office - Window 8" },
-    { id:23, name:"Window 9", floor:1, building: 1, x:11.5, y:17.1, type:"Registrar", desc:"Registrar Office - Window 9" },
-    { id:24, name:"Window 12", floor:1, building: 1, x:11.5, y:18.3, type:"Registrar", desc:"Registrar Office - Window 12" },
-    { id:25, name:"Window 14", floor:1, building: 1, x:11.5, y:19.4, type:"Registrar", desc:"Registrar Office - Window 14" },
-    { id:26, name:"Window 15", floor:1, building: 1, x:11.5, y:20.6, type:"Registrar", desc:"Registrar Office - Window 15" },
-    { id:27, name:"Registrar's Office", floor:1, building: 1, x:15.5, y:13, type:"Registrar", desc:"Registrar Office" },
-    { id:28, name:"Student Affairs Office", floor:1, building: 1, x:15.5, y:18, type:"office", desc:"Student affairs office." },
-    { id:29, name:"CDJP Office", floor:1, building: 1, x:15.5, y:20, type:"office", desc:"CDJP office." },
-    { id:30, name:"Exit", floor:1, building: 1, x:16.5, y:21, type:"exit", desc:"Guidance office." },
-    { id:31, name:"Guidance Office", floor:1, building: 1, x:17.5, y:20, type:"office", desc:"Guidance office." },
-    { id:32, name:"NSTP Office", floor:1, building: 1, x:17.5, y:17, type:"office", desc:"NSTP office." },
-    { id:33, name:"Accounting Office", floor:1, building: 1, x:17.5, y:13, type:"Accounting", desc:"Accounting Office" },
-    { id:34, name:"Window 1", floor:1, building: 1, x:17.7, y:11, type:"Accounting", desc:"Accounting Office - Window 1" },
-    { id:35, name:"Window 2", floor:1, building: 1, x:18.3, y:11, type:"Accounting", desc:"Accounting Office - Window 2" },
-    { id:36, name:"Window 3", floor:1, building: 1, x:18.9, y:11, type:"Accounting", desc:"Accounting Office - Window 3" },
-    { id:37, name:"Window 4", floor:1, building: 1, x:19.5, y:11, type:"Accounting", desc:"Accounting Office - Window 4" },
-    { id:38, name:"Window 5", floor:1, building: 1, x:20.1, y:11, type:"Accounting", desc:"Accounting Office - Window 5" },
-    { id:39, name:"Window 6", floor:1, building: 1, x:20.5, y:12.1, type:"Accounting", desc:"Accounting Office - Window 6" },
-    { id:40, name:"Window 7", floor:1, building: 1, x:20.5, y:13.2, type:"Accounting", desc:"Accounting Office - Window 7" },
-    { id:41, name:"Window 8", floor:1, building: 1, x:20.5, y:14.3, type:"Accounting", desc:"Accounting Office - Window 8" },
-    { id:42, name:"Window 9", floor:1, building: 1, x:20.5, y:15.4, type:"Accounting", desc:"Accounting Office - Window 9" },
-    
-    //BUILDING 2
-    { id:10, name:"HRM Tools & Equipments", floor:1, building: 2, x:11.5, y:4, type:"laboratory", desc:"Engineering Laboratory." },
-    { id:11, name:"B2.11", floor:1, building: 2, x:17, y:8, type:"laboratory", desc:"Computer Hardware Servicing, Electronics/Electrical Room." },
-    { id:12, name:"B2.12", floor:1, building: 2, x:15, y:8, type:"lecture room", desc:"Academic Lecture Room, AVR Extensison Room-2." },
-    { id:13, name:"Supply Section", floor:1, building: 2, x:20.5, y:4, type:"office",    desc:"Office supplies and resources." },
-    { id:14, name:"Library", floor:1, building: 2, x:20.5, y:1.5,  type:"library",   desc:"Reference books, reading area & Wi-Fi." },
-    
-    //BUILDING 3
-    { id:1,  name:"Entrance", floor:1, building: 3, x:5.5, y:21, type:"entrance",  desc:"Security gate, visitor logbook & entrance." },
-    { id:2,  name:"Admission Office", floor:1, building: 3, x:6.5,  y:19.8, type:"office",    desc:"Admission office." },
-    { id:3,  name:"Clinic", floor:1, building: 3, x:4.5,  y:18.5, type:"clinic",    desc:"School nurse, first aid." },
-    { id:4, name:"Testing Room", floor:1, building: 3, x:6.5, y:17.5, type:"office",   desc:"Lounge area for visitors." },
-    { id:5, name:"Social Lounge", floor:1, building: 3, x:6.5, y:13.5, type:"lounge",   desc:"Lounge area for visitors." },
-    { id:6, name:"Drug Testing Center", floor:1, building: 3, x:4.5, y:12, type:"clinic",  desc:"Drug testing services." },
-    
-    //BUILDING 4
-    { id:8, name:"B4.13", floor:1, building: 4, x:10.5, y:6.5, type:"laboratory", desc:"Engineering Laboratory." },
-    { id:9, name:"B4.14", floor:1, building: 4, x:10.5, y:4, type:"laboratory", desc:"Criminology/Forensic Laboratory." },
-    { id:"kiosk", name: "Kiosk (You Are Here)", floor:1, x:6.3, y:9.5, type:"kiosk", desc:"Smart Campus Navigation Kiosk — beside the elevator." },
-
-    //---------- SECOND FLOOR ----------//
-    //BUILDING 1
-    { id:48, name:"Office of the College Deans and Academic Coordinators", floor:2, building:1, x:16.5, y:12, type:"office"},
-    { id:49, name:"Faculty Room & Lounge", floor:2, building:1, x:15.3, y:13.3, type:"faculty", desc:"Academic Teacher's Faculty Room."},
-    { id:50, name:"Academic Affairs Office", floor:2, building:1, x:14.8, y:17, type:"office", desc:"Office of the Vice President."},
-    { id:51, name:"Online Teaching Hub", floor:2, building:1, x:14.8, y:18.8, type:"faculty", desc:"ODEL / Open & Distance E-Learning."},
-    { id:52, name:"B1.21", floor:2, building:1, x:17.8, y:13.3, type:"laboratory", desc:"Judicial Court Simulation Laboratory."},
-    { id:53, name:"Dr. Consuelo L. Co", floor:2, building:1, x:17.8, y:15.5, type:"laboratory", desc:"Multi-Purpose Academic Hall."},
-    { id:54, name:"B1.21", floor:2, building:1, x:17.8, y:17.5, type:"laboratory", desc:"Judicial Court Simulation Laboratory."},
-    { id:55, name:"Office of the College Deans", floor:2, building:1, x:17.8, y:18.8, type:"laboratory", desc:"Academic Consultation Room 2 & 3."},
-
-    //BUILDING 2
-    { id:"C1", name:"B2.21", floor:2, building: 2, x:15.5, y:6.5, type:"laboratory", desc:"Computer Laboratory 21." },
-    { id:"C2", name:"B2.22", floor:2, building: 2, x:15.5, y:3.8, type:"laboratory", desc:"Computer Laboratory 22." },
-    { id:"C3", name:"B2.23", floor:2, building: 2, x:15.5, y:2, type:"laboratory", desc:"Computer Laboratory 23." },
-    { id:"C4", name:"B2.24", floor:2, building: 2, x:17.5, y:6.5, type:"laboratory", desc:"Computer Laboratory 24." },
-    { id:"C5", name:"B2.25", floor:2, building: 2, x:17.5, y:3.8, type:"laboratory", desc:"Computer Laboratory 25." },
-    { id:"C6", name:"B2.26", floor:2, building: 2, x:17.5, y:2, type:"laboratory", desc:"Computer Laboratory 26." },
-    { id:"MIS", name:"MIS Faculty", floor:2, building: 2, x:16.5, y:1.5, type:"faculty", desc:"Management Information Systems Room." },
-    { id:"B2-F2", name:"Ladies' CR", floor:2, building: 2, x:20, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-
-    //BUILDING 3
-    { id:56, name:"MIS Department", floor:2, building:3, x:7, y:13.3, type:"office", desc:"Technical office of MIS Employees."},
-    { id:57, name:"Broadcasting Room", floor:2, building:3, x:7, y:17.5, type:"broadcasting", desc:"For broadcasting."},
-    { id:58, name:"Media Arts Center", floor:2, building:3, x:7, y:19.3, type:"media arts", desc:"For media arts."},
-    { id:59, name:"Office of the chairman", floor:2, building:3, x:4, y:19.3, type:"office", desc:"For chairman."},
-    { id:60, name:"Boardroom", floor:2, building:3, x:4, y:16, type:"office", desc:"For board."},
-    { id:61, name:"Boardroom", floor:2, building:3, x:4, y:13.3, type:"office", desc:"For board."},
-
-    //BUILDING 4
-    { id:43, name:"B4.21", floor:2, building: 4, x:4.5, y:6, type:"laboratory", desc:"Cisco Networking Simulation Laboratory." },
-    { id:44, name:"B4.22", floor:2, building: 4, x:4.5, y:2, type:"laboratory", desc:"Foreign Language / Speech Laboratory." },
-    { id:45, name:"B4.23", floor:2, building: 4, x:6.5, y:6.5, type:"laboratory", desc:"Digital & Robotics Modeling Laboratory." },
-    { id:46, name:"B4.24", floor:2, building: 4, x:6.5, y:3.8, type:"laboratory", desc:"E-Learning Hub." },
-    { id:47, name:"B4.25", floor:2, building: 4, x:6.5, y:1.3, type:"faculty", desc:"Senior High School Department." },
-    { id:"B4-F2", name:"Ladies' CR", floor:2, building: 4, x:1.5, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-    { id:"B-M2", name:"Men's CR", floor:2, x:11, y:9.8, type:"restroom", desc:"Boys' restroom with 3 stalls and 2 sinks." },
-
-    //---------- THIRD FLOOR ----------//
-    //BUILDING 1
-    { id:"B1-GYM", name:"Volleyball / Badminton Court", floor:3, x:16.5, y:10, type:"gym", desc:"Gymnasium for Volleyball, Badminton, and P.E. Classes."},
-    { id:"AHRO", name:"Administration & Human Resources Office", floor:3, x:20, y:18.5, type:"office", desc:"Gymnasium for Volleyball, Badminton, and P.E. Classes."},
-    { id:"SPAMO", name:"Special Projects Affiliations & Marketing Office", floor:3, x:12.5, y:18.5, type:"gym", desc:"Gymnasium for Volleyball, Badminton, and P.E. Classes."},
-
-    //BUILDING 2
-    { id:62, name:"B2.31", floor:3, x:15.5, y:7, type:"lecture room", desc:"Lecture room for classes."},
-    { id:63, name:"B2.32", floor:3, x:15.5, y:5, type:"lecture room", desc:"Lecture room for classes."},
-    { id:64, name:"B2.33", floor:3, x:15.5, y:3, type:"lecture room", desc:"Lecture room for classes."},
-    { id:65, name:"B2.34", floor:3, x:15.5, y:1, type:"lecture room", desc:"Lecture room for classes."},
-    { id:66, name:"B2.35", floor:3, x:17.5, y:7, type:"lecture room", desc:"Lecture room for classes."},
-    { id:67, name:"B2.36", floor:3, x:17.5, y:5, type:"lecture room", desc:"Lecture room for classes."},
-    { id:68, name:"B2.37", floor:3, x:17.5, y:3, type:"lecture room", desc:"Lecture room for classes."},
-    { id:69, name:"B2.38", floor:3, x:17.5, y:1, type:"lecture room", desc:"Lecture room for classes."},
-    { id:"B2-F3", name:"Ladies' CR", floor:3, building: 2, x:20, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-
-    //BUILDING 3
-    { id:"B3-GYM", name:"Basketball Court", floor:3, x:7, y:10, type:"gym", desc:"Gymnasium for Basketball and P.E. Classes." },
-    { id:"VR-M", name:"Varsity Room - Male", floor:3, x:2.5, y:18.5, type:"gym", desc:"Locker room for male varsity players." },
-    { id:"VR-F", name:"Varsity Room - Female", floor:3, x:8.5, y:18.5, type:"gym", desc:"Locker room for female varsity players." },
-    
-    //BUILDING 4
-    { id:"B4-F3", name:"Ladies' CR", floor:3, building: 4, x:1.5, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-    { id:"B-M3", name:"Men's CR", floor:3, x:11, y:9.8, type:"restroom", desc:"Boys' restroom with 3 stalls and 2 sinks." },
-    { id:70, name:"B4.31", floor:3, x:4.5, y:7, type:"lecture room", desc:"Lecture room for classes." },
-    { id:71, name:"B4.32", floor:3, x:4.5, y:5, type:"lecture room", desc:"Lecture room for classes." },
-    { id:72, name:"B4.33", floor:3, x:4.5, y:3, type:"lecture room", desc:"Lecture room for classes." },
-    { id:73, name:"B4.34", floor:3, x:4.5, y:1, type:"lecture room", desc:"Lecture room for classes." },
-    { id:74, name:"B4.35", floor:3, x:6.5, y:7, type:"lecture room", desc:"Lecture room for classes." },
-    { id:75, name:"B4.36", floor:3, x:6.5, y:5, type:"lecture room", desc:"Lecture room for classes." },
-    { id:76, name:"B4.37", floor:3, x:6.5, y:3, type:"lecture room", desc:"Lecture room for classes." },
-    { id:77, name:"B4.38", floor:3, x:6.5, y:1, type:"lecture room", desc:"Lecture room for classes." },
-
-    //---------- FOURTH FLOOR ----------//
-    //BUILDING 1
-    { id:"SH", name:"Study Hall", floor:4, x:11.5, y:19, type:"study hall", desc:"Study hall for group of students." },
-
-    //BUILDING 2
-    { id:78, name:"B2.41", floor:4, x:15.5, y:7, type:"lecture room", desc:"Lecture room for classes."},
-    { id:79, name:"B2.42", floor:4, x:15.5, y:5, type:"lecture room", desc:"Lecture room for classes."},
-    { id:80, name:"B2.43", floor:4, x:15.5, y:3, type:"lecture room", desc:"Lecture room for classes."},
-    { id:81, name:"B2.44", floor:4, x:15.5, y:1, type:"lecture room", desc:"Lecture room for classes."},
-    { id:82, name:"B2.45", floor:4, x:17.5, y:7, type:"lecture room", desc:"Lecture room for classes."},
-    { id:83, name:"B2.46", floor:4, x:17.5, y:5, type:"lecture room", desc:"Lecture room for classes."},
-    { id:84, name:"B2.47", floor:4, x:17.5, y:3, type:"lecture room", desc:"Lecture room for classes."},
-    { id:85, name:"B2.48", floor:4, x:17.5, y:1, type:"lecture room", desc:"Lecture room for classes."},
-    { id:"B2-F4", name:"Ladies' CR", floor:4, building: 2, x:20, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-
-    //BUILDING 3
-    { id:"FC", name:"Food Court", floor:4, building:3, x:7, y:10, type:"food court", desc:"Food stalls inside the campus." },
-
-    //BUILDING 4
-    { id:"B4-F4", name:"Ladies' CR", floor:4, building: 4, x:1.5, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-    { id:"B-M4", name:"Men's CR", floor:4, x:11, y:9.8, type:"restroom", desc:"Boys' restroom with 3 stalls and 2 sinks." },
-    { id:86, name:"B4.41", floor:4, x:4.5, y:7, type:"lecture room", desc:"Lecture room for classes." },
-    { id:87, name:"B4.42", floor:4, x:4.5, y:5, type:"lecture room", desc:"Lecture room for classes." },
-    { id:88, name:"B4.43", floor:4, x:4.5, y:3, type:"lecture room", desc:"Lecture room for classes." },
-    { id:89, name:"B4.44", floor:4, x:4.5, y:1, type:"lecture room", desc:"Lecture room for classes." },
-    { id:90, name:"B4.45", floor:4, x:6.5, y:7, type:"lecture room", desc:"Lecture room for classes." },
-    { id:91, name:"B4.46", floor:4, x:6.5, y:5, type:"lecture room", desc:"Lecture room for classes." },
-    { id:92, name:"B4.47", floor:4, x:6.5, y:3, type:"lecture room", desc:"Lecture room for classes." },
-    { id:93, name:"B4.48", floor:4, x:6.5, y:1, type:"lecture room", desc:"Lecture room for classes." },
-
-    //---------- FIFTH FLOOR ----------//
-    //BUILDING 2
-    { id:94, name:"B2.51", floor:5, x:15.5, y:7, type:"lecture room", desc:"Lecture room for classes."},
-    { id:95, name:"B2.52", floor:5, x:15.5, y:5, type:"lecture room", desc:"Lecture room for classes."},
-    { id:96, name:"B2.53", floor:5, x:15.5, y:3, type:"lecture room", desc:"Lecture room for classes."},
-    { id:97, name:"B2.54", floor:5, x:15.5, y:1, type:"lecture room", desc:"Lecture room for classes."},
-    { id:98, name:"B2.55", floor:5, x:17.5, y:7, type:"lecture room", desc:"Lecture room for classes."},
-    { id:99, name:"B2.56", floor:5, x:17.5, y:5, type:"lecture room", desc:"Lecture room for classes."},
-    { id:100, name:"B2.57", floor:5, x:17.5, y:3, type:"lecture room", desc:"Lecture room for classes."},
-    { id:152, name:"B2.58", floor:5, x:17.5, y:1, type:"lecture room", desc:"Lecture room for classes."},
-    { id:"B2-F5", name:"Ladies' CR", floor:5, building: 2, x:20, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-
-    //BUILDING 4
-    { id:"B4-F5", name:"Ladies' CR", floor:5, building: 4, x:1.5, y:9.8, type:"Restroom", desc:"Ladies' restroom with 3 stalls and 2 sinks." },
-    { id:"B-M5", name:"Men's CR", floor:5, x:11, y:9.8, type:"restroom", desc:"Boys' restroom with 3 stalls and 2 sinks." },
-    { id:153, name:"B4.51", floor:5, x:4.5, y:7, type:"lecture room", desc:"Lecture room for classes." },
-    { id:154, name:"B4.52", floor:5, x:4.5, y:5, type:"lecture room", desc:"Lecture room for classes." },
-    { id:155, name:"B4.53", floor:5, x:4.5, y:3, type:"lecture room", desc:"Lecture room for classes." },
-    { id:156, name:"B4.54", floor:5, x:4.5, y:1, type:"lecture room", desc:"Lecture room for classes." },
-    { id:157, name:"B4.55", floor:5, x:6.5, y:7, type:"lecture room", desc:"Lecture room for classes." },
-    { id:158, name:"B4.56", floor:5, x:6.5, y:5, type:"lecture room", desc:"Lecture room for classes." },
-    { id:159, name:"B4.57", floor:5, x:6.5, y:3, type:"lecture room", desc:"Lecture room for classes." },
-    { id:160, name:"B4.58", floor:5, x:6.5, y:1, type:"lecture room", desc:"Lecture room for classes." },
-
-    //---------- SIXTH FLOOR ----------//
-    //BUILDING 2
-    { id:"B2-F6", name:"Female Dressing Room", floor:6, building: 2, x:20, y:9.5, type:"Restroom", desc:"Female dressing room with 3 stalls." },
-    { id:"B-M6", name:"Male Dressing Room", floor:6, x:12, y:9.5, type:"restroom", desc:"Male dressing room with 3 stalls." },
-    { id:"P.E.", name:"P.E. Faculty Room", floor:6, x:17.5, y:7, type:"faculty", desc:"Faculty room of P.E. teachers." },
-    { id:"GYM", name:"Gymnasium", floor:6, x:16, y:7, type:"gym", desc:"Gymnasium for p.e. classes." },
-    
-    //BUILDING 4
-    { id:"ISHTM", name:"ISHTM Hotel Simulation Laboratory", floor:6, x:5.8, y:7.3, type:"laboratory", desc:"Laboratory for simulating hotel experiences or training and classes for ISHTM students." },  
-    { id:"Theatre", name:"The Theatre Room", floor:6, x:8, y:7.8, type:"theatre", desc:"Theatre room for school events, seminars, and orientations." },
-
-    //---------- SEVENTH FLOOR ----------//
-    //BUILDING 4
-    { id:"Balcony", name:"The Theatre Room", floor:7, x:7.6, y:8, type:"theatre", desc:"Balcony of theatre room for school events, seminars, and orientations." },
-
-    //KIOSK PATH
-    { id:200, name: "Kiosk", floor:1, x:6.3, y:10.5, type:"hallway", desc:"Kiosk path." },
-
-    //HALLWAY/CORRIDOR nodes — Ground Floor
-    { id:101, name: "Building 3 Hallway", floor:1, x:5.5, y:19.8, type:"hallway", desc:"Corridor near admission office." },
-    { id:102, name: "Building 3 Hallway", floor:1, x:5.5, y:18.5, type:"hallway", desc:"Corridor in front of clinic." },
-    { id:103, name: "Building 3 Hallway", floor:1, x:5.5, y:17.5, type:"hallway", desc:"Corridor in front of testing room." },
-    { id:105, name: "Building 3 Hallway", floor:1, x:5.5, y:13.5, type:"hallway", desc:"Corridor in front of social lounge." },
-    { id:106, name: "Building 3 Hallway", floor:1, x:5.5, y:12, type:"hallway", desc:"Corridor in front of drug testing center." },
-    { id:107, name: "Building 3 & 4 Hallway", floor:1, x:5.5, y:10.5, type:"hallway", desc:"Hallway at Elevator/Building 4." },
-    { id:108, name: "Building 4 Hallway", floor:1, x:8, y:10.5, type:"hallway", desc:"Hallway at Right Stairs." },
-    { id:109, name: "Building 4 - Right Stairs", floor:1, x:8, y:9, type:"hallway", desc:"Building 4 Right Stairs." },
-    { id:110, name: "Center Hallway", floor:1, x:11, y:10.5, type:"hallway", desc:"Center hallway connecting different buildings." },
-    { id:111, name: "Building 2 & 4 Mid-Hallway", floor:1, x:11, y:6.5, type:"hallway", desc:"Corridor in front of B4.13." },
-    { id:112, name: "Building 2 & 4 Mid-Hallway", floor:1, x:11, y:4, type:"hallway", desc:"Corridor in front of B4.14." },
-    { id:113, name: "Registrar Windows' Hallway", floor:1, x:15, y:10.5, type:"hallway", desc:"In front of Window 1." },
-    { id:114, name: "Registrar Windows' Hallway", floor:1, x:13.8, y:10.5, type:"hallway", desc:"In front of Window 2." },
-    { id:115, name: "Registrar Windows' Hallway", floor:1, x:12.5, y:10.5, type:"hallway", desc:"In front of Window 3." },
-    { id:116, name: "Building 1 & 2 Hallway", floor:1, x: 16.5, y: 10.5, type: "hallway", desc: "Corridor at Building 1 & 2."},
-    { id:117, name: "Building 1 & 2 Side Hallway", floor:1, x: 21, y: 10.5, type: "hallway", desc: "Side Hallway at Building 1 & 2."},
-    { id:118, name: "Building 2 - Side Hallway", floor:1, x: 21, y: 4, type: "hallway", desc: "In front of Supply Section."},
-    { id:119, name: "Building 2 - Side Hallway", floor:1, x: 21, y: 1.5, type: "hallway", desc: "In front of Library."},
-    { id:120, name: "Registrar Windows' Hallway", floor:1, x: 11, y:11.4, type: "hallway", dec: "In front of Window 4."},
-    { id:121, name: "Registrar Windows' Hallway", floor:1, x: 11, y:12.5, type: "hallway", dec: "In front of Window 5."},
-    { id:122, name: "Registrar Windows' Hallway", floor:1, x: 11, y:13.6, type: "hallway", dec: "In front of Window 6."},
-    { id:123, name: "Registrar Windows' Hallway", floor:1, x: 11, y:14.7, type: "hallway", dec: "In front of Window 7."},
-    { id:124, name: "Registrar Windows' Hallway", floor:1, x: 11, y:15.9, type: "hallway", dec: "In front of Window 8."},
-    { id:125, name: "Registrar Windows' Hallway", floor:1, x: 11, y:17.1, type: "hallway", dec: "In front of Window 9."},
-    { id:126, name: "Registrar Windows' Hallway", floor:1, x: 11, y:18.3, type: "hallway", dec: "In front of Window 12."},
-    { id:127, name: "Registrar Windows' Hallway", floor:1, x: 11, y:19.4, type: "hallway", dec: "In front of Window 14."},
-    { id:128, name: "Registrar Windows' Hallway", floor:1, x: 11, y:20.6, type: "hallway", dec: "In front of Window 15."},
-    { id:129, name: "Building 1 Hallway", floor:1, x: 16.5, y:13, type: "hallway", dec: "In front of Registrar & Accounting Office."},
-    { id:130, name: "Building 1 Hallway", floor:1, x: 16.5, y:18, type: "hallway", dec: "In front Student Affairs Office."},
-    { id:131, name: "Building 1 Hallway", floor:1, x: 16.5, y:20, type: "hallway", dec: "In front of CDJP & Guidance Office."},
-    { id:132, name: "Building 1 Hallway", floor:1, x: 16.5, y:17, type: "hallway", dec: "In front NSTP Office."},
-    { id:133, name: "Building 4 Hallway", floor:1, x: 3.5, y:10.5, type: "hallway", dec: "Building 4 Hallway."},
-    { id:134, name: "Building 4 - Left Stairs", floor:1, x: 3.5, y:9.5, type: "hallway", dec: "Building 4 - Left Stairs."},
-    { id:135, name: "Building 2 Hallway", floor:1, x:14, y:10.5, type:"hallway", desc:"Building 2 Hallway." },
-    { id:136, name: "Building 2 - Left Stairs", floor:1, x:14, y:9.5, type:"hallway", desc:"Building 2 - Left Stairs." },
-    { id:137, name: "Accounting Windows' Hallway", floor:1, x: 17.7, y: 10.5, type: "hallway", desc: "Accounting - Window 1."},
-    { id:138, name: "Accounting Windows' Hallway", floor:1, x: 18.3, y: 10.5, type: "hallway", desc: "Accounting - Window 2."},
-    { id:139, name: "Accounting Windows' Hallway", floor:1, x: 18.9, y: 10.5, type: "hallway", desc: "Accounting - Window 3."},
-    { id:140, name: "Accounting Windows' Hallway", floor:1, x: 19.5, y: 10.5, type: "hallway", desc: "Accounting - Window 4."},
-    { id:141, name: "Accounting Windows' Hallway", floor:1, x: 20.1, y: 10.5, type: "hallway", desc: "Accounting - Window 5."},
-    { id:142, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 12.1, type: "hallway", desc: "In front of Window 6."},
-    { id:143, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 13.2, type: "hallway", desc: "In front of Window 7."},
-    { id:144, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 14.3, type: "hallway", desc: "In front of Window 8."},
-    { id:145, name: "Building 1 - Side Hallway", floor:1, x: 21, y: 15.4, type: "hallway", desc: "In front of Window 9."},
-    { id:146, name: "Building 2 Hallway", floor:1, x: 18, y: 10.5, type: "hallway", desc: "Building 2 Hallway."},
-    { id:147, name: "Building 2 - Right Stairs", floor:1, x: 18, y: 9.5, type: "hallway", desc: "Building 2 Right Stairs."},
-    { id:148, name: "Building 1 Hallway", floor:1, x: 16.5, y: 14.5, type: "hallway", desc: "Building 1 Hallway to Stairs."},  
-    { id:149, name: "Building 1 Stairs", floor:1, x: 15.5, y: 14.5, type: "hallway", desc: "Building 1 Stairs."},
-    { id:150, name: "Building 3 Hallway", floor:1, x: 5.5, y: 16, type: "hallway", desc: "To Building 3 Stairs."},
-    { id:151, name: "Building 3 Stairs", floor:1, x: 8, y: 16, type: "hallway", desc: "Building 3 Stairs to 2nd Floor."},
-    
-    //HALLWAY/CORRIDOR nodes — Second Floor
-    { id:"B4-2R", name: "Building 4 - Right Stairs", floor:2, x:8, y:8.5, type: "hallway", desc: "Building 4 Right Stairs."},
-    { id:"B2-2R", name: "Building 2 - Right Stairs", floor:2, x: 18, y: 8.5, type: "hallway", desc: "Building 2 - Right Stairs."},
-    { id:201, name: "Men's Restroom", floor:2, x:8, y:9.8, type: "hallway", desc: "Building 2 & 4 Men's Restroom."},
-    { id:202, name: "Building 4 - Center Hallway", floor:2, x:5.5, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
-    { id:203, name: "Building 4 Hallway", floor:2, x:5.5, y:6, type: "hallway", desc: "CISCO Room."},
-    { id:204, name: "Building 4 Hallway", floor:2, x:5.5, y:2, type: "hallway", desc: "Speech Laboratory."},
-    { id:205, name: "Building 4 Hallway", floor:2, x:5.5, y:6.5, type: "hallway", desc: "DRM Laboratory."},
-    { id:206, name: "Building 4 Hallway", floor:2, x:5.5, y:3.8, type: "hallway", desc: "E-Learning Hub."},
-    { id:207, name: "Building 4 Hallway", floor:2, x:5.5, y:1.3, type: "hallway", desc: "SHS Department."},
-    { id:208, name: "Building 4 Hallway", floor:2, x:3.9, y:8.5, type: "hallway", desc: "Building 4 Hallway."},
-    { id:209, name: "Building 4 - Ladies Restroom", floor:2, x:3.9, y:9.8, type: "hallway", desc: "Building 4 - Ladies Restroom."},
-    { id:210, name: "Men's Restroom", floor:2, x:14.5, y:9.8, type: "hallway", desc: "Building 2 & 4 Men's Restroom."},
-    { id:212, name: "Building 2 - Center Hallway", floor:2, x:16.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
-    { id:213, name: "Building 2 Hallway", floor:2, x:16.5, y:6.5, type: "hallway", desc: "Computer Laboratory 21 & 24."},
-    { id:214, name: "Building 2 Hallway", floor:2, x:16.5, y:3.8, type: "hallway", desc: "Computer Laboratory 22 & 25."},
-    { id:215, name: "Building 2 Hallway", floor:2, x:16.5, y:2, type: "hallway", desc: "Computer Laboratory 23 & 26."},
-    { id:216, name: "Building 2 - Ladies' Restroom", floor:2, x:18, y:9.8, type: "hallway", dec: "Building 2 - Ladies Restroom."},
-    { id:217, name: "Building 2 Hallway", floor:2, x:14.5, y:8.5, type: "hallway", desc: "Building 2 Hallway."},
-    { id:218, name: "Building 1 Stairs", floor:2, x: 15.5, y: 15.5, type: "hallway", desc: "Building 1 Stairs."},
-    { id:219, name: "Building 1 Hallway", floor:2, x: 16.5, y: 15.5, type: "hallway", desc: "Building 1 Hallway."},
-    { id:220, name: "Building 1 Hallway", floor:2, x: 16.5, y: 13.3, type: "hallway", desc: "In front of Faculty Room and B1.21."},
-    { id:221, name: "Building 1 Hallway", floor:2, x: 16.5, y: 13.3, type: "hallway", desc: "Building 1 Hallway."},
-    { id:222, name: "Building 1 Hallway", floor:2, x: 16.5, y: 17, type: "hallway", desc: "Building 1 Hallway."},
-    { id:223, name: "Building 1 Hallway", floor:2, x: 16.5, y: 17.5, type: "hallway", desc: "In front of B2.21."},
-    { id:224, name: "Building 1 Hallway", floor:2, x: 16.5, y: 18.8, type: "hallway", desc: "In front of ODEL & Deans Office."},
-    { id:225, name: "Building 3 Stairs", floor:2, x: 8, y: 16, type: "hallway", desc: "Building 3 Stairs - 2nd Floor."},
-    { id:226, name: "Building 3 Hallway", floor:2, x: 5.5, y: 16, type: "hallway", desc: "Building 3 Hallway."},
-    { id:227, name: "Building 3 Hallway", floor:2, x: 5.5, y: 13.3, type: "hallway", desc: "In front of Board Room and MIS Department."},
-    { id:228, name: "Building 3 Hallway", floor:2, x: 5.5, y: 17.5, type: "hallway", desc: "In front of Broadcasting Room."},
-    { id:229, name: "Building 3 Hallway", floor:2, x: 5.5, y: 19.3, type: "hallway", desc: "In front of Chairman's Office and Media and Arts Center."},
-    { id:230, name: "Building 2 - Right Stairs", floor:2, x:18, y:9, type:"hallway", desc:"Stairs to Building 2 - Third Floor." },
-    { id:231, name: "Building 4 - Right Stairs", floor:2, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Third Floor."},
-
-    //HALLWAY/CORRIDOR nodes - Third Floor
-    { id:301, name: "Building 2 - Right Stairs", floor:3, x:18, y:8.5, type:"hallway", desc:"Building 2 - Right Stairs." },
-    { id:302, name: "Building 2 - Center Hallway", floor:3, x:16.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
-    { id:303, name: "Building 2 Hallway", floor:3, x:16.5, y:7, type:"hallway", desc:"In front of B2.31 and B2.35." },
-    { id:304, name: "Building 2 Hallway", floor:3, x:16.5, y:5, type:"hallway", desc:"In front of B2.32 and B2.36." },
-    { id:305, name: "Building 2 Hallway", floor:3, x:16.5, y:3, type:"hallway", desc:"In front of B2.33 and B2.37." },
-    { id:306, name: "Building 2 Hallway", floor:3, x:16.5, y:1, type:"hallway", desc:"In front of B2.34 and B2.38." },
-    { id:307, name: "Building 2 - Ladies' Restroom", floor:3, x:18, y:9.8, type: "hallway", dec: "Building 2 - Ladies Restroom."},
-    { id:308, name: "Building 2 Hallway", floor:3, x:14.5, y:8.5, type: "hallway", desc: "Building 2 Hallway."},
-    { id:309, name: "Men's Restroom", floor:3, x:14.5, y:9.8, type: "hallway", desc: "Building 2 & 4 Men's Restroom."},
-    { id:310, name: "Building 4 - Right Stairs", floor:3, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
-    { id:311, name: "Building 4 - Center Hallway", floor:3, x:5.5, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
-    { id:312, name: "Building 4 Hallway", floor:3, x:5.5, y:7, type:"hallway", desc:"In front of B4.31 & B4.35." },
-    { id:313, name: "Building 4 Hallway", floor:3, x:5.5, y:5, type:"hallway", desc:"In front of B4.32 & B4.36." },
-    { id:314, name: "Building 4 Hallway", floor:3, x:5.5, y:3, type:"hallway", desc:"In front of B4.33 & B4.37." },
-    { id:315, name: "Building 4 Hallway", floor:3, x:5.5, y:1, type:"hallway", desc:"In front of B4.34 & B4.38." },
-    { id:316, name: "Building 4 Hallway", floor:3, x:3.9, y:8.5, type:"hallway", desc: "Building 4 Hallway."},
-    { id:317, name: "Building 4 - Ladies Restroom", floor:3, x:3.9, y:9.8, type:"hallway", desc: "Building 4 - Ladies Restroom."},
-    { id:318, name: "Men's Restroom", floor:3, x:8, y:9.8, type:"hallway", desc:"Building 2 & 4 Men's Restroom."},
-    { id:319, name: "Court Hallway", floor:3, x:11.3, y:18.5, type:"hallway", desc:"Hallway to Study Hall." },
-    { id:320, name: "Building 2 - Right Stairs", floor:3, x:18, y:9, type:"hallway", desc:"Stairs to Building 2 - Fourth Floor." },
-    { id:321, name: "Building 4 - Right Stairs", floor:3, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Fourth Floor."},
-
-    //HALLWAY/CORRIDOR nodes - Fourth Floor
-    { id:401, name: "Building 2 - Right Stairs", floor:4, x:18, y:8.5, type:"hallway", desc:"Building 2 - Right Stairs." },
-    { id:402, name: "Building 2 - Center Hallway", floor:4, x:16.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
-    { id:403, name: "Building 2 Hallway", floor:4, x:16.5, y:7, type:"hallway", desc:"In front of B2.41 and B2.45." },
-    { id:404, name: "Building 2 Hallway", floor:4, x:16.5, y:5, type:"hallway", desc:"In front of B2.42 and B2.46." },
-    { id:405, name: "Building 2 Hallway", floor:4, x:16.5, y:3, type:"hallway", desc:"In front of B2.43 and B2.47." },
-    { id:406, name: "Building 2 Hallway", floor:4, x:16.5, y:1, type:"hallway", desc:"In front of B2.44 and B2.48." },
-    { id:407, name: "Building 2 - Ladies' Restroom", floor:4, x:18, y:9.8, type: "hallway", dec: "Building 2 - Ladies Restroom."},
-    { id:408, name: "Building 2 Hallway", floor:4, x:14.5, y:8.5, type: "hallway", desc: "Building 2 Hallway."},
-    { id:409, name: "Men's Restroom", floor:4, x:14.5, y:9.8, type: "hallway", desc: "Building 2 & 4 Men's Restroom."},
-    { id:410, name: "Building 4 - Right Stairs", floor:4, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
-    { id:411, name: "Building 4 - Center Hallway", floor:4, x:5.5, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
-    { id:412, name: "Building 4 Hallway", floor:4, x:5.5, y:7, type:"hallway", desc:"In front of B4.41 & B4.45." },
-    { id:413, name: "Building 4 Hallway", floor:4, x:5.5, y:5, type:"hallway", desc:"In front of B4.42 & B4.46." },
-    { id:414, name: "Building 4 Hallway", floor:4, x:5.5, y:3, type:"hallway", desc:"In front of B4.43 & B4.47." },
-    { id:415, name: "Building 4 Hallway", floor:4, x:5.5, y:1, type:"hallway", desc:"In front of B4.44 & B4.48." },
-    { id:416, name: "Building 4 Hallway", floor:4, x:3.9, y:8.5, type:"hallway", desc: "Building 4 Hallway."},
-    { id:417, name: "Building 4 - Ladies Restroom", floor:4, x:3.9, y:9.8, type:"hallway", desc: "Building 4 - Ladies Restroom."},
-    { id:418, name: "Men's Restroom", floor:4, x:8, y:9.8, type:"hallway", desc:"Building 2 & 4 Men's Restroom."},
-    { id:419, name: "Stairs to Study Hall", floor:4, x:11.3, y:20.5, type:"hallway", desc:"Hallway to Study Hall." },
-    { id:420, name: "Building 2 - Right Stairs", floor:4, x:18, y:9, type:"hallway", desc:"Stairs to Building 2 - Fifth Floor." },
-    { id:421, name: "Building 4 - Right Stairs", floor:4, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Fifth Floor."},
-
-    //HALLWAY/CORRIDOR nodes - Fifth Floor
-    { id:501, name: "Building 2 - Right Stairs", floor:5, x:18, y:8.5, type:"hallway", desc:"Building 2 - Right Stairs." },
-    { id:502, name: "Building 2 - Center Hallway", floor:5, x:16.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
-    { id:503, name: "Building 2 Hallway", floor:5, x:16.5, y:7, type:"hallway", desc:"In front of B2.51 and B2.55." },
-    { id:504, name: "Building 2 Hallway", floor:5, x:16.5, y:5, type:"hallway", desc:"In front of B2.52 and B2.56." },
-    { id:505, name: "Building 2 Hallway", floor:5, x:16.5, y:3, type:"hallway", desc:"In front of B2.53 and B2.57." },
-    { id:506, name: "Building 2 Hallway", floor:5, x:16.5, y:1, type:"hallway", desc:"In front of B2.54 and B2.58." },
-    { id:507, name: "Building 2 - Ladies' Restroom", floor:5, x:18, y:9.8, type: "hallway", dec: "Building 2 - Ladies Restroom."},
-    { id:508, name: "Building 2 Hallway", floor:5, x:14.5, y:8.5, type: "hallway", desc: "Building 2 Hallway."},
-    { id:509, name: "Men's Restroom", floor:5, x:14.5, y:9.8, type: "hallway", desc: "Building 2 & 4 Men's Restroom."},
-    { id:510, name: "Building 4 - Right Stairs", floor:5, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
-    { id:511, name: "Building 4 - Center Hallway", floor:5, x:5.5, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
-    { id:512, name: "Building 4 Hallway", floor:5, x:5.5, y:7, type:"hallway", desc:"In front of B4.51 & B4.55." },
-    { id:513, name: "Building 4 Hallway", floor:5, x:5.5, y:5, type:"hallway", desc:"In front of B4.52 & B4.56." },
-    { id:514, name: "Building 4 Hallway", floor:5, x:5.5, y:3, type:"hallway", desc:"In front of B4.53 & B4.57." },
-    { id:515, name: "Building 4 Hallway", floor:5, x:5.5, y:1, type:"hallway", desc:"In front of B4.54 & B4.58." },
-    { id:516, name: "Building 4 Hallway", floor:5, x:3.9, y:8.5, type:"hallway", desc: "Building 4 Hallway."},
-    { id:517, name: "Building 4 - Ladies Restroom", floor:5, x:3.9, y:9.8, type:"hallway", desc: "Building 4 - Ladies Restroom."},
-    { id:518, name: "Men's Restroom", floor:5, x:8, y:9.8, type:"hallway", desc:"Building 2 & 4 Men's Restroom."},
-    { id:519, name: "Building 2 - Right Stairs", floor:5, x:18, y:9, type:"hallway", desc:"Stairs to Building 2 - Sixth Floor." },
-    { id:520, name: "Building 4 - Right Stairs", floor:5, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Sixth Floor."},
-
-    //HALLWAY/CORRIDOR nodes - Sixth Floor
-    { id:601, name: "Building 2 - Right Stairs", floor:6, x:18, y:8.5, type:"hallway", desc:"Building 2 - Right Stairs." },
-    { id:602, name: "Building 2 Hallway", floor:6, x:17.5, y:8.5, type: "hallway", desc: "Building 2 - Center Hallway."},
-    { id:603, name: "Ladies' Dressing Room", floor:6, x:18, y:9.5, type: "hallway", dec: "Building 2 Ladies Dressing Room."},
-    { id:604, name: "Men's Dressing Room", floor:6, x:14.5, y:9.5, type: "hallway", desc: "Building 2 Men's Dressing Room."},
-    { id:605, name: "Building 4 - Right Stairs", floor:6, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
-    { id:606, name: "Building 4 - Center Hallway", floor:6, x:5.8, y:8.5, type: "hallway", desc: "Building 4 - Center Hallway."},
-    { id:607, name: "Building 4 - Right Stairs", floor:6, x:8, y:9, type: "hallway", desc: "Stairs to Building 4 - Sixth Floor."},
-
-    //HALLWAY/CORRIDOR nodes - Seventh Floor
-    { id:701, name: "Building 4 - Right Stairs", floor:7, x:8, y:8.5, type: "hallway", desc: "Building 4 - Right Stairs."},
-  ],
-
-  edges:[
-    //Building 1 - Ground Floor edges
-    [200,113],[200,114],[200,115],[113,15],[114,16],[115,17],[116,129],[116,130],[116,131],[116,132],[116,148],[117,142],[117,143],[117,144],[117,145],[129,27],[129,30],
-    [130,28],[131,29],[131,31],[132,32],[129,33],[116,137],[116,138],[116,139],[116,140],[116,141],[137,34],[138,35],[139,36],[140,37],[141,38],[142,39],[143,40],
-    [144,41],[145,42],[148,149],[149,218],
-    //Building 2 - Ground Floor edges
-    [200,116],[200,117],[200,146],[112,10],[113,12],[114,116],[116,117],[116,11],[117,118],[118,13],[117,119],[119,14],[110,120],[110,121],[110,122],[110,123],[110,124],
-    [110,125],[110,126],[110,127],[110,128],[110,135],[110,146],[120,18],[121,19],[122,20],[123,21],[124,22],[125,23],[126,24],[127,25],[128,26],[135,136],[146,147],
-    //Building 3 - Ground Floor edges
-    [1,101],[1,102],[1,103],[101,102],[101,103],[101,2],[102,104],[102,3],[103,4],[103,105],[103,104],[103,107],[104,106],[104,7],[105,5],[103,106],[106,6],
-    [102,103],[105,106],[106,107],[200,108],[107,150],[108,109],[150,151],
-    //Building 4 - Ground Floor edges
-    ["kiosk",200],[200,110],[107,200],["kiosk",109],[200,133],[109,"B4-2R"],[200,110],[110,111],[110,112],[111,112],[111,8],[112,9],[133,134],
-
-    //Building 1 - Second Floor Edges
-    [218,219],[219,48],[219,53],[219,220],[219,223],[219,224],[220,49],[220,52],[219,222],[222,50],[223,54],[224,51],[224,55],
-    //Building 2 - Second Floor Edges
-    [147,"B2-2R"],["B2-2R",212],[212,213],[212,214],[212,215],[213,"C1"],[213,"C4"],[214,"C2"],[214,"C5"],[215,"C3"],[215,"C6"],[213,"MIS"],["B2-2R",216],[216,"B2-F2"],[212,217],
-    [217,210],[210,"B-M2"],
-    //Building 3 - Second Floor edges
-    [151,225],[225,226],[226,227],[226,60],[226,228],[226,229],[227,56],[227,61],[228,57],[229,58],[229,59],
-    //Building 4 - Second Floor edges
-    [109,"B4-2R"],[134,"B4-2L"],["B4-2R",202],[202,203],[202,204],[202,205],[202,206],[202,207],[202,208],[203,43],[204,44],[205,45],[206,46],[207,47],[208,209],[209,"B4-F2"],
-    ["B4-2R",201],[201,"B-M2"],["B4-2R",231],
-
-    //Building 1 - Third Floor
-    ["B1-GYM","SPAMO"],["B1-GYM","AHRO"],["B1-GYM",319],
-    //Building 2 - Third Floor
-    ["B2-2R",230],[230,301],[301,302],[301,307],[302,303],[302,304],[302,305],[302,306],[303,62],[303,66],[304,63],[304,67],[305,64],[305,68],[306,65],[306,69],[307,"B2-F3"],
-    [301,"B1-GYM"],[302,308],[308,309],[309,"B-M3"],[301,320],
-    //Building 3 - Third Floor
-    ["B3-GYM","VR-M"],["B3-GYM","VR-F"],
-    //Building 4 - Third Floor
-    [231,310],[310,311],[310,"B3-GYM"],[311,312],[311,313],[311,314],[311,315],[312,70],[312,74],[313,71],[313,75],[314,72],[314,76],[315,73],
-    [315,77],[311,316],[316,317],[317,"B4-F3"],[310,318],[318,"B-M3"],[310,321],
-
-    //Building 1 - Fourth Floor
-    [319,419],[419,"SH"],
-    //Building 2 - Fourth Floor
-    [320,401],[401,402],[401,407],[402,403],[402,404],[402,405],[402,406],[402,408],[403,78],[403,82],[404,79],[404,83],[405,80],[405,84],[406,81],[406,85],[407,"B2-F4"],
-    [408,409],[409,"B-M4"],[401,420],
-    //Building 3 - Fourth Floor
-    [410,"FC"],
-    //Building 4 - Fourth Floor
-    [321,410],[410,411],[411,412],[411,413],[411,414],[411,415],[412,86],[412,90],[413,87],[413,91],[414,88],[414,92],[415,89],[415,93],[410,418],[418,"B-M4"],[411,416],[416,417],
-    [417,"B4-F4"],[410,421],
-
-    //Building 2 - Fifth Floor
-    [420,501],[501,502],[501,507],[502,503],[502,504],[502,505],[502,506],[503,94],[503,98],[504,95],[504,99],[505,96],[505,100],[506,97],[506,152],[507,"B2-F5"],[502,508],
-    [508,509],[509,"B-M5"],[501,519],
-    //Building 4 - Fifth Floor
-    [421,510],[510,511],[511,512],[511,513],[511,514],[511,515],[512,153],[512,157],[513,154],[513,158],[514,155],[514,159],[515,156],[515,160],[511,516],[516,517],[517,"B4-F5"],
-    [510,518],[518,"B-M5"],[510,520],
-
-    //Building 2 - Sixth Floor
-    [501,519],[519,601],[601,602],[602,"GYM"],[602,"P.E."],[601,603],[603,"B2-F6"],[601,"B-M6"],
-    //Building 4 - Sixth Floor
-    [510,520],[520,605],[605,606],[606,"ISHTM"],[605,"Theatre"],[601,607],
-
-    //Building 4 - Seventh Floor
-    [607,701],[701,"Balcony"],
-  ],
-  announcements:[
-    { id:1, title:"Enrollment Period Open",  body:"2nd Semester enrollment is now open. Visit the Registrar's Office.", date:"2026-05-20", priority:"high" },
-    { id:2, title:"Library Hours Extended",  body:"Library is now open until 8:00 PM on weekdays.",                    date:"2026-05-22", priority:"normal" },
-    { id:3, title:"Campus WiFi Maintenance", body:"WiFi will be offline May 28, 10PM–2AM for upgrades.",              date:"2026-05-25", priority:"normal" },
-  ],
-  users:[
-    { id:1, username:"admin", password:"icct2026", role:"admin" },
-    { id:2, username:"staff", password:"staff123", role:"staff" },
-  ],
-  nextId: { locations: 20, announcements: 4 }
-};
-
 const KIOSK_NODE_ID = "kiosk";
 
 /* ─────────────────────────── A* ALGORITHM ──────────────────────────── */
@@ -1399,14 +960,54 @@ function IdleScreen({ onTouch, announcements }) {
 /* ═══════════════════════════ MAIN KIOSK APP ══════════════════════════ */
 export default function App() {
   const [visibleFloor, setVisibleFloor] = useState(1);
-  const [db, setDb]=useState(()=>{
-    const d={...INITIAL_DB, locations:INITIAL_DB.locations.map((l,i)=>({
+  const [db, setDb] = useState({ locations: [], edges: [], announcements: [], users: [], nextId: { locations: 1, announcements: 1 } });
+  const [dbLoading, setDbLoading] = useState(true); // starts true — no need to set it again on mount
+  const [dbError, setDbError] = useState(null);
+
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
+  const withQr = (data) => ({
+    ...data,
+    locations: data.locations.map((l, i) => ({
       ...l,
       id: l.id !== undefined ? l.id : 300 + i,
-      qr:`icct://campus/loc/${l.id !== undefined ? l.id : 300+i}?name=${encodeURIComponent(l.name)}`
-    }))};
-    return d;
+      qr: `icct://campus/loc/${l.id !== undefined ? l.id : 300 + i}?name=${encodeURIComponent(l.name)}`,
+    })),
   });
+
+  const reloadDb = useCallback(() => {
+    setDbLoading(true);
+    fetch(`${API_URL}/api/db`)
+      .then(r => {
+        if (!r.ok) throw new Error(`API error ${r.status}`);
+        return r.json();
+      })
+      .then(data => {
+        setDb(withQr(data));
+        setDbError(null);
+      })
+      .catch(err => setDbError(err.message))
+      .finally(() => setDbLoading(false));
+  }, [API_URL]);
+
+  useEffect(() => {
+    let ignore = false;
+    fetch(`${API_URL}/api/db`)
+      .then(r => {
+        if (!r.ok) throw new Error(`API error ${r.status}`);
+        return r.json();
+      })
+      .then(data => {
+        if (ignore) return;
+        setDb(withQr(data));
+        setDbError(null);
+      })
+      .catch(err => { if (!ignore) setDbError(err.message); })
+      .finally(() => { if (!ignore) setDbLoading(false); });
+
+    return () => { ignore = true; };
+  }, [API_URL]);
+
   const [screen, setScreen]=useState("idle");
   const [session, setSession]=useState(()=>{
     try {
@@ -1460,11 +1061,22 @@ export default function App() {
 
   const toast_show=(msg,type="ok")=>{ setToast({msg,type}); setTimeout(()=>setToast(null),2800); };
 
-  const doLogin=()=>{
-    const u=db.users.find(x=>x.username===loginF.u&&x.password===loginF.p);
-    if(!u){setLoginF(f=>({...f,err:"Invalid credentials."}));return;}
-    setSession({...u,token:createToken(u)}); setLoginF({u:"",p:"",err:""}); toast_show(`Welcome, ${u.username}!`);
-  };
+  const doLogin = async () => {
+  try {
+    const r = await fetch(`${API_URL}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: loginF.u, password: loginF.p }),
+    });
+    if (!r.ok) { setLoginF(f => ({ ...f, err: "Invalid credentials." })); return; }
+    const u = await r.json();
+    setSession({ ...u, token: createToken(u) });
+    setLoginF({ u: "", p: "", err: "" });
+    toast_show(`Welcome, ${u.username}!`);
+  } catch {
+    setLoginF(f => ({ ...f, err: "Could not reach server." }));
+  }
+};
 
   // eslint-disable-next-line no-unused-vars
   const doNavigate=useCallback((destinationId)=>{
@@ -1511,23 +1123,78 @@ export default function App() {
     } else { setSelNode(loc); }
   };
 
-  const addLoc=()=>{
-    if(!newLoc.name.trim()){toast_show("Name required.","err");return;}
-    const id=db.nextId.locations;
-    const loc={...newLoc,id,floor:+newLoc.floor,x:+newLoc.x,y:+newLoc.y,qr:`icct://campus/loc/${id}?name=${encodeURIComponent(newLoc.name)}`};
-    setDb(d=>({...d,locations:[...d.locations,loc],nextId:{...d.nextId,locations:id+1}}));
-    setNewLoc({name:"",floor:1,x:10,y:10,type:"classroom",desc:""});
-    toast_show("Location added!");
+  const addLoc = async () => {
+    if (!newLoc.name.trim()) { toast_show("Name required.", "err"); return; }
+    const id = db.nextId.locations;
+    const payload = { id, ...newLoc, floor: +newLoc.floor, x: +newLoc.x, y: +newLoc.y };
+    try {
+      const r = await fetch(`${API_URL}/api/locations`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (!r.ok) throw new Error((await r.json()).error || "Failed");
+      setNewLoc({ name: "", floor: 1, x: 10, y: 10, type: "classroom", desc: "" });
+      toast_show("Location added!");
+      reloadDb();
+    } catch (err) {
+      toast_show(err.message, "err");
+    }
   };
-  const delLoc=(id)=>{ setDb(d=>({...d,locations:d.locations.filter(l=>l.id!==id),edges:d.edges.filter(([a,b])=>a!==id&&b!==id)})); toast_show("Deleted."); };
-  const saveLoc=()=>{ setDb(d=>({...d,locations:d.locations.map(l=>l.id===editLoc.id?{...editLoc,floor:+editLoc.floor,x:+editLoc.x,y:+editLoc.y}:l)})); setEditLoc(null); toast_show("Updated!"); };
-  const addAnn=()=>{
-    if(!newAnn.title.trim()){toast_show("Title required.","err");return;}
-    const id=db.nextId.announcements;
-    setDb(d=>({...d,announcements:[...d.announcements,{...newAnn,id,date:new Date().toISOString().slice(0,10)}],nextId:{...d.nextId,announcements:id+1}}));
-    setNewAnn({title:"",body:"",priority:"normal"}); toast_show("Posted!");
+
+  const delLoc = async (id) => {
+    try {
+      const r = await fetch(`${API_URL}/api/locations/${id}`, { method: "DELETE" });
+      if (!r.ok && r.status !== 204) throw new Error("Failed to delete");
+      toast_show("Deleted.");
+      reloadDb();
+    } catch (err) {
+      toast_show(err.message, "err");
+    }
   };
-  const delAnn=(id)=>{ setDb(d=>({...d,announcements:d.announcements.filter(a=>a.id!==id)})); toast_show("Deleted."); };
+
+  const saveLoc = async () => {
+    try {
+      const r = await fetch(`${API_URL}/api/locations/${editLoc.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...editLoc, floor: +editLoc.floor, x: +editLoc.x, y: +editLoc.y }),
+      });
+      if (!r.ok) throw new Error((await r.json()).error || "Failed");
+      setEditLoc(null);
+      toast_show("Updated!");
+      reloadDb();
+    } catch (err) {
+      toast_show(err.message, "err");
+    }
+  };
+  const addAnn = async () => {
+    if (!newAnn.title.trim()) { toast_show("Title required.", "err"); return; }
+    try {
+      const r = await fetch(`${API_URL}/api/announcements`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newAnn),
+      });
+      if (!r.ok) throw new Error((await r.json()).error || "Failed");
+      setNewAnn({ title: "", body: "", priority: "normal" });
+      toast_show("Posted!");
+      reloadDb();
+    } catch (err) {
+      toast_show(err.message, "err");
+    }
+  };
+
+  const delAnn = async (id) => {
+    try {
+      const r = await fetch(`${API_URL}/api/announcements/${id}`, { method: "DELETE" });
+      if (!r.ok && r.status !== 204) throw new Error("Failed to delete");
+      toast_show("Deleted.");
+      reloadDb();
+    } catch (err) {
+      toast_show(err.message, "err");
+    }
+  };
 
   const pathNodes=path.map(id=>db.locations.find(l=>l.id===id)).filter(Boolean);
   const directions = useMemo(() => getDirections(path, db.locations), [path, db.locations]);
@@ -1539,6 +1206,8 @@ export default function App() {
   }, [path, db.locations]);
 
   if(screen==="idle") return <KioskFrame><IdleScreen onTouch={()=>setScreen("navigate")} announcements={db.announcements}/></KioskFrame>;
+  if (dbLoading) return <KioskFrame><div style={{color:"#94a3b8",display:"flex",alignItems:"center",justifyContent:"center",height:"100%",fontFamily:"monospace"}}>Loading campus database…</div></KioskFrame>;
+  if (dbError) return <KioskFrame><div style={{color:"#fca5a5",display:"flex",alignItems:"center",justifyContent:"center",height:"100%",fontFamily:"monospace"}}>Failed to load database: {dbError}</div></KioskFrame>;
 
   return (
     <KioskFrame>
